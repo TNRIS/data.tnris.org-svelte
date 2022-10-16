@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@arcgis/core": "^4.24.7",
-    "@sveltestack/svelte-query": "^1.6.0"
+    "@sveltestack/svelte-query": "^1.6.0",
+    "maplibre-gl": "^2.4.0"
   }
 }

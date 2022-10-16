@@ -1,3 +1,5 @@
+import { useQuery } from "@sveltestack/svelte-query";
+
 const GET_COLLECTIONS_URL =
   "https://api.tnris.org/api/v1/collections_catalog?limit=50&ordering=-acquisition_date";
 
@@ -6,7 +8,7 @@ export const getCollections = async () => {
     return data.json();
   });
 };
-/* 
-export const queryCollections = useQuery("collectionCatalog", () => {
+
+export const queryCollections = () => useQuery("collectionCatalog", () => {
   return getCollections();
-}); */
+});

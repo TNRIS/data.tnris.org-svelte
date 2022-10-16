@@ -1,11 +1,51 @@
 @import "https://js.arcgis.com/4.19/@arcgis/core/assets/esri/themes/light/main.css";
 @import "./styles/variables.scss";
 
-html, body, #app {
+html,
+body,
+#app {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     width: 100%;
     height: 100%;
     font-family: $fontFamily;
+
+    input {
+        padding: .5rem .75rem;
+        border: solid 1px #ccc;
+        border-radius: .25rem;
+
+        &:hover,
+        &:active,
+        &:focus {
+            border: solid 1px $primaryColor;
+            color: $primaryColor;
+        }
+    }
+
+    button,
+    select {
+        color: #333;
+        border: solid 1px #ccc;
+        background-color: #fff;
+        padding: .5rem .75rem;
+        border-radius: .25rem;
+        cursor: pointer;
+
+        &:hover,
+        &:active,
+        &:focus {
+            border: solid 1px $primaryColor;
+            color: $primaryColor;
+        }
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
 }

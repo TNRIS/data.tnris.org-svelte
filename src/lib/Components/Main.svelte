@@ -1,6 +1,6 @@
 <script>
   import Catalog from "./Catalog/Catalog.svelte";
-  import AgsMap from "./Map/AgsMap.svelte";
+  import MapLibre from "./Map/MapLibre.svelte";
 </script>
 
 <div id={"main-app-container"}>
@@ -8,7 +8,7 @@
     <Catalog />
   </section>
   <section id="right-pane">
-    <AgsMap />
+    <MapLibre />
   </section>
 </div>
 
@@ -26,7 +26,7 @@
     #right-pane {
     }
     #left-pane {
-      overflow-y: scroll;
+      overflow: hidden;
     }
   }
 </style>

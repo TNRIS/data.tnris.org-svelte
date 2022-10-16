@@ -3,8 +3,8 @@
 
 <div id="CatalogNavBar">
   <div id="CatalogNavBarSearch">
-    <input type="text" />
-    <input type="text" />
+    <input type="text" placeholder="keyword search" />
+    <input type="text" placeholder="spatial search" />
     <button>Draw Search</button>
   </div>
 
@@ -24,14 +24,26 @@
 
 <style lang="scss">
   #CatalogNavBar {
-    padding: 0.25rem 0.5rem;
     display: grid;
-    gap: .25rem;
+    gap: .5rem;
     border-bottom: solid 1px #ccc;
+    box-sizing: border-box;
+    padding-bottom: .75rem;
+    padding-top: .75rem;
+    border-radius: .5rem;
+    box-shadow: $boxShadow-md;
+    padding: .5rem;
 
     #CatalogNavBarFilterBar {
-      grid-template-rows: masonry;
-      flex-direction: row;
+      display: inline-flex;
+      gap: .25rem;
+      flex-wrap: wrap;
+      gap: .25rem;
+    }
+    #CatalogNavBarSearch {
+      display: inline-flex;
+      gap: .25rem;
+      flex-wrap: wrap;
     }
   }
 </style>
