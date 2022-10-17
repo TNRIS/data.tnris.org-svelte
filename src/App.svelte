@@ -9,7 +9,7 @@
 
 <main id="app">
   <QueryClientProvider client={queryClient}>
-    <Header routes={["Home", "Test"]} />
+    <Header />
     <Main />
     <Footer routes={["Footer", "Routes"]} />
   </QueryClientProvider>

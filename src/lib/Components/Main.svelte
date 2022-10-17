@@ -15,18 +15,20 @@
 <style lang="scss">
   #main-app-container {
     display: grid;
+    position: relative;
     grid-template-columns: 2fr 3fr;
+    grid-template-rows: auto;
     max-width: 1600px;
     margin: auto;
     height: 100%;
-    width: 100%;
     overflow: hidden;
 
     #left-pane,
     #right-pane {
-    }
-    #left-pane {
+      display: flex;
       overflow: hidden;
+      background-color: white;
+      padding: 1rem;
     }
   }
 </style>

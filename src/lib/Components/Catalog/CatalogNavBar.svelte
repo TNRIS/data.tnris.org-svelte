@@ -26,13 +26,13 @@
   #CatalogNavBar {
     display: grid;
     gap: .5rem;
-    border-bottom: solid 1px #ccc;
     box-sizing: border-box;
     padding-bottom: .75rem;
     padding-top: .75rem;
     border-radius: .5rem;
     box-shadow: $boxShadow-md;
     padding: .5rem;
+    height: min-content;
 
     #CatalogNavBarFilterBar {
       display: inline-flex;

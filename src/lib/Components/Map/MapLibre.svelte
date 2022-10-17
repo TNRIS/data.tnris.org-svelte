@@ -13,7 +13,7 @@
             () =>
                 new Map({
                     container: mapContainer,
-                    style: 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json',
+                    style: "https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json",
                     center: [initialState.lng, initialState.lat],
                     zoom: initialState.zoom,
                 })
@@ -22,15 +22,25 @@
 
     onDestroy(() => {
         map.remove();
-        mapStore.update(null)
+        mapStore.update(null);
     });
 </script>
 
-<div id="mapLibreMap" bind:this={mapContainer} />
+<div id="mapLibreMapContainer">
+    <div id="mapLibreMap" bind:this={mapContainer} />
+</div>
 
-<style>
-    #mapLibreMap {
+<style lang="scss">
+    #mapLibreMapContainer {
         width: 100%;
         height: 100%;
+        border-radius: 1rem;
+        
+        #mapLibreMap {
+            width: 100%;
+            height: 100%;
+            border-radius: .5rem;
+            box-shadow: $boxShadow-md;
+        }
     }
 </style>

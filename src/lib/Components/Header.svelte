@@ -1,28 +1,43 @@
-<script lang="ts">
-  export let routes;
+<script>
 </script>
 
 <div id="main-navbar-header">
   <div id="main-navbar-container">
-    {#each routes as route}
-      <div class="navbar-item-header">{route}</div>
-    {/each}
+    <div id="tnris-logo">
+      <a href="/"
+        ><img
+          src="https://cdn.tnris.org/images/tnris_logo.svg"
+          alt="TNRIS Logo"
+        /></a
+      >
+    </div>
+    <div id="cart-button">
+      <a href="/">Cart</a>
+    </div>
   </div>
 </div>
 
 <style lang="scss">
-  #main-navbar-header {
-    padding: 1rem;
+  #main-navbar-header,
+  #main-navbar-header a {
+    padding: 0.5rem;
     background: $primaryColor;
     color: white;
-    
+    font-weight: 600;
+    text-decoration: none;
+
     #main-navbar-container {
       display: grid;
       grid-auto-flow: column;
       justify-content: space-between;
-      gap: 1rem;
+      align-items: center;
       margin: auto;
       max-width: 1600px;
+
+      #tnris-logo,
+      #cart-button {
+        width: 4rem;
+      }
     }
   }
 </style>

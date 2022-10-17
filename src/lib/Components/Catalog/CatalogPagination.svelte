@@ -4,9 +4,10 @@
     const numPages =
         Math.floor(results / 25) +
         (results % 25 > 0 && results % 25 < 25 ? 1 : 0);
-    const pages = Array.from(Array(numPages).keys());
+    let pages = Array.from(Array(numPages).keys());
+    pages =
+        pages.length > 6 ? [...pages.slice(0, 4), ...pages.slice(-2)] : pages;
     const curPage = 1;
-
 
     //TODO: back()
     //TODO: forward()
@@ -27,9 +28,11 @@
     #CatalogPagination {
         display: flex;
         gap: 0.25rem;
+        justify-content: center;
         overflow: auto;
-        padding: 1rem 0.25rem;
-        border-radius: .5rem;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
         box-shadow: $boxShadow-md;
+        height: fit-content;
     }
 </style>
