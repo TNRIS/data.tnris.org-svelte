@@ -1,8 +1,46 @@
 <script>
+  import { Link } from "svelte-navigator";
+  import mapStore from "../Map/mapStore";
   export let collection;
 
+  const collectionCoverageLayerStyle = {
+    id: "collection-coverage-layer",
+    type: "fill",
+    source: "collection-coverage-source",
+    minzoom: 2,
+    maxzoom: 24,
+    paint: {
+      "fill-color": "#73808c",
+      "fill-opacity": 0.25,
+      "fill-outline-color": "#73808C",
+    },
+  };
+
+  const collectionCoverageOutlineLayerStyle = {
+    id: "collection-coverage-outline-layer",
+    type: "line",
+    source: "collection-coverage-source",
+    minzoom: 2,
+    maxzoom: 24,
+    paint: {
+      "line-color": "#fff",
+      "line-width": 2,
+    },
+  };
   const addCollectionExtent = (the_geom) => {
-    console.log(the_geom);
+    if ($mapStore && $mapStore.getSource("collection-coverage-source")) {
+      $mapStore.removeLayer("collection-coverage-outline-layer");
+      $mapStore.removeLayer("collection-coverage-layer");
+      $mapStore.removeSource("collection-coverage-source");
+    }
+    if ($mapStore) {
+      $mapStore.addSource("collection-coverage-source", {
+        type: "geojson",
+        data: the_geom,
+      });
+      $mapStore.addLayer(collectionCoverageLayerStyle);
+      $mapStore.addLayer(collectionCoverageOutlineLayerStyle);
+    }
   };
 </script>
 
@@ -15,7 +53,11 @@
     style="background-image: url({collection.thumbnail_image})"
   />
   <div id={collection.collection_id} class="catalogItemMeta">
-    <h2><a href="#{collection.collection_id}">{collection.name}</a></h2>
+    <h2>
+      <Link class="link" to="/collection?c={collection.collection_id}"
+        >{collection.name}</Link
+      >
+    </h2>
   </div>
 </div>
 
@@ -28,15 +70,14 @@
     border-radius: 0.5rem;
     padding: 0.1rem;
     background: white;
-    box-shadow: $boxShadow-xxs;
-    border: 1px solid #efefef;
+    box-shadow: $boxShadow-xs;
+    border: 1px solid #fbf8f3;
 
     .catalogItemMeta {
       padding: 0.5rem;
 
-      h2,
-      a {
-        font-size: 1.2rem;
+      :global(.link) {
+        font-size: 1rem;
         font-weight: 600;
         text-decoration: none;
 

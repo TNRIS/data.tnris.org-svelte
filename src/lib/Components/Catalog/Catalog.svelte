@@ -2,14 +2,14 @@
   import { queryCollections } from "../../Api/Collections/getCollections";
 
   import CatalogItem from "./CatalogItem.svelte";
-  import CatalogNavBar from "./CatalogNavBar.svelte";
+  import CatalogSearchBar from "./CatalogSearchBar.svelte";
   import CatalogPagination from "./CatalogPagination.svelte";
 
   const qc = queryCollections();
 </script>
 
 <div id="CatalogContainer">
-  <CatalogNavBar />
+  <CatalogSearchBar />
   {#if $qc.isLoading}
     <div>Retreiving Collections...</div>
     <CatalogPagination results={0} />
@@ -30,20 +30,20 @@
   #CatalogContainer {
     display: grid;
     grid-template-rows: auto 1fr auto;
-    gap: 1rem;
     height: 100%;
-    widows: 100%;
+    width: 100%;
+    border: solid 1px $borderColor;
+    border-radius: .5rem;
 
     #CatalogItemList {
       overflow-y: scroll;
       display: grid;
       gap: .5rem;
+      padding-top: .5rem;
+      padding-bottom: .5rem;
       padding-left: .5rem;
       padding-right: .75rem;
       border-radius: .5rem;
-      border: solid 1px white;
-      box-shadow: $boxShadow-xxs;
-      background: #eee;
       height: auto;
     }
   }

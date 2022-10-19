@@ -40,7 +40,7 @@
             width: 100%;
             height: 100%;
             border-radius: .5rem;
-            box-shadow: $boxShadow-md;
+            border: solid 1px $borderColor;
         }
     }
 </style>

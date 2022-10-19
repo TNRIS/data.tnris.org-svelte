@@ -1,14 +1,16 @@
 <script>
+  import { Link, Router } from "svelte-navigator";
 </script>
 
-<div id="main-navbar-header">
+<Router primary={false}>
+  <div id="main-navbar-header">
   <div id="main-navbar-container">
     <div id="tnris-logo">
-      <a href="/"
+      <Link class="link" to="/"
         ><img
           src="https://cdn.tnris.org/images/tnris_logo.svg"
           alt="TNRIS Logo"
-        /></a
+        /></Link
       >
     </div>
     <div id="cart-button">
@@ -16,6 +18,8 @@
     </div>
   </div>
 </div>
+</Router>
+
 
 <style lang="scss">
   #main-navbar-header,
