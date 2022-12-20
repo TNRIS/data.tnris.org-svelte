@@ -1,4 +1,5 @@
 @import "https://js.arcgis.com/4.19/@arcgis/core/assets/esri/themes/light/main.css";
+@import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 @import "./styles/variables.scss";
 
 html,
@@ -11,6 +12,15 @@ body,
     width: 100%;
     height: 100%;
     font-family: $fontFamily;
+    a {
+        color: $primaryColor;
+        font-weight: 600;
+    }
+    i {
+        &.material-icons {
+            font-size: .75rem;
+        }
+    }
 
     input {
         padding: .5rem .75rem;
@@ -27,6 +37,7 @@ body,
 
     button,
     select {
+        font-weight: 500;
         color: #333;
         border: solid 1px $borderColor;
         background-color: #fff;
@@ -39,6 +50,7 @@ body,
         &:focus {
             border: solid 1px $primaryColor;
             color: $primaryColor;
+            font-weight: 600;
         }
     }
 
@@ -51,7 +63,7 @@ body,
         font-size: 1.5rem;
         line-height: 1.5rem;
         margin: 0;
-        margin-bottom: 0px;
+        margin-top: .5rem;
         margin-bottom: 1rem;
     }
 
@@ -60,6 +72,31 @@ body,
     }
 
     h2 {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
     }
+    h3 {
+        font-size: 1.15rem;
+    }
+    h4 {
+        font-size: 1.05rem;
+    }
+
+    #custom-order-form {
+        label {
+          display: block;
+          & + label {
+            margin-top: 1rem;
+          }
+          &.required::before {
+            content: "* ";
+            color: #c41a1a;
+          }
+          select,
+          input,
+          textarea {
+            margin-top: 0.5rem;
+            display: block;
+          }
+        }
+      }
 }

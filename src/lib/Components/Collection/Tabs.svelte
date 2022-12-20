@@ -1,35 +1,39 @@
 <script>
   import CollectionContact from "./CollectionContact.svelte";
-  import CustomOrder from "./CustomOrder.svelte";
+  import CustomOrderForm from "./CustomOrder/CustomOrderForm.svelte";
   import Downloads from "./Downloads.svelte";
   import Metadata from "./Metadata.svelte";
 
+  export let collection = {};
+
+  const tabs = ["Metadata", "Downloads", "Custom Order", "Contact"];
   let activeTab = "Metadata";
 
-  const setActiveTab = (e) => {
-    activeTab = e.target.innerText.replace(" ", "_");
+  const setActiveTab = (tab) => {
+    activeTab = tab;
   };
 </script>
 
 <div id="collection-tabs-container">
   <div id="collection-tabs-nav">
-    <button class="tab-button" on:click={setActiveTab}>Metadata</button>
-    <button class="tab-button open" on:click={setActiveTab}>Downloads</button>
-    <button class="tab-button" on:click={setActiveTab}>Custom Order</button>
-    <button class="tab-button" on:click={setActiveTab}>Contact</button>
+    {#each tabs as tab}
+      <button
+        class={`tab-button${activeTab === tab ? " active-tab" : ""}`}
+        on:click={() => setActiveTab(tab)}>{tab}</button
+      >
+    {/each}
   </div>
-  <div id="collection-tab">
-    {#if activeTab == "Metadata"}
-      <Metadata />
-    {:else if activeTab == "Downloads"}
-      <Downloads />
-    {:else if activeTab == "Custom_Order"}
-      <CustomOrder />
-    {:else if activeTab == "Contact"}
-      <CollectionContact />
-    {:else}
-      <Metadata />
-    {/if}
+  <div class="collection-tab" class:active={activeTab == "Metadata"}>
+    <Metadata {collection} />
+  </div>
+  <div class="collection-tab" class:active={activeTab == "Downloads"}>
+    <Downloads collection_id={collection.collection_id} />
+  </div>
+  <div class="collection-tab" class:active={activeTab == "Custom Order"}>
+    <CustomOrderForm {collection} />
+  </div>
+  <div class="collection-tab" class:active={activeTab == "Contact"}>
+    <CollectionContact />
   </div>
 </div>
 
@@ -39,15 +43,22 @@
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
     justify-content: center;
-    align-items: top;
+    height: 100%;
     width: 100%;
+    min-height: 0px;
 
-    #collection-tab {
-      display: flex;
+    .collection-tab {
+      display: none;
+      grid-template-columns: 1fr;
       border: solid 1px $borderColor;
-      padding: 0.5rem;
+      padding: 0.25rem;
       border-bottom-left-radius: 0.5rem;
       border-bottom-right-radius: 0.5rem;
+      min-height: 0px;
+
+      &.active {
+        display: grid;
+      }
     }
 
     #collection-tabs-nav {
@@ -68,9 +79,7 @@
         border-radius: 0.5rem 0.5rem 0rem 0rem;
         border-bottom: none;
 
-        &:active,
-        &:focus,
-        &:hover {
+        &.active-tab {
           color: white;
           background: $primaryColor;
         }

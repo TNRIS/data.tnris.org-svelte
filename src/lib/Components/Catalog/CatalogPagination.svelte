@@ -1,35 +1,70 @@
 <script>
+  // @ts-nocheck
+
   export let results;
+  export let scrollContainer;
+  export let inc;
+  export let pg;
+  export let setPageCallback = () => console.log(pg, inc);
+
+  let count = results.count ? results.count : 0;
 
   const numPages =
-    Math.floor(results / 25) + (results % 25 > 0 && results % 25 < 25 ? 1 : 0);
+    Math.floor(count / inc) + (count % inc > 0 && count % inc < inc ? 1 : 0);
   let pages = Array.from(Array(numPages).keys());
-  pages = pages.length > 6 ? [...pages.slice(0, 4), ...pages.slice(-2)] : pages;
-  const curPage = 1;
 
-  //TODO: back()
-  //TODO: forward()
-  //TODO: jumpTo()
-  //TODO: setLimit()
-  //TODO: setPage()
+  const scrollToTop = () => {
+    scrollContainer.scrollTo({ top: 0 });
+  };
 </script>
 
 <div id="CatalogPagination">
-  <button><i class="material-icons">chevron_left</i> </button>
-  {#each pages as page}
-    <button>{page + 1}</button>
-  {/each}
-  <button><i class="material-icons">chevron_right</i> </button>
+  <button
+    on:click={() => {
+      scrollToTop();
+      setPageCallback(pg - 1);
+    }}
+    disabled={pg == 1}
+    ><i class="material-icons">chevron_left</i> Previous
+  </button>
+  <div>Jump To</div>
+  <select
+    bind:value={pg}
+    on:change={(e) => {
+      scrollToTop();
+      setPageCallback(e.target.value);
+    }}
+  >
+    {#each pages as page}
+      <option value={page + 1}>page {page + 1}</option>
+    {/each}
+  </select>
+
+  <button
+    on:click={() => {
+      scrollToTop();
+      setPageCallback(pg + 1);
+    }}
+    disabled={pg >= count / inc + 1}
+    >Next<i class="material-icons">chevron_right</i>
+  </button>
 </div>
 
 <style lang="scss">
   #CatalogPagination {
     display: flex;
-    gap: 0.25rem;
+    gap: 0.5rem;
     justify-content: center;
+    align-content: center;
+    align-items: center;
     overflow: auto;
     padding: 0.5rem;
     border-top: solid 1px $borderColor;
     height: fit-content;
+
+    button {
+      display: inline-flex;
+      align-items: center;
+    }
   }
 </style>

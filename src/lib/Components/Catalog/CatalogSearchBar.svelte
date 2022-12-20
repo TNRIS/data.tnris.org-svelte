@@ -1,57 +1,54 @@
 <script>
-  import { CATALOG_FILTER_CONSTANTS } from "../../constants";
-  import Dropdown from "../General/Dropdown.svelte";
-  import MultiSelect from "../General/MultiSelect.svelte";
+  import { query } from "svelte-pathfinder";
+  import KeywordSearch from "./Search/KeywordSearch.svelte";
+  import SpatialSearch from "./Search/SpatialSearch.svelte";
+  import SearchFiltersMobile from "./Search/SearchFiltersMobile.svelte";
+  //import SearchFiltersDesktop from "./Search/SearchFiltersDesktop.svelte";
 </script>
 
 <div id="CatalogSearchBar">
-  <div id="CatalogSearchBarSearch">
-    <input type="text" placeholder="keyword search" />
-    <input type="text" placeholder="spatial search" />
-    <button>Draw Search</button>
+  <div id="CatalogSearch">
+    <KeywordSearch
+      value={$query.params.s}
+      callback={function callback(value) {
+        $query.params.s = value;
+      }}
+    />
+    <SpatialSearch
+      searchSource="NOMINATIM"
+      callback={function callback(value) {
+        $query.params.geo = value;
+      }}
+    />
   </div>
 
   <div id="CatalogSearchBarFilterBar">
-    <Dropdown title="Availability">
-      <MultiSelect options={CATALOG_FILTER_CONSTANTS.AVAILABILITY} />
-    </Dropdown>
-    <Dropdown title="Categories">
-      <MultiSelect options={CATALOG_FILTER_CONSTANTS.CATEGORIES} />
-    </Dropdown>
-    <Dropdown title="File Type">
-      <MultiSelect options={CATALOG_FILTER_CONSTANTS.FILETYPE} />
-    </Dropdown>
-    <button>Date Range</button>
-    <select>
-      <option>NEWEST</option>
-      <option>OLDEST</option>
-      <option>A-Z</option>
-      <option>Z-A</option>
-    </select>
+    <SearchFiltersMobile />
   </div>
 </div>
 
 <style lang="scss">
   #CatalogSearchBar {
     display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-items: center;
     gap: 0.5rem;
     box-sizing: border-box;
-    padding-bottom: 0.75rem;
-    padding-top: 0.75rem;
     border-bottom: 1px solid $borderColor;
     padding: 0.5rem;
     height: min-content;
 
     #CatalogSearchBarFilterBar {
-      display: inline-flex;
-      gap: 0.25rem;
-      flex-wrap: wrap;
-      gap: 0.25rem;
+      display: block;
+      max-width: 500px;
+      width: 100%;
     }
-    #CatalogSearchBarSearch {
-      display: inline-flex;
-      gap: 0.25rem;
-      flex-wrap: wrap;
+    #CatalogSearch {
+      display: grid;
+      gap: .25rem;
+      max-width: 500px;
+      width: 100%;
     }
   }
 </style>

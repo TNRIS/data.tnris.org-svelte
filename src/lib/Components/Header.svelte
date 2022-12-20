@@ -1,25 +1,36 @@
-<script>
-  import { Link, Router } from "svelte-navigator";
+<script lang="ts">
+  import { cartOpen } from "../Api/Cart/cartStore";
+
+  let open: boolean;
 </script>
 
-<Router primary={false}>
-  <div id="main-navbar-header">
+<div id="main-navbar-header">
   <div id="main-navbar-container">
     <div id="tnris-logo">
-      <Link class="link" to="/"
+      <a href="/" class="link"
         ><img
           src="https://cdn.tnris.org/images/tnris_logo.svg"
           alt="TNRIS Logo"
-        /></Link
+        /></a
       >
     </div>
-    <div id="cart-button">
-      <a href="/">Cart</a>
-    </div>
+    {#if !$cartOpen}
+      <button
+        id="cart-button"
+        on:keydown={() => null}
+        on:click={() => {
+          if ($cartOpen == false) {
+            $cartOpen = true;
+          }
+        }}
+      >
+        Cart
+      </button>
+    {:else}
+      <button id="cart-button">Cart</button>
+    {/if}
   </div>
 </div>
-</Router>
-
 
 <style lang="scss">
   #main-navbar-header,

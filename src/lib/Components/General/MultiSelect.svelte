@@ -1,44 +1,46 @@
 <script>
   export let options = [{ label: "", value: "" }];
-  export let selections = [];
+  export let value;
+  export let callback;
 
   const arraysEqual = (a, b) => {
-    return a.sort().join("-") == b.sort().join("-");
+    return a.sort().join(",") == b.sort().join(",");
   };
   $: allSelected = arraysEqual(
     options.map((v) => v.value),
-    selections
+    value !== undefined ? value : []
   );
 </script>
 
-<div class="select-menu">
+<div class="select-boxes">
   {#each options as opt}
     <label>
       <input
         type="checkbox"
-        bind:group={selections}
+        bind:group={value}
         value={opt.value}
-        on:change={(e) => console.log(selections)}
+        on:change={() => callback(value)}
       />
       {opt.label}
     </label>
   {/each}
   {#if allSelected == true}
-    <button on:click={() => (selections = [])}>Clear All</button>
+    <button class="select-all-menu-btn" on:click={() => callback([])}
+      >Clear All</button
+    >
   {:else}
-    <button on:click={() => (selections = options.map((v) => v.value))}
-      >Select All</button
+    <button
+      class="select-all-menu-btn"
+      on:click={() => callback(options.map((v) => v.value))}>Select All</button
     >
   {/if}
 </div>
 
 <style lang="scss">
-  .select-menu {
+  .select-boxes {
     display: grid;
-    position: absolute;
-    background: white;
-    padding: 0.5rem;
-    border: solid 1px $borderColor;
-    border-radius: 0.25rem;
+  }
+  .select-all-menu-btn {
+    margin-top: 1rem;
   }
 </style>

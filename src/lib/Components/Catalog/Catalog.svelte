@@ -1,30 +1,68 @@
 <script>
-  import { queryCollections } from "../../Api/Collections/getCollections";
+  import { Query } from "@sveltestack/svelte-query";
+  import { query } from "svelte-pathfinder";
+  import {
+    catalogParamsStore,
+    getCollections,
+  } from "../../Api/Collections/getCollections";
+  import Empty from "../General/Empty.svelte";
 
+  import LoadingIndicator from "../General/LoadingIndicator.svelte";
   import CatalogItem from "./CatalogItem.svelte";
-  import CatalogSearchBar from "./CatalogSearchBar.svelte";
   import CatalogPagination from "./CatalogPagination.svelte";
+  import CatalogSearchBar from "./CatalogSearchBar.svelte";
 
-  const qc = queryCollections();
+  let catalogScrollWindow;
+  //store stringified value of filter params excluding page and inc
+  let prevParams = `${$query.params.s}_${$query.params.availability}_${$query.params.category}_${$query.params.file_type}_${$query.params.geo}_${$query.params.sort}`;
+
+  $: queryOptions = {
+    queryKey: ["posts", $catalogParamsStore],
+    queryFn: () => getCollections($catalogParamsStore),
+    keepPreviousData: false,
+  };
+
+  $: {
+    // check if previous params for filters equal current, most updated ones
+    // if filter params not equal to previous values, set pg = 1
+    const cur = `${$query.params.s}_${$query.params.availability}_${$query.params.category}_${$query.params.file_type}_${$query.params.geo}_${$query.params.sort}`;
+    if (prevParams != cur) {
+      $query.params.pg = 1;
+    }
+    prevParams = cur;
+  }
 </script>
 
-<div id="CatalogContainer">
-  <CatalogSearchBar />
-  {#if $qc.isLoading}
-    <div>Retreiving Collections...</div>
-    <CatalogPagination results={0} />
-  {:else if $qc.error}
-    An error has occurred:
-    {$qc.error}
-  {:else}
-    <div id="CatalogItemList">
-      {#each $qc.data.results as col}
-        <CatalogItem collection={col} />
-      {/each}
-    </div>
-    <CatalogPagination results={$qc?.data?.count ? $qc.data.count : 0} />
-  {/if}
-</div>
+<Query options={queryOptions}>
+  <div id="CatalogContainer" slot="query" let:queryResult>
+    <CatalogSearchBar />
+    {#if queryResult.isLoading}
+      <LoadingIndicator loadingMessage="Loading Collections..." />
+      <!--       <CatalogPagination results={0} scrollContainer={catalogScrollWindow} />
+ -->
+    {:else if queryResult.error}
+      An error has occurred:
+      {queryResult.error}
+    {:else if queryResult && queryResult.data.results.length < 1}
+      <Empty />
+    {:else}
+      <div id="CatalogItemList" bind:this={catalogScrollWindow}>
+        {#each queryResult.data.results as col}
+          <CatalogItem collection={col} />
+        {/each}
+      </div>
+      <CatalogPagination
+        results={queryResult?.data}
+        scrollContainer={catalogScrollWindow}
+        inc={$query.params.inc !== undefined ? $query.params.inc : 24}
+        pg={$query.params.pg !== undefined ? $query.params.pg : 1}
+        setPageCallback={function callback(value) {
+          $query.params.pg = value;
+        }}
+      />
+    {/if}
+  </div>
+</Query>
 
 <style lang="scss">
   #CatalogContainer {
@@ -33,17 +71,18 @@
     height: 100%;
     width: 100%;
     border: solid 1px $borderColor;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
 
     #CatalogItemList {
       overflow-y: scroll;
       display: grid;
-      gap: .5rem;
-      padding-top: .5rem;
-      padding-bottom: .5rem;
-      padding-left: .5rem;
-      padding-right: .75rem;
-      border-radius: .5rem;
+      align-content: flex-start;
+      gap: 0.5rem;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      padding-left: 0.5rem;
+      padding-right: 0.75rem;
+      border-radius: 0.5rem;
       height: auto;
     }
   }

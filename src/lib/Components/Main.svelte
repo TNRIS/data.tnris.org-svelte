@@ -1,34 +1,30 @@
-<script>
+<script lang="ts">
+  import { pattern, prefs } from "svelte-pathfinder";
+  import { cartOpen } from "../Api/Cart/cartStore";
   import Catalog from "./Catalog/Catalog.svelte";
-  import MapLibre from "./Map/MapLibre.svelte";
-  import { Router, Route } from "svelte-navigator";
   import Collection from "./Collection/Collection.svelte";
+  import Drawer from "./General/Drawer.svelte";
+  import MapLibre from "./Map/MapLibre.svelte";
 
-  window.addEventListener("popstate", (e) => {
-    console.log(e);
-  });
-
-  window.addEventListener("hashchange", (e) => {
-    console.log(e);
-  });
+  prefs.array.format = "separator";
 </script>
 
-<Router>
-  <div id={"main-app-container"}>
-    <section id="left-pane">
-      <Route path="/">
-        <Catalog />
-      </Route>
-      <Route path="/collection">
-        <Collection />
-      </Route>
-    </section>
+<div id={"main-app-container"}>
+  <section id="left-pane">
+    {#if $pattern("/")}
+      <Catalog />
+    {/if}
+    {#if $pattern("/collection")}
+      <Collection />
+    {/if}
+  </section>
 
-    <section id="right-pane">
-      <MapLibre />
-    </section>
-  </div>
-</Router>
+  <section id="right-pane">
+    <MapLibre />
+  </section>
+  <!-- <div id="map-controls"></div> -->
+</div>
+<Drawer bind:open={$cartOpen} />
 
 <style lang="scss">
   #main-app-container {
@@ -48,6 +44,17 @@
       overflow: hidden;
       background-color: white;
       padding: 1rem 0.5rem;
+
+      /* #map-controls {
+        width: 10rem;
+        height: 16rem;
+        background: white;
+        display: block;
+        position: absolute;
+        margin: 1rem;
+        border-radius: .25rem;
+        box-shadow: inset 2px 2px 6px #cccccc97, inset -1px -1px 6px #cccccc97;
+      } */
     }
 
     @media (max-width: 1000px) {
@@ -56,11 +63,12 @@
       grid-auto-flow: dense;
       gap: 0;
 
-      #left-pane, #right-pane {
+      #left-pane,
+      #right-pane {
         padding: 0;
       }
       #left-pane {
-        order: 2
+        order: 2;
       }
       #right-pane {
         order: 1;
