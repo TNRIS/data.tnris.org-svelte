@@ -24,7 +24,7 @@
   let dataDescription;
 </script>
 
-<form id="custom-order-form" on:change={e => console.log(e)}>
+<form id="custom-order-form">
   <div>isLidar = {isLidar}; isHistoric = {isHistoric}</div>
   <br />
   <label for="data-portion" class="required">
