@@ -1,9 +1,9 @@
 <script lang="ts">
+  import { QueryClient, QueryClientProvider } from "@sveltestack/svelte-query";
   import { click } from "svelte-pathfinder";
   import Footer from "./lib/Components/Footer.svelte";
   import Header from "./lib/Components/Header.svelte";
   import Main from "./lib/Components/Main.svelte";
-  import { QueryClient, QueryClientProvider } from "@sveltestack/svelte-query";
   const queryClient = new QueryClient();
 </script>
 

@@ -8,9 +8,9 @@
   ];
 </script>
 
-<label for="data-historic-format" class="required">
+<label for="data-format" class="required">
   Select the desired formats for the historic imagery. Hold Ctrl and click to select multiple.
-  <select id="data-historic-format" name="data-historic-format" multiple bind:value={historicFormat} required>
+  <select id="data-format" name="data-format" multiple bind:value={historicFormat} required>
     {#each historicImageryFormatOptions as opt}
       <option value={opt.value}>{opt.label}</option>
     {/each}

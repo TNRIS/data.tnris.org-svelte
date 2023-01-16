@@ -6,6 +6,7 @@
 
   import "maplibre-gl/dist/maplibre-gl.css";
   import mapStore, { draw } from "./mapStore";
+  import MapPreviews from "./MapPreviews.svelte";
 
   let map;
   let mapContainer;
@@ -202,7 +203,9 @@
 </script>
 
 <div id="mapLibreMapContainer">
-  <div id="mapLibreMap" bind:this={mapContainer} />
+  <div id="mapLibreMap" bind:this={mapContainer}>
+    <MapPreviews />
+  </div>
 </div>
 
 <style lang="scss">

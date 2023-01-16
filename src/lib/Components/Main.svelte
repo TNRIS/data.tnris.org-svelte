@@ -1,6 +1,8 @@
 <script lang="ts">
   import { pattern, prefs } from "svelte-pathfinder";
   import { cartOpen } from "../Api/Cart/cartStore";
+  import Cart from "./Cart/Cart.svelte";
+  import CartItems from "./Cart/CartItems.svelte";
   import Catalog from "./Catalog/Catalog.svelte";
   import Collection from "./Collection/Collection.svelte";
   import Drawer from "./General/Drawer.svelte";
@@ -24,7 +26,9 @@
   </section>
   <!-- <div id="map-controls"></div> -->
 </div>
-<Drawer bind:open={$cartOpen} />
+<Drawer bind:open={$cartOpen}>
+  <Cart />
+</Drawer>
 
 <style lang="scss">
   #main-app-container {

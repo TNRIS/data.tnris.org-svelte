@@ -1,5 +1,6 @@
 <script>
-  import CollectionContact from "./CollectionContact.svelte";
+  import InfoBox from "../General/InfoBox.svelte";
+  import CollectionContactForm from "./Contact/CollectionContactForm.svelte";
   import CustomOrderForm from "./CustomOrder/CustomOrderForm.svelte";
   import Downloads from "./Downloads.svelte";
   import Metadata from "./Metadata.svelte";
@@ -33,7 +34,15 @@
     <CustomOrderForm {collection} />
   </div>
   <div class="collection-tab" class:active={activeTab == "Contact"}>
-    <CollectionContact />
+    <InfoBox>
+      For questions about the <strong>{collection.name} </strong>
+      dataset, please complete the form below. Orders for this data cannot be submitted
+      via this form.
+      <strong>
+        To order this dataset, please visit the Custom Order tab.
+      </strong>
+    </InfoBox>
+    <CollectionContactForm />
   </div>
 </div>
 
@@ -50,6 +59,7 @@
     .collection-tab {
       display: none;
       grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr;
       border: solid 1px $borderColor;
       padding: 0.25rem;
       border-bottom-left-radius: 0.5rem;
