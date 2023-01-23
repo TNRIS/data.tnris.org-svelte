@@ -3,7 +3,7 @@
 </script>
 
 <div id="map-previews">
-
+    
 </div>
 
 <style lang="scss">
@@ -14,5 +14,11 @@
         display: grid;
         padding: .25rem;
         border: 1px solid $borderColor;
+        z-index: 999999;
+        background: white;
+        width: 4rem;
+        height: 4rem;
+        border-radius: .25rem;
+        box-shadow: $boxShadow-xs;
     }
 </style>
