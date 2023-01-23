@@ -1,4 +1,7 @@
 <script>
+  import bbox from "@turf/bbox";
+  import mapStore from "../../Map/mapStore";
+
   export let areasQQuad;
   export let areasQuad;
   export let areas250k;
@@ -15,6 +18,33 @@
     County: $areasCounty,
     State: $areasState,
   };
+
+  const onAreaTypeSelectionChange = (d) => {
+    let areas = options[d]?.data ? options[d].data : null
+    if ($mapStore && areas && areas?.features.length > 0) {
+      let bb = bbox(areas);
+      $mapStore.fitBounds(bb, {
+        padding: 16
+      });
+    }
+  };
+
+  $: {
+    if (
+      $mapStore &&
+      options &&
+      areaTypeSelection &&
+      $areasQQuad &&
+      $areasQuad &&
+      $areas250k &&
+      $areasBlock &&
+      $areasCounty &&
+      $areasState
+    ) {
+      $mapStore;
+      onAreaTypeSelectionChange(areaTypeSelection);
+    }
+  }
 </script>
 
 {#if $areasQuad.data && $areasQuad.data && $areas250k.data && $areasBlock.data && $areasCounty.data && $areasState.data}
