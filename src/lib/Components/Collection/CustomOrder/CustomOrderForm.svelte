@@ -99,6 +99,8 @@
             id="data-description"
             name="data-description"
             type="file"
+            required
+            aria-required="true"
           /></label
         >
       {:else if dataDescriptionType == "Screenshot"}
@@ -110,6 +112,8 @@
             id="data-description"
             name="data-description"
             type="file"
+            required
+            aria-required="true"
           /></label
         >
       {:else if dataDescriptionType == "Text"}
@@ -120,6 +124,8 @@
             name="data-description"
             rows="4"
             cols="60"
+            required
+            aria-required="true"
             bind:value={dataDescription}
           />
         </label>
