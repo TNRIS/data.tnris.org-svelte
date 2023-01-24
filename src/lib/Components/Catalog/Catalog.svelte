@@ -71,7 +71,6 @@
     height: 100%;
     width: 100%;
     border: solid 1px $borderColor;
-    border-radius: 0.5rem;
 
     #CatalogItemList {
       overflow-y: scroll;
@@ -82,7 +81,6 @@
       padding-bottom: 0.5rem;
       padding-left: 0.5rem;
       padding-right: 0.75rem;
-      border-radius: 0.5rem;
       height: auto;
     }
   }

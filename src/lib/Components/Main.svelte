@@ -2,7 +2,6 @@
   import { pattern, prefs } from "svelte-pathfinder";
   import { cartOpen } from "../Api/Cart/cartStore";
   import Cart from "./Cart/Cart.svelte";
-  import CartItems from "./Cart/CartItems.svelte";
   import Catalog from "./Catalog/Catalog.svelte";
   import Collection from "./Collection/Collection.svelte";
   import Drawer from "./General/Drawer.svelte";
@@ -47,7 +46,6 @@
       display: flex;
       overflow: hidden;
       background-color: white;
-      padding: 1rem 0.5rem;
 
       /* #map-controls {
         width: 10rem;
