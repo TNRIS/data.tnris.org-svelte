@@ -25,6 +25,10 @@
 </script>
 
 <section id="metadata-tab-container">
+  {#if collection.collection_id}
+    <strong>COLLECTION ID</strong>
+    <p>{collection.collection_id}</p>
+  {/if}
   {#if collection.name}
     {#if collection.category.includes("Historic_Imagery")}
       {#each orderedHistoricFields as field}
@@ -56,7 +60,7 @@
     white-space: pre-line;
     .metadata-section {
       border-bottom: 1px solid #ccc;
-      padding-bottom: .5rem;
+      padding-bottom: 0.5rem;
     }
     h2,
     h3,
