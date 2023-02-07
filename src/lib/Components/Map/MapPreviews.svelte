@@ -1,9 +1,12 @@
 <script lang="ts">
+  import { mapLayers } from "../../Api/Geos/tnrisMapLayers";
   import LayerSwitch from "./LayerSwitch.svelte";
 </script>
 
 <div id="map-previews">
-  <LayerSwitch>Imagery Layer</LayerSwitch>
+  {#each $mapLayers as layer}
+    <LayerSwitch mapLayer={layer}>{layer.layer.id.replaceAll("-", " ").toLowerCase()}</LayerSwitch>
+  {/each}
 </div>
 
 <style lang="scss">

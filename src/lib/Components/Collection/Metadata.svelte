@@ -15,6 +15,7 @@
     { key: "band_types", label: "bands" },
     { key: "resolution", label: "resolution" },
     { key: "category", label: "category" },
+    { key: "wms_link", label: "wms link" }
   ];
   const orderedHistoricFields = [
     { key: "source_name", label: "source name" },

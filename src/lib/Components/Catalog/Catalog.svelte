@@ -6,6 +6,7 @@
     getCollections,
   } from "../../Api/Collections/getCollections";
   import Empty from "../General/Empty.svelte";
+  import InfoBox from "../General/InfoBox.svelte";
 
   import LoadingIndicator from "../General/LoadingIndicator.svelte";
   import CatalogItem from "./CatalogItem.svelte";
@@ -42,7 +43,7 @@
  -->
     {:else if queryResult.error}
       An error has occurred:
-      {queryResult.error}
+      <InfoBox infoClass="caution">{queryResult.error}</InfoBox>
     {:else if queryResult && queryResult.data.results.length < 1}
       <Empty />
     {:else}

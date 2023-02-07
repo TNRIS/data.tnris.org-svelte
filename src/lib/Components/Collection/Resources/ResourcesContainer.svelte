@@ -3,10 +3,9 @@
   import * as rscs from "../../../Api/Collections/getAreas";
   import SearchSelect from "../../General/SearchSelect.svelte";
   import mapStore from "../../Map/mapStore";
-  import AreaResourceItem from "./ResourceAreaItem.svelte";
   import AreaTypeSelect from "./AreaTypeSelect.svelte";
-  import ResourceAreasMapLayer from "./ResourceAreasMapLayer.svelte";
   import ResourceAreaItem from "./ResourceAreaItem.svelte";
+  import ResourceAreasMapLayer from "./ResourceAreasMapLayer.svelte";
 
   export let collection_id = null;
 
@@ -77,12 +76,24 @@
     />
     {#if areaTypeSelection == "State"}
       <SearchSelect
-        options={$areasState.data.features.map((v) => {
-          return {
-            label: v.properties.area_type_name,
-            value: v.properties.area_type_id,
-          };
-        })}
+        options={$areasState.data.features
+          .map((v) => {
+            return {
+              label: v.properties.area_type_name,
+              value: v.properties.area_type_id,
+            };
+          })
+          .sort((a, b) => {
+            if (a.label > b.label) {
+              return -1;
+            }
+            if (a.label > b.label) {
+              return 1;
+            }
+            if (a.label == b.label) {
+              return 0;
+            }
+          })}
         bind:selections={areaSelections}
       />
       <ResourceAreasMapLayer

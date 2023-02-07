@@ -1,4 +1,5 @@
 <script>
+  import { generateCollectionAreasLayer } from "../../../Api/Geos/MapLayers/tnrisCollectionAreasFillLayer";
   import { onDestroy, onMount } from "svelte";
 
   export let map;
@@ -21,8 +22,8 @@
 
     hoverAreaTypeId = e.features[0].id;
 
-    // When the mouse moves over the earthquakes-viz layer, update the
-    // feature state for the feature under the mouse
+    // When the mouse moves over the collection area layer, 
+    // update the feature state for the feature under the mouse
     map.setFeatureState(
       {
         source: layerId,
@@ -33,6 +34,7 @@
       }
     );
   };
+  
   export let onAreaMouseLeave = (e) => {
     //console.log("mouseleave", e, hoverAreaTypeId);
     if (hoverAreaTypeId) {
@@ -65,34 +67,7 @@
       data: data,
       promoteId: "area_type_id",
     });
-    map.addLayer({
-      id: `${layerId}`,
-      source: `${layerId}`,
-      type: "fill",
-      paint: {
-        "fill-color": [
-          "case",
-          [
-            "boolean",
-            [
-              "in",
-              ["get", "area_type_id"],
-              ["literal", selections.map((v) => v.value)],
-            ],
-            false,
-          ],
-          "#888",
-          "#fff",
-        ],
-        "fill-opacity": [
-          "case",
-          ["boolean", ["feature-state", "hover"], false],
-          0.8,
-          0.4,
-        ],
-        "fill-outline-color": "blue",
-      },
-    });
+    map.addLayer(generateCollectionAreasLayer(layerId, selections));
     map.off("mousemove", onAreaMouseMove);
     map.on("mousemove", `${layerId}`, onAreaMouseMove);
     map.off("mouseleave", onAreaMouseLeave);
