@@ -8,22 +8,34 @@
   import MapLibre from "./Map/MapLibre.svelte";
 
   prefs.array.format = "separator";
+
+  const checkShowMap = (pattern) => {
+    const show = pattern("/") || pattern("") || pattern("/collection");
+
+    return show;
+  };
+
+  $: showMap = checkShowMap($pattern);
 </script>
 
 <div id={"main-app-container"}>
-  <section id="left-pane">
-    {#if $pattern("/")}
-      <Catalog />
-    {/if}
-    {#if $pattern("/collection")}
-      <Collection />
-    {/if}
-  </section>
+  {#if $pattern("/") || $pattern("")}
+    <section id="left-pane"><Catalog /></section>
+  {/if}
 
-  <section id="right-pane">
-    <MapLibre />
-  </section>
-  <!-- <div id="map-controls"></div> -->
+  {#if $pattern("/collection")}
+    <section id="left-pane"><Collection /></section>
+  {/if}
+
+  {#if $pattern("/order")}
+    <h1>ORDER</h1>
+  {/if}
+
+  {#if showMap}
+    <section id="right-pane">
+      <MapLibre />
+    </section>
+  {/if}
 </div>
 <Drawer bind:open={$cartOpen}>
   <Cart />
@@ -33,7 +45,7 @@
   #main-app-container {
     display: grid;
     position: relative;
-    grid-template-columns: 2fr 3fr;
+    grid-template-columns: minmax(0, 2fr) 3fr;
     grid-template-rows: auto;
     width: 100%;
     max-width: 1600px;
@@ -46,21 +58,14 @@
       display: flex;
       overflow: hidden;
       background-color: white;
+    }
 
-      /* #map-controls {
-        width: 10rem;
-        height: 16rem;
-        background: white;
-        display: block;
-        position: absolute;
-        margin: 1rem;
-        border-radius: .25rem;
-        box-shadow: inset 2px 2px 6px #cccccc97, inset -1px -1px 6px #cccccc97;
-      } */
+    #left-pane {
+      padding: 0.5rem;
     }
 
     @media (max-width: 1000px) {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       grid-template-rows: 1fr 3fr;
       grid-auto-flow: dense;
       gap: 0;

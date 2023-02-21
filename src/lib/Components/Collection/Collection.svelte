@@ -51,7 +51,7 @@
   #collection-info-container {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto 1fr;
     #collection-info-header {
       padding: 0.25rem 0.5rem;

@@ -13,7 +13,7 @@ function createMapPreviewsStore() {
     const map = get(mapStore);
 
     if (!map) {
-      console.log("map not initialized, mapPreview src ${srcName} failed.");
+      //console.log("map not initialized, mapPreview src ${srcName} failed.");
       return;
     }
     if (map.getSource(srcName) != undefined) {

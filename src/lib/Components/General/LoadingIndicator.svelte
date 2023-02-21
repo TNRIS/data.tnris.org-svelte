@@ -14,7 +14,7 @@
 <style lang="scss">
   .loading-indicator {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto;
     justify-content: center;
     align-items: center;

@@ -22,8 +22,8 @@
 <div id="date-range-search">
   <DualRangeSlider bind:range bind:start bind:end {onDatesChangedCallback} />
   <div class="date-range-inputs">
-    <input min={range[0]} max={range[1]} bind:value={start} type="number" />
-    <input min={range[0]} max={range[1]} bind:value={end} type="number" />
+    <input min={range[0]} max={range[1]} bind:value={start} type="number" on:change={() => onDatesChangedCallback(start, end)} />
+    <input min={range[0]} max={range[1]} bind:value={end} type="number" on:change={() => onDatesChangedCallback(start, end)} />
   </div>
 </div>
 

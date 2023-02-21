@@ -17,11 +17,11 @@
 
 <div class="cart-wrapper">
   <Wizard {steps} />
-
 </div>
 
 <style lang="scss">
   .cart-wrapper {
     width: 100%;
+    height: 100vh;
   }
 </style>

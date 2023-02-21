@@ -82,7 +82,7 @@
   .area-resource-container {
     .area-resource-header {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: minmax(0, 1fr) auto;
       justify-content: space-between;
 
       button {
@@ -103,7 +103,7 @@
         gap: .5rem;
         .area-resource-row {
           display: grid;
-          grid-template-columns: 1fr auto;
+          grid-template-columns: minmax(0, 1fr) auto;
           border-bottom: 1px solid #cccccc80;
         }
       }

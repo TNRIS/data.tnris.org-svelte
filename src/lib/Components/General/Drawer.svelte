@@ -39,20 +39,20 @@
     overflow: auto;
     &.active {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       margin: auto;
       align-items: center;
       background: rgb(0, 0, 0, 0.4);
     }
 
     .drawer-container {
-      display: grid;
+      display: block;
       position: absolute;
       background: white;
       box-shadow: -.5rem 0rem 1rem #33333360;
       right: 0;
-      width: 70%;
-      height: 100%;
+      min-width: 70%;
+      height: 100vh;
       z-index: 99999999;
     }
   }

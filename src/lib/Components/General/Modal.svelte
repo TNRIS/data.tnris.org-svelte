@@ -51,7 +51,7 @@
     background-color: rgba(0, 0, 0, 0.4);
     &.active {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       margin: auto;
       align-items: center;
     }
@@ -73,7 +73,7 @@
         color: $primaryColor;
         border-bottom: $primaryColor 1px solid;
         display: grid;
-        grid-template-columns: 1fr auto;
+        grid-template-columns: minmax(0, 1fr) auto;
         padding: 0.5rem;
 
         h1,

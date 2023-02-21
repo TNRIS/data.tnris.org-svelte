@@ -26,7 +26,7 @@
       $mapStore.removeSource(mapLayer.id, mapLayer.source);
     }
     let layers = $mapStore.getStyle().layers;
-    console.log(layers.filter((v) => v.id.includes("tnris")));
+    //console.log(layers.filter((v) => v.id.includes("tnris")));
   };
 
   onDestroy(() => {

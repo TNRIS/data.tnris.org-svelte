@@ -30,7 +30,7 @@
 <style lang="scss">
   #CatalogSearchBar {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
@@ -44,6 +44,7 @@
       max-width: 500px;
       width: 100%;
     }
+    
     #CatalogSearch {
       display: grid;
       gap: .25rem;

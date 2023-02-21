@@ -2,11 +2,8 @@
   export let start = 1930;
   export let end = 2030;
   export let range = [1930, 2030];
-  type onDatesChangedCallbackType = (start: Number, end: Number) => any;
-  export let onDatesChangedCallback: onDatesChangedCallbackType = function (
-    start: 1,
-    end: 2
-  ) {
+
+  export let onDatesChangedCallback = function (start: 1, end: 2) {
     return null;
   };
 
@@ -86,9 +83,11 @@
       if (which == "start") {
         if (Math.floor(inRange(value)) <= end - 1)
           start = Math.floor(inRange(value));
+        return start;
       } else {
         if (Math.floor(inRange(value)) >= start + 1)
           end = Math.floor(inRange(value));
+        return end;
       }
     };
   }

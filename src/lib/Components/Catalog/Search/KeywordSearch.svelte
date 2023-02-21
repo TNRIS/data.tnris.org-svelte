@@ -17,7 +17,7 @@
 <style lang="scss">
   #keyword-search {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     .keyword-search-input {
       width: 100%;
       border-radius: 0.25rem 0rem 0rem 0.25rem;

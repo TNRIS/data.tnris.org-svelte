@@ -33,7 +33,7 @@
   .multiselect-dropdown {
     button {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: minmax(0, 1fr) auto;
       justify-content: space-between;
       align-items: center;
       gap: 1rem;
@@ -46,7 +46,7 @@
         width: 1rem;
         height: 1rem;
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         justify-content: center;
         align-items: center;
       }

@@ -38,6 +38,7 @@ body,
     }
 
     button,
+    textarea,
     select,
     input[type=submit] {
         font-weight: 500;
@@ -71,6 +72,11 @@ body,
                 background-color: #fff;
             }
         }
+
+        &.danger {
+            border: solid 1px red;
+            color: red;
+        }
     }
 
     h1,
@@ -103,11 +109,14 @@ body,
     }
 
     #custom-order-form,
-    #collection-contact-form {
+    #collection-contact-form,
+    .wizard-form
+     {
         padding-top: .5rem;
 
         label {
             display: block;
+            width: 100%;
 
             &+label {
                 margin-top: 1rem;
@@ -124,6 +133,7 @@ body,
                 margin-top: 0.5rem;
                 display: block;
                 max-width: 100%;
+                min-width: 80%;
             }
 
         }

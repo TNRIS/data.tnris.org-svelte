@@ -45,7 +45,6 @@
     }
   };
   const clearSpatialSearch = () => {
-    console.log("clear clicked");
     if ($mapStore.getLayer("tnris-bbox-search") != undefined) {
       $mapStore.removeLayer("tnris-bbox-search");
       $mapStore.removeSource("tnris-bbox-search");
@@ -137,7 +136,7 @@
 <style lang="scss">
   #spatial-search-container {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 0rem;
     .alert {
       border-radius: 0rem 0.25rem 0.25rem 0rem;

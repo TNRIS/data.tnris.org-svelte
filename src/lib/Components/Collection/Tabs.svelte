@@ -49,7 +49,7 @@
 <style lang="scss">
   #collection-tabs-container {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto 1fr;
     justify-content: center;
     height: 100%;
@@ -58,7 +58,7 @@
 
     .collection-tab {
       display: none;
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       grid-template-rows: auto 1fr;
       border: solid 1px $borderColor;
       padding: 0.25rem;
