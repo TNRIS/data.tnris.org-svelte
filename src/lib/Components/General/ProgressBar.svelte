@@ -1,5 +1,9 @@
 <script>
   export let percent = 0;
+
+  $: {
+    percent = percent;
+  }
 </script>
 
 <div class="track">
