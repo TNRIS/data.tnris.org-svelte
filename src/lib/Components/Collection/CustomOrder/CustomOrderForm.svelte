@@ -28,7 +28,7 @@
     cartStore.addItem(obj, collection.collection_id);
   }}
 >
-  {#if $cartStore[collection.collection_id]}
+  {#if $cartStore && Object.keys($cartStore)?.length > 0 && $cartStore[collection.collection_id]}
     <InfoBox infoClass="success"
       >This item has already been added to your cart. Open the cart to checkout
       or remove items from the cart.</InfoBox

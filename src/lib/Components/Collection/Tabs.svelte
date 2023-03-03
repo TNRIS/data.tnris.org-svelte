@@ -80,13 +80,13 @@
       justify-content: space-between;
       align-items: flex-end;
       gap: 0.25rem;
-      overflow-x: scroll;
+      overflow-x: auto;
 
       .tab-button {
         width: 100%;
         height: 100%;
         padding: 0.5rem;
-        border-radius: 0.5rem 0.5rem 0rem 0rem;
+        border-radius: 0rem;
         border-bottom: none;
 
         &.active-tab {

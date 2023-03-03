@@ -6,6 +6,7 @@
   import Collection from "./Collection/Collection.svelte";
   import Drawer from "./General/Drawer.svelte";
   import MapLibre from "./Map/MapLibre.svelte";
+  import Order from "./Order/Order.svelte";
 
   prefs.array.format = "separator";
 
@@ -18,7 +19,7 @@
   $: showMap = checkShowMap($pattern);
 </script>
 
-<div id={"main-app-container"}>
+<div id={showMap ? "main-app-container-split" : "main-app-container"}>
   {#if $pattern("/") || $pattern("")}
     <section id="left-pane"><Catalog /></section>
   {/if}
@@ -27,8 +28,8 @@
     <section id="left-pane"><Collection /></section>
   {/if}
 
-  {#if $pattern("/order")}
-    <h1>ORDER</h1>
+  {#if $pattern("/order/*")}
+    <Order />
   {/if}
 
   {#if showMap}
@@ -42,7 +43,7 @@
 </Drawer>
 
 <style lang="scss">
-  #main-app-container {
+  #main-app-container-split {
     display: grid;
     position: relative;
     grid-template-columns: minmax(0, 2fr) 3fr;
@@ -81,5 +82,12 @@
         order: 1;
       }
     }
+  }
+
+  #main-app-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-content: start;
   }
 </style>

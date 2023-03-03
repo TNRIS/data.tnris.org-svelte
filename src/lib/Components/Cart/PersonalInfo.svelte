@@ -62,7 +62,7 @@
 
 <label for="data-industry" class="required">
   Industry
-  <select id="data-state" name="data-state" required>
+  <select id="data-state" name="data-industry" required>
     {#each INDUSTRIES_OPTIONS as industry}
       <option value={industry}>{industry}</option>
     {/each}

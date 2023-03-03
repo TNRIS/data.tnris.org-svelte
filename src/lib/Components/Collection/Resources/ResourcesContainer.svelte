@@ -220,7 +220,7 @@
     display: grid;
     grid-template-rows: auto 1fr;
     max-height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     #collection-resources-area-select {
       display: grid;

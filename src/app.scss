@@ -27,7 +27,6 @@ body,
     input {
         padding: .5rem .75rem;
         border: solid 1px $borderColor;
-        border-radius: .25rem;
 
         &:hover,
         &:active,
@@ -46,7 +45,6 @@ body,
         border: solid 1px $borderColor;
         background-color: #fff;
         padding: .5rem .75rem;
-        border-radius: .25rem;
         cursor: pointer;
 
         &:hover,
@@ -108,10 +106,35 @@ body,
         font-size: 1.05rem;
     }
 
+    form {
+
+        input,
+        textarea,
+        select {
+            margin-bottom: .5rem;
+        }
+
+        label {
+            display: inline;
+            width: 100%;
+
+            &.required::before {
+                content: "* ";
+                color: #c41a1a;
+            }
+
+            select,
+            input,
+            textarea {
+                margin-top: 0.5rem;
+            }
+
+        }
+    }
+
     #custom-order-form,
     #collection-contact-form,
-    .wizard-form
-     {
+    .wizard-form {
         padding-top: .5rem;
 
         label {

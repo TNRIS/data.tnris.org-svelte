@@ -29,7 +29,7 @@ X 5. add two-way hover effects on areas and area-resources cards
 2. Data Cart and Form Submission
 3. LocalStorage for unsubmitted custom orders
 ### Collection Map
-1. Zoom to area types features on change
+X 1. Zoom to area types features on change
 2. wms layers / map previews
 
 ## Global

@@ -20,11 +20,9 @@
     grid-template-columns: minmax(0, 1fr) auto;
     .keyword-search-input {
       width: 100%;
-      border-radius: 0.25rem 0rem 0rem 0.25rem;
       border-right: none;
     }
     .keyword-search-button {
-      border-radius: 0rem 0.25rem 0.25rem 0rem;
       background: $primaryColor;
       color: white;
       border: 1px solid $primaryColor;

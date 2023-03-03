@@ -15,7 +15,10 @@
   ];
 </script>
 
-<form id="collection-contact-form">
+<form
+  id="collection-contact-form"
+  on:submit|preventDefault={(d) => console.log(d)}
+>
   <label for="first_name" class="required">
     First Name
     <input

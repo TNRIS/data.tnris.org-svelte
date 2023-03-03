@@ -11,7 +11,7 @@ function createCart() {
     if (localStorage.data_shopping_cart) {
       return JSON.parse(localStorage.data_shopping_cart);
     } else {
-      return setCart({});
+      return null;
     }
   };
 
@@ -26,8 +26,9 @@ function createCart() {
 
   const addCartItem = (newItem, newItemKey) => {
     const cart = getCart();
-    cart[newItemKey] = newItem;
-    const newCart = cart;
+    let newCart = {};
+
+    newCart = { ...cart, [newItemKey]: newItem };
 
     return setCart(newCart);
   };
@@ -45,7 +46,7 @@ function createCart() {
     subscribe,
     deleteItem: deleteCartItem,
     addItem: addCartItem,
-    reset: () => set(JSON.stringify({})),
+    reset: () => setCart({}),
   };
 }
 

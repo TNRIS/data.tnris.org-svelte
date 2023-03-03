@@ -2,6 +2,7 @@
   import { RECAPTCHA_SITE_KEY } from "../../constants";
   import { onMount } from "svelte";
 
+  export let recaptchaId = "grecaptcha-default-id"
   let recaptchaContainer = null;
 
   export let handleCaptchaCallback = async (v) => {
@@ -32,10 +33,11 @@
         "error-ballback": handleCaptchaError,
       });
     });
+    // @ts-ignore
   });
 </script>
 
-<div bind:this={recaptchaContainer} />
+<div bind:this={recaptchaContainer} id={recaptchaId} />
 
 <style lang="scss">
 </style>

@@ -94,7 +94,6 @@
     gap: 0.25rem;
     min-height: 120px;
     max-height: 120px;
-    border-radius: 0.5rem;
     padding: 0.1rem;
     background: white;
     box-shadow: $boxShadow-xs;
@@ -130,7 +129,6 @@
           font-weight: 600;
           .tag {
             padding: 0.125rem 0.25rem;
-            border-radius: 0.25rem;
           }
         }
       }
@@ -162,7 +160,6 @@
       background-repeat: no-repeat;
       background-size: cover;
       max-height: 120px;
-      border-radius: 0.25rem 0rem 0rem 0.25rem;
     }
   }
 </style>

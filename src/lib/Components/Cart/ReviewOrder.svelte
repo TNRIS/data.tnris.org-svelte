@@ -1,6 +1,4 @@
 <script>
-  import CartItems from "./CartItems.svelte";
-
   export let formRef;
 
   let formValues;
