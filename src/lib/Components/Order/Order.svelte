@@ -10,12 +10,10 @@
     <div id="main-order-pane">
       <OrderAuth />
     </div>
-  {:else if $pattern("/order/pay")}
+  {:else if $pattern("/order/submit")}
     <OrderPayment />
   {/if}
-  <div id="otp-order-pane">
-    <OrderOtp />
-  </div>
+
 </div>
 
 <style lang="scss">

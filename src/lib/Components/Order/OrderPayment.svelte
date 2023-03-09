@@ -2,14 +2,29 @@
   import { query } from "svelte-pathfinder";
   import InfoBox from "../General/InfoBox.svelte";
   import Recaptcha from "../General/Recaptcha.svelte";
+  import { BASE_URL } from "../../constants.js"
+  import { OTP } from "../../Api/OTP/otp.js";
 
-  const order_id = $query.params["order_id"];
+  const order_id = $query.params["uuid"];
+  OTP.order_id = "" + order_id
+  let toggle = true;
+
+  function success(resp) {
+    toggle = false;
+    OTP.onCaptchaSuccess(resp);
+  }
+  function reset(resp) {
+    toggle = true;
+    OTP.onCaptchaTimeout(resp)
+  }
 
   let authenticated = false;
   let statusData = null;
 
   export let onSubmit = async (e) => {
     e.preventDefault();
+    OTP.show_otp_msg = false;
+
     const fd = new FormData(e.target);
 
     const d = Object.fromEntries(fd);
@@ -17,11 +32,11 @@
     const payload = {
       accessCode: d["email"],
       passCode: d["otp"],
-      recaptcha: d["g-recaptcha-response"],
+      recaptcha: OTP.captcha_token,
     };
 
     const resp = await fetch(
-      `https://stagingapi.tnris.org/api/v1/contact/order/submit?uuid=${order_id}`,
+      `${BASE_URL}/api/v1/contact/order/submit?uuid=${order_id}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -40,9 +55,20 @@
       authenticated = true;
     }
     e.target.reset();
+    window.location.replace(json.order_url);
+
   };
 </script>
+{#if toggle}
+<div id="recaptcha">
+  <Recaptcha 
+    on:success={success}
+    on:reset={reset}
+  />
+</div>
+{/if}
 
+{#if !toggle}
 <div id="order-auth">
   {#if statusData}
     <InfoBox infoClass={
@@ -86,13 +112,15 @@
           required
         />
       </label>
-      <Recaptcha />
-      <hr />
+      <Recaptcha 
+      on:success={success}
+      on:reset={reset}
+    />      <hr />
       <button type="submit">Make a Payment</button>
     </form>
   {/if}
 </div>
-
+{/if}
 <style lang="scss">
   #order-auth {
     padding: 0.5rem;
