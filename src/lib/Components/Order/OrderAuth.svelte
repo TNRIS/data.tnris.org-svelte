@@ -2,14 +2,28 @@
   import { query } from "svelte-pathfinder";
   import InfoBox from "../General/InfoBox.svelte";
   import Recaptcha from "../General/Recaptcha.svelte";
+  import { BASE_URL } from "../../constants.js";
+  import { OTP } from "../../Api/OTP/otp.js";
+  const order_id = $query.params["uuid"];
 
-  const order_id = $query.params["order_id"];
-
+  OTP.order_id = "" + order_id
   let authenticated = false;
   let statusData = null;
+  let toggle = true;
+
+  function success(resp) {
+    toggle = false;
+    OTP.onCaptchaSuccess(resp);
+  }
+  function reset(resp) {
+    toggle = true;
+    OTP.onCaptchaTimeout(resp)
+  }
 
   export let onSubmit = async (e) => {
     e.preventDefault();
+
+    OTP.show_otp_msg = false;
     const fd = new FormData(e.target);
 
     const d = Object.fromEntries(fd);
@@ -17,11 +31,11 @@
     const payload = {
       accessCode: d["email"],
       passCode: d["otp"],
-      recaptcha: d["g-recaptcha-response"],
+      recaptcha: OTP.captcha_token,
     };
 
     const resp = await fetch(
-      `https://stagingapi.tnris.org/api/v1/contact/order/status?uuid=${order_id}`,
+      `${BASE_URL}/api/v1/contact/order/status?uuid=${order_id}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -41,53 +55,68 @@
     e.target.reset();
   };
 </script>
+  {#if toggle}
+    <div id="recaptcha">
+      <Recaptcha 
+        on:success={success}
+        on:reset={reset}
+      />
+    </div>
+  {/if}
 
-<div id="order-auth">
-  {#if statusData}
-    <InfoBox infoClass={statusData.status == "failure" ? "caution" : "info"}>
-      {#if statusData.status == "success"}
-        Your order status is:
+  {#if !toggle}
+  <div id="order-auth">
+    {#if statusData}
+      <InfoBox infoClass={statusData.status == "failure" ? "caution" : "info"}>
+        {#if statusData.status == "success"}
+          Your order status is:
+        {/if}
+        {statusData.message}
+      </InfoBox>
+    {/if}
+    {#if !authenticated}
+      <h1>Order Status Login</h1>
+      {#if OTP.show_otp_msg}
+        <InfoBox infoClass="info">
+          A One time Passcode has been sent to the email this order is registered under. Please enter it below.
+        </InfoBox>
       {/if}
-      {statusData.message}
-    </InfoBox>
-  {/if}
-  {#if !authenticated}
-    <h1>Order Status Login</h1>
-    <InfoBox infoClass="info">
-      You must use a one time password and your email address to access your
-      order status. You can use the form to the right to get a new one time
-      password sent to your email address.
-    </InfoBox>
-    <form
-      id="order-auth-form"
-      on:submit|preventDefault|stopPropagation={onSubmit}
-    >
-      <label class="required">
-        Email Address
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="email address"
-          required
+      <form
+        id="order-auth-form"
+        on:submit|preventDefault|stopPropagation={onSubmit}
+      >
+        <label class="required">
+          One Time Access Code
+          <input
+            type="password"
+            name="otp"
+            id="otp"
+            placeholder="one time access code"
+            required
+          />
+        </label>
+
+        <label class="required">
+          Email Address
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="email address"
+            required
+          />
+        </label>
+        <Recaptcha 
+          on:success={success}
+          on:reset={reset}
         />
-      </label>
-      <label class="required"
-        >One Time Password
-        <input
-          type="password"
-          name="otp"
-          id="otp"
-          placeholder="one time password"
-          required
-        />
-      </label>
-      <Recaptcha />
-      <hr />
-      <button type="submit">Check Order Status</button>
-    </form>
+        <hr />
+        <button id="order_button" type="submit">Check Order Status</button>
+      </form>
+    {/if}
+  </div>
   {/if}
-</div>
+
 
 <style lang="scss">
   #order-auth {
@@ -101,5 +130,9 @@
       display: block;
       margin-bottom: 0.5rem;
     }
+  }
+  #order_button:hover {
+    font-weight: 100; /* Overwrite bold to none and simulate instead since it causes button shifting. */
+    text-shadow: 0 0 .65px #333, 0 0 .65px #333; /* Simulate bold without the shift. */
   }
 </style>

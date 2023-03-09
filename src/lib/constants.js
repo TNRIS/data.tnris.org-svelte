@@ -154,12 +154,14 @@ export const HARD_DRIVE_OPTIONS = [
 ];
 
 export const PAYMENT_OPTIONS = [
-  { label: "Credit Card", value: "CREDIT_CARD" },
-  { label: "Check", value: "CHECK" },
-  { label: "Fedex Account", value: "FEDEX_ACCOUNT" },
+  { label: "Credit Card", value: "CC" },
+  { label: "Electronic Check", value: "ACH" },
+  { label: "Subscriber Payment", value: "SUB" },
   { label: "Pay at Pickup", value: "PAY_AT_PICKUP" },
 ];
 
 export const TEL_REGEX_PATTERN = "[0-9]{3}-[0-9]{3}-[0-9]{4}";
 
 export const RECAPTCHA_SITE_KEY = "6Lf8GP8SAAAAAFx2H53RtfDO18x7S1q_0pGNdmbd";
+
+export const BASE_URL = "https://stagingapi.tnris.org"
