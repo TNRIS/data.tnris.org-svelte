@@ -3,6 +3,7 @@
   import OrderAuth from "./OrderAuth.svelte";
   import OrderOtp from "./OrderOTP.svelte";
   import OrderPayment from "./OrderPayment.svelte";
+  import OrderRedirect from "./OrderRedirect.svelte";
 </script>
 
 <div id="order-route-container">
@@ -12,8 +13,9 @@
     </div>
   {:else if $pattern("/order/submit")}
     <OrderPayment />
+  {:else if $pattern("/order/redirect")}
+    <OrderRedirect />
   {/if}
-
 </div>
 
 <style lang="scss">
