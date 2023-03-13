@@ -36,6 +36,10 @@
     <p class="failure">
         Payment has failed. You are now being redirected.
     </p>
+{:else if status_msg == "duplicate"}
+<p class="failure">
+    Your order is a duplicate. You are now being redirected.
+</p>
 {:else if status_msg == "cancel"}
     <p class="standard">
         Your order has been canceled. You are now being redirected.
