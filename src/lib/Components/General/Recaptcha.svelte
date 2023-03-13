@@ -27,16 +27,44 @@
     return;
   };
 
-  onMount(() => {
-    // @ts-ignore
+  let waitrecaptcha = () => {
+    return new Promise((resolve, reject) => {
+      let tries = 0;
+
+      try {
+        let rec = () => {
+          if(window.grecaptcha) {
+            return resolve(true);
+          } else {
+            // Check if grecaptcha is initialized every .25ms
+            setTimeout(() => {
+              if(tries < 25) {
+                rec()
+              } else {
+                reject("Timeout loading recaptcha.")
+              }
+            }, 25)
+          }
+        }
+        rec();
+      } catch(err) {
+        reject("Error loading recaptcha");
+      }
+    })
+  }
+
+  onMount(async () => {
+    //Ensure recaptcha is available to use. 
+    await waitrecaptcha();
     window.grecaptcha.ready(function () {
-      // @ts-ignore
-      grecaptcha.render(recaptchaContainer, {
-        sitekey: RECAPTCHA_SITE_KEY,
-        callback: handleCaptchaCallback,
-        "expired-callback": resetCaptcha,
-        "error-ballback": handleCaptchaError
-      });
+        // @ts-ignore
+        grecaptcha.render(recaptchaContainer, {
+          sitekey: RECAPTCHA_SITE_KEY,
+          callback: handleCaptchaCallback,
+          "expired-callback": resetCaptcha,
+          "error-ballback": handleCaptchaError
+        });
+
     });
   });
 </script>
