@@ -19,6 +19,10 @@
     toggle = true;
     OTP.onCaptchaTimeout(resp)
   }
+  function resend() {
+    OTP.otp_gened = false; // Send another
+    toggle = true;
+  }
 
   export let onSubmit = async (e) => {
     e.preventDefault();
@@ -91,7 +95,7 @@
             type="password"
             name="otp"
             id="otp"
-            placeholder="one time access code"
+            placeholder="One time access code"
             required
           />
         </label>
@@ -112,6 +116,7 @@
         />
         <hr />
         <button id="order_button" type="submit">Check Order Status</button>
+        <a on:click|preventDefault={resend} href="#top"><button id="resend_button">Resend Access Code</button></a>
       </form>
     {/if}
   </div>
@@ -131,8 +136,8 @@
       margin-bottom: 0.5rem;
     }
   }
-  #order_button:hover {
+  #order_button:hover, #resend_button:hover {
     font-weight: 100; /* Overwrite bold to none and simulate instead since it causes button shifting. */
-    text-shadow: 0 0 .65px #333, 0 0 .65px #333; /* Simulate bold without the shift. */
+    text-shadow: 0 0 1px #333, 0 0 .65px #333; /* Simulate bold without the shift. */
   }
 </style>

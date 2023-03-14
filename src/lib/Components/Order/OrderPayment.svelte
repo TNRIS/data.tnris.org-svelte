@@ -17,7 +17,10 @@
     toggle = true;
     OTP.onCaptchaTimeout(resp)
   }
-
+  function resend() {
+    OTP.otp_gened = false; // Send another
+    toggle = true;
+  }
   let authenticated = false;
   let statusData = null;
 
@@ -48,7 +51,6 @@
 
     const json = await resp.json();
 
-    console.log(json)
     statusData = json;
 
     if (json.status == "success") {
@@ -84,7 +86,7 @@
   {#if !authenticated}
     <h1>Pay Order</h1>
     <InfoBox infoClass="info">
-      You must use a one time password and your email address to pay your
+      You must use a one time access code and your email address to pay your
       order. You can use the form to the right to get a new one time
       password sent to your email address if you need one.
     </InfoBox>
@@ -103,12 +105,12 @@
         />
       </label>
       <label class="required"
-        >One Time Password
+        >One Time Access Code
         <input
           type="password"
           name="otp"
           id="otp"
-          placeholder="one time password"
+          placeholder="one time access code"
           required
         />
       </label>
@@ -117,6 +119,7 @@
       on:reset={reset}
     />      <hr />
       <button type="submit">Make a Payment</button>
+      <a on:click|preventDefault={resend} href="#top"><button id="resend_button">Resend Access Code</button></a>
     </form>
   {/if}
 </div>
