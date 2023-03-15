@@ -14,5 +14,6 @@
     {#each historicImageryFormatOptions as opt}
       <option value={opt.value}>{opt.label}</option>
     {/each}
+    <option value="" class="multiselect" style="display:none;"></option>
   </select>
 </label>
