@@ -93,7 +93,6 @@
     .area-resource-item {
       padding: 0.5rem;
       border: solid 1px #ccc;
-      border-radius: 0.25rem;
       box-shadow: $boxShadow-xs;
       &.hover {
         border: solid 1px blue;

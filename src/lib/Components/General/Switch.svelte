@@ -32,7 +32,6 @@
       height: 16px;
       background: grey;
       display: block;
-      border-radius: 100px;
       position: relative;
     }
 
@@ -44,7 +43,6 @@
       width: 20px;
       height: 20px;
       background: #fff;
-      border-radius: 90px;
       transition: 0.3s;
       box-shadow: 0px 0px 4px #33333380;
     }

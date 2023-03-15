@@ -62,8 +62,6 @@
       grid-template-rows: auto 1fr;
       border: solid 1px $borderColor;
       padding: 0.25rem;
-      border-bottom-left-radius: 0.5rem;
-      border-bottom-right-radius: 0.5rem;
       min-height: 0px;
 
       &.active {
@@ -86,7 +84,6 @@
         width: 100%;
         height: 100%;
         padding: 0.5rem;
-        border-radius: 0rem;
         border-bottom: none;
 
         &.active-tab {

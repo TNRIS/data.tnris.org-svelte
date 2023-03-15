@@ -141,7 +141,6 @@
     transform: translate(0, -50%);
     background-color: #e2e2e2;
     box-shadow: inset 0 7px 10px -5px #4a4a4a, inset 0 -1px 0px 0px #9c9c9c;
-    border-radius: 1px;
   }
   .handle {
     position: absolute;
@@ -153,7 +152,6 @@
     content: " ";
     box-sizing: border-box;
     position: absolute;
-    border-radius: 50%;
     width: 16px;
     height: 16px;
     background-color: #fdfdfd;
