@@ -167,3 +167,11 @@ export const URL_REGEX_PATTERN =
 export const RECAPTCHA_SITE_KEY = "6Lf8GP8SAAAAAFx2H53RtfDO18x7S1q_0pGNdmbd";
 
 export const BASE_URL = "https://stagingapi.tnris.org";
+
+export const LIDAR_FORMATS = [
+  { label: 'Hypsography', value: "HYPS" },
+  { label: 'Digital Elevation Model (DEM)', value: "DEM" },
+  { label: 'LAZ Point Cloud (Compressed)', value: "LAZ" },
+  { label: 'LAS Point Cloud (Uncompressed)', value: "LAS" },
+  { label: 'Breaklines', value: "BREAK" }
+]
