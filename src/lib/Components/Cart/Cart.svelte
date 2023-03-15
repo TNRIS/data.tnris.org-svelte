@@ -25,13 +25,18 @@
 
     const cartOrderText = Object.keys(cartItems).map((c, i) => {
       const item = cartItems[c];
-      return `
-(${i + 1}) ${item["data-name"]}
-UUID: ${c}
-Acquisition Date: ${item["data-acquisition-date"]}
-Coverage: ${item["data-portion"]}
-Format: ${item["data-format"]}
-      `;
+
+      let cart_string = `(${i + 1}) `
+
+      if (item["data-name"]) cart_string += `${item["data-name"]}\n`;
+      if (c) cart_string += `UUID: ${c}\n`;
+      if (item["data-acquisition-date"]) cart_string += `Acquisition Date: ${item["data-acquisition-date"]}\n`;
+      if (item["data-portion"]) cart_string += `Coverage: ${item["data-portion"]}\n`
+      if (item["data-format"]) cart_string += `Format: ${item["data-format"]}\n`
+      if (item["data-description-type"]) cart_string += `Description Type: ${item["data-description-type"]}\n`
+      if (item["data-description"]) cart_string += `Description: ${item["data-description"]}\n`
+      
+      return cart_string;
     });
 
     const payload = {
