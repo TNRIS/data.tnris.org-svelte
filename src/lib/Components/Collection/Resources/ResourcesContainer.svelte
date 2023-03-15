@@ -225,13 +225,7 @@
     #collection-resources-area-select {
       display: grid;
       grid-template-columns: auto 1fr;
-      :global(#area-type-select) {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-      }
       :global(.select-search input) {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
         border-left: none;
       }
     }

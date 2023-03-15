@@ -104,7 +104,6 @@
         display: grid;
         background: white;
         border: solid 1px #ccc;
-        border-radius: 0.25rem;
         box-shadow: 1px 1px 3px #cccccc80, 1px 1px 6px #cccccc80;
         padding: 0.5rem;
         z-index: 9999999999;
@@ -140,7 +139,6 @@
         width: 100%;
         padding: 0.25rem;
         border: solid 1px #ccc;
-        border-radius: 0.25rem;
         padding-left: 0.5rem;
         max-width: fit-content;
         background: #efefef;

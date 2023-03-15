@@ -33,7 +33,6 @@
     font-weight: 600;
     padding: 0.5rem;
     border: solid 1px #ccc;
-    border-radius: 0.125rem;
 
     i {
       display: grid;
