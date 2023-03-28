@@ -1,6 +1,7 @@
 import { writable } from "svelte/store";
-
 export let cartOpen = writable(false);
+import JSZip from "jszip";
+import { genZip64 } from "./zipBase64";
 
 function createCart() {
   let cart = localStorage.getItem("data_shopping_cart");
@@ -16,6 +17,7 @@ function createCart() {
   };
 
   const setCart = (newCart) => {
+
     localStorage.setItem("data_shopping_cart", JSON.stringify(newCart));
     const res = getCart();
 
@@ -24,12 +26,22 @@ function createCart() {
     return res;
   };
 
-  const addCartItem = (newItem, newItemKey) => {
+  const addCartItem = async (newItem, newItemKey) => {
     const cart = getCart();
     let newCart = {};
+    if (newItem["data-description"] && newItem["data-description"].length && newItem["data-description"][0] instanceof File) {
+      // We must zip the attachments. Then serialized to base64
+      let dfZip = new JSZip();
 
+      for(let i = 0; i < newItem["data-description"].length; i++) {
+        dfZip.file(newItem["data-description"][i].name, newItem["data-description"][i]);
+      }
+
+      //Zip the uploaded files and convert to base 64 for local storage.
+      let b64zip = await genZip64(dfZip);
+      newItem["data-description"] = b64zip;
+    }
     newCart = { ...cart, [newItemKey]: newItem };
-
     return setCart(newCart);
   };
 
