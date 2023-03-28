@@ -48,10 +48,20 @@
   id="custom-order-form"
   on:submit|preventDefault|stopPropagation={(event) => {
     const data = new FormData(event.target);
-    const obj = {};
+    let obj = {};
     for (let field of data) {
-      const [key, value] = field;
-      obj[key] = value;
+      // Files should be stored in an array since there can be multiples
+      if(field[1] instanceof File) {
+        let files = obj[field[0]];
+        if(files) {
+          files.push(field[1])
+        } else {
+          obj[field[0]] = [field[1]]
+        }
+      } else {
+        const [key, value] = field;
+        obj[key] = value;
+      }
     }
     cartStore.addItem(obj, collection.collection_id);
   }}
@@ -124,6 +134,7 @@
           <input
             accept=".zip,.rar,.7zip"
             bind:files={dataDescription}
+            multiple
             id="data-description"
             name="data-description"
             type="file"
@@ -136,6 +147,7 @@
           >Please select a .jpeg, .jpg or .png file displaying the desired area
           on a map<input
             accept="image/png, image/jpeg"
+            multiple
             bind:files={dataDescription}
             id="data-description"
             name="data-description"

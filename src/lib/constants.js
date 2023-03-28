@@ -153,12 +153,7 @@ export const HARD_DRIVE_OPTIONS = [
   },
 ];
 
-export const PAYMENT_OPTIONS = [
-  { label: "Credit Card", value: "CC" },
-  { label: "Electronic Check", value: "ACH" },
-  { label: "Subscriber Payment", value: "SUB" },
-  { label: "Pay at Pickup", value: "PAY_AT_PICKUP" },
-];
+export const PAYMENT_OPTIONS = [{ label: "Credit Card", value: "CC" }];
 
 export const TEL_REGEX_PATTERN = "[0-9]{3}-[0-9]{3}-[0-9]{4}";
 export const URL_REGEX_PATTERN =
