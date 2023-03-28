@@ -22,7 +22,6 @@
     width: fit-content;
     min-width: 40px;
     height: fit-content;
-    border-radius: 0.25rem;
     box-shadow: $boxShadow-xs;
   }
 </style>

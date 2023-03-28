@@ -139,7 +139,6 @@
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 0rem;
     .alert {
-      border-radius: 0rem 0.25rem 0.25rem 0rem;
       border: solid 1px #d00404;
       color: #d00404;
     }
@@ -149,9 +148,6 @@
 
       #spatial-search-input {
         width: 100%;
-        &.no-rad-r {
-          border-radius: 0.25rem 0rem 0rem 0.25rem;
-        }
       }
       #spatial-search-results {
         &.open {
@@ -164,7 +160,6 @@
         display: grid;
         background: white;
         border: solid 1px #ccc;
-        border-radius: 0.25rem;
         padding: 0.5rem;
         z-index: 9999999999;
         max-width: 100%;

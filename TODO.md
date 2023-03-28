@@ -13,9 +13,9 @@ X 3. add mapdraw component
 ## Collection View 
 ### Collection Metadata
 1. historic collection metadata
-2. common fields
+X 2. common fields
 3. lidar metadata extra fields 
-4. parse links / emails
+X 4. parse links / emails
 ### Collection Resources / Downloads
 X 1. Resource areas in map selected based on selection of area type
 X 2. Component for Resources associated with selected area types
@@ -23,11 +23,12 @@ X 3. two way bindings for area-types in map / selection box
 X 4. style selected areas in map
 X 5. add two-way hover effects on areas and area-resources cards
 ### Collection Contact
-1. Contact form for collections
+X 1. Contact form for collections
+2. Contact form submit function
 ### Collection Custom Order
-1. Custom order form
-2. Data Cart and Form Submission
-3. LocalStorage for unsubmitted custom orders
+X 1. Custom order form
+X 2. Data Cart and Form Submission
+X 3. LocalStorage for unsubmitted custom orders
 ### Collection Map
 X 1. Zoom to area types features on change
 2. wms layers / map previews

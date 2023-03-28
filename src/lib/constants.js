@@ -156,10 +156,12 @@ export const HARD_DRIVE_OPTIONS = [
 export const PAYMENT_OPTIONS = [{ label: "Credit Card", value: "CC" }];
 
 export const TEL_REGEX_PATTERN = "[0-9]{3}-[0-9]{3}-[0-9]{4}";
+export const URL_REGEX_PATTERN =
+  "(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?";
 
 export const RECAPTCHA_SITE_KEY = "6Lf8GP8SAAAAAFx2H53RtfDO18x7S1q_0pGNdmbd";
 
-export const BASE_URL = "https://stagingapi.tnris.org"
+export const BASE_URL = "https://stagingapi.tnris.org";
 
 export const LIDAR_FORMATS = [
   { label: 'Hypsography', value: "HYPS" },

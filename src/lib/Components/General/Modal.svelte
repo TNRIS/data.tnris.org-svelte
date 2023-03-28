@@ -62,7 +62,6 @@
       background-color: #fefefe;
       padding: 0.25rem;
       border: none;
-      border-radius: 0.5rem;
       box-shadow: 1rem 1rem 4vw #33333330, -1rem -1rem 3vw #33333320;
       width: 90%; /* Could be more or less, depending on screen size */
       max-width: 30rem;
