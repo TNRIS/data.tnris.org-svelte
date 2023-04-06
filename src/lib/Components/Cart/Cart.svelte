@@ -6,8 +6,6 @@
   import PaymentMethod from "./PaymentMethod.svelte";
   import PersonalInfo from "./PersonalInfo.svelte";
   import ReviewOrder from "./ReviewOrder.svelte";
-  import JSZip from "jszip";
-  import { genZip64 } from "../../Api/Cart/zipBase64";
 
   let stepIdx = 0;
 
@@ -24,7 +22,6 @@
     let obj = Object.fromEntries(fd);
 
     const cartItems = $cartStore;
-    let files = {};
 
     const cartOrderText = Object.keys(cartItems).map((c, i) => {
       const item = cartItems[c];
@@ -38,32 +35,10 @@
       if (item["data-format"]) cart_string += `Historical Format: ${item["data-format"]}\n`
       if (item["lidar-format"]) cart_string += `Format: ${item["lidar-format"]}\n`
       if (item["data-description-type"]) cart_string += `Description Type: ${item["data-description-type"]}\n`
-      if (item["data-description-type"] && item["data-description-type"] == "Text") {
-        if (item["data-description"]) cart_string += `Description: ${item["data-description"]}\n`
-      } else {
-        if(item["data-description"]) files[c] = item["data-description"];
-      }
+      if (item["data-description"]) cart_string += `Description:\n ${item["data-description"]}\n`;
 
       return cart_string;
     });
-    let dfZip = new JSZip();
-
-    for(let f in files) {
-      let b64s = files[f];
-
-      // Remove the base64 prepend text.
-      if (files[f].startsWith('data:application/zip;base64,')) {
-        let split = b64s.split('data:application/zip;base64,');
-        if(split.length && split.length > 1) {
-          b64s = split[1];
-        }
-      }
-
-      // Add each file to the master zip
-      dfZip.file(f + '.zip', b64s, {base64: true});
-    }
-    // Overwrites object to string base 64 zip of all files
-    files = await genZip64(dfZip);
 
 
     const payload = {
@@ -81,8 +56,7 @@
         Payment: obj["data-payment-method"],
         Order: cartOrderText.join("\n"),
       },
-      recaptcha: obj["g-recaptcha-response"],
-      files: files
+      recaptcha: obj["g-recaptcha-response"]
     };
 
     const postOrder = async () =>
@@ -96,7 +70,7 @@
 
     let resp = await postOrder();
     let data = await resp.json();
-
+    
     if (data.status == "success") {
       stepIdx = 0;
       cartStore.reset();

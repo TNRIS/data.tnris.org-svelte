@@ -1,7 +1,6 @@
 import { writable } from "svelte/store";
 export let cartOpen = writable(false);
-import JSZip from "jszip";
-import { genZip64 } from "./zipBase64";
+import { uploadFilesToS3 } from "/src/lib/Api/Cart/fileUploadHelpers.js";
 
 function createCart() {
   let cart = localStorage.getItem("data_shopping_cart");
@@ -29,17 +28,22 @@ function createCart() {
   const addCartItem = async (newItem, newItemKey) => {
     const cart = getCart();
     let newCart = {};
-    if (newItem["data-description"] && newItem["data-description"].length && newItem["data-description"][0] instanceof File) {
-      // We must zip the attachments. Then serialized to base64
-      let dfZip = new JSZip();
 
+    // If files were uploaded as descriptions
+    if (newItem["data-description"] && newItem["data-description"].length && newItem["data-description"][0] instanceof File) {
+      let files = [];
       for(let i = 0; i < newItem["data-description"].length; i++) {
-        dfZip.file(newItem["data-description"][i].name, newItem["data-description"][i]);
+        files.push(newItem["data-description"][i])
       }
 
-      //Zip the uploaded files and convert to base 64 for local storage.
-      let b64zip = await genZip64(dfZip);
-      newItem["data-description"] = b64zip;
+      let itemLinks = await uploadFilesToS3("test_" + newItem["data-uuid"], files, files[0].type, function(item) {})
+      newItem["data-description"] = "";
+      itemLinks.forEach(
+        file => {
+          newItem["data-description"] += `${file["link"]} \n`;
+        });
+        //Remove last newline
+        newItem["data-description"] = newItem["data-description"].trim()
     }
     newCart = { ...cart, [newItemKey]: newItem };
     return setCart(newCart);
