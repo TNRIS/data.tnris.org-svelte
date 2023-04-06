@@ -130,7 +130,8 @@
       {#if dataDescriptionType == "Shapefile"}
         <label for="data-description" class="required"
           >Please select a .zip file containing a .shp or .kml outlining the
-          desired area
+          desired area<br />
+            <div class="warning">***Notice- All data submitted to TNRIS is subject to Texas Public Information Requests and becomes publicly available. Please do not include personal information in your uploaded area of interest files. </div>
           <input
             accept=".zip,.rar,.7zip"
             bind:files={dataDescription}
@@ -145,7 +146,9 @@
       {:else if dataDescriptionType == "Screenshot"}
         <label for="data-description-files" class="required"
           >Please select a .jpeg, .jpg or .png file displaying the desired area
-          on a map<input
+          on a map
+          <div class="warning">***Notice- All data submitted to TNRIS is subject to Texas Public Information Requests and becomes publicly available. Please do not include personal information in your uploaded area of interest files. </div>
+          <input
             accept="image/png, image/jpeg"
             multiple
             bind:files={dataDescription}
@@ -186,4 +189,9 @@
 </form>
 
 <style lang="scss">
+  .warning {
+    padding:1em;
+    padding-right:8em;
+    font-size:.65em;
+  }
 </style>

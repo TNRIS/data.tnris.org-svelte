@@ -27,7 +27,6 @@
     "@sveltestack/svelte-query": "^1.6.0",
     "@turf/bbox": "^6.5.0",
     "@turf/bbox-polygon": "^6.5.0",
-    "jszip": "^3.10.1",
     "mapbox-gl-draw-rectangle-mode": "^1.0.4",
     "maplibre-gl": "^2.4.0"
   }
