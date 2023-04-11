@@ -50,6 +50,7 @@
         Address: obj["data-address"],
         Organization: obj["data-organization"],
         Industry: obj["data-industry"],
+        Fedex: obj["data-fedex"],
         Notes: obj["data-notes"],
         Delivery: obj["data-delivery-method"],
         HardDrive: obj["data-hard-drive"],

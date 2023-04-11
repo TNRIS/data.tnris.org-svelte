@@ -51,7 +51,7 @@
       background: white;
       box-shadow: -.5rem 0rem 1rem #33333360;
       right: 0;
-      min-width: 70%;
+      width: 70%;
       height: 100vh;
       z-index: 99999999;
     }

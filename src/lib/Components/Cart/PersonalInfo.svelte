@@ -38,12 +38,12 @@
   <input id="data-zipcode" name="data-zipcode" pattern={"[0-9]{5}"} required />
 </label>
 
-<label for="data-phonenumber" class="required">
+<label for="data-phone" class="required">
   Phone Number <span>( formatted like 555-555-5555 )</span>
 
   <input
-    id="data-phonenumber"
-    name="data-phonenumber"
+    id="data-phone"
+    name="data-phone"
     type="tel"
     pattern={"[0-9]{3}-[0-9]{3}-[0-9]{4}"}
     required
@@ -67,6 +67,11 @@
       <option value={industry}>{industry}</option>
     {/each}
   </select>
+</label>
+
+<label for="data-fedex">
+  Fedex Account ID (Optional)
+  <input id="data-fedex" name="data-fedex">
 </label>
 
 <label for="data-notes">

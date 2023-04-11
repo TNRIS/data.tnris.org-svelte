@@ -18,12 +18,23 @@
               <div class="cart-item-description">
                 {#each Object.keys($cartStore[itemKey]) as label}
                   <div class="cart-item-value">
-                    <strong
-                      >{label
-                        .replaceAll("data-", "")
-                        .replaceAll("-", " ")}</strong
-                    >
-                    : {$cartStore[itemKey][label]}
+                    <strong>
+                      {#if label == "data-description" && $cartStore[itemKey]["data-description-type"] && $cartStore[itemKey]["data-description-type"].length && $cartStore[itemKey]["data-description-type"] !== "Text"}
+                        {
+                          label
+                          .replaceAll("data-", "")
+                          .replaceAll("-", " ")
+                        }
+                        : <span class="limit">File Attachments</span>
+                      {:else}
+                        {
+                        label
+                          .replaceAll("data-", "")
+                          .replaceAll("-", " ")
+                        }
+                      : {$cartStore[itemKey][label]}
+                      {/if}
+                    </strong>
                   </div>
                 {/each}
               </div>
