@@ -4,10 +4,21 @@
   import Recaptcha from "../General/Recaptcha.svelte";
   import { BASE_URL } from "../../constants.js"
   import { OTP } from "../../Api/OTP/otp.js";
+  import Modal from "../General/Modal.svelte";
 
   const order_id = $query.params["uuid"];
   OTP.order_id = "" + order_id
   let toggle = true;
+  let open = false;
+  let charge = 0;
+  let order_url;
+  let fee;
+
+  function roundTwo(number) {
+    number = parseFloat((number * 100).toFixed(11));
+    number = Math.round(number) / 100;
+    return number;
+  }
 
   function success(resp) {
     toggle = false;
@@ -55,9 +66,15 @@
 
     if (json.status == "success") {
       authenticated = true;
+      open = true;
+      charge = json.charge;
+      
+      fee = ((charge + .25)/100) * 2.25;
+      fee += .25;
+      order_url = json.order_url;
     }
     e.target.reset();
-    window.location.replace(json.order_url);
+    //window.location.replace(json.order_url);
 
   };
 </script>
@@ -71,18 +88,35 @@
 {/if}
 
 {#if !toggle}
+
+<Modal bind:open>
+  <div slot="title"><h1>Proceed to Payment Processor</h1></div>
+  <div slot="content">
+    <table class="unformatted_table">
+      <tr>
+        <td>Order Charge:</td>
+        <td class="lpad">${roundTwo(charge)}</td>
+      </tr>
+      <tr>
+        <td>Total:</td>
+        <td class="lpad">${roundTwo(charge + fee)}*</td>
+      </tr>
+    </table>
+    <br />
+    <div class="warning">
+      * This service is provided by Texas.gov, the official website of Texas. The price of this service includes funds that support the ongoing operations and enhancements of Texas.gov, which is provided by a third party in partnership with the State.
+    </div>
+    <div class="warning">
+      After proceeding to the link below you will be redirected to our credit card payment partner.<br />
+      By continuing you attest that you are authorized to use the card, and you are who you say you are.
+      In addition you acknowledge that this transaction is non-refundable.
+    </div>
+    <br /><br /><br />
+    <a href="{order_url}">Proceed to payment Partner.</a>
+  </div>
+</Modal>
+
 <div id="order-auth">
-  {#if statusData}
-    <InfoBox infoClass={
-    statusData.status == "failure" || statusData.status == "denied"
-    ? "caution" : "info"
-    }>
-      {#if statusData.status == "success"}
-        Your order status is:
-      {/if}
-      {statusData.message}
-    </InfoBox>
-  {/if}
   {#if !authenticated}
     <h1>Pay Order</h1>
     <InfoBox infoClass="info">
@@ -136,5 +170,16 @@
       display: block;
       margin-bottom: 0.5rem;
     }
+  }
+  .warning {
+    font-size: 11px;
+  }
+  .unformatted_table {
+    margin: 0;
+    padding: 0;
+    border: 0px;
+  }
+  .lpad {
+    padding-left:3em;
   }
 </style>
