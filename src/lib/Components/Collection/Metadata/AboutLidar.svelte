@@ -1,0 +1,21 @@
+<script>
+  export let metadata = {};
+</script>
+
+{#if metadata?.category?.includes("Lidar")}
+  <section>
+    <h2>about lidar data</h2>
+    <p>
+      Lidar data for Texas is available online through the use of <a href="https://rapidlasso.com/lastools/"> LASTools</a>, an open-source collection of tools for lidar data viewing and manipulation.
+    </p>
+    <p>
+      Click <a href="https://cdn.tnris.org/data/lidar/tnris-lidar_48_vector.zip">here</a> to download a complete index of all available lidar data at TNRIS.
+    </p>
+  </section>
+{/if}
+
+<style lang="scss">
+  section {
+    border-bottom: solid 1px #ccc;
+  }
+</style>

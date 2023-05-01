@@ -1,9 +1,12 @@
 <script>
   import CopyLink from "../General/CopyLink.svelte";
+  import AboutLidar from "./Metadata/AboutLidar.svelte";
+  import HistoricProducts from "./Metadata/HistoricProducts.svelte";
+  import HistoricScannedIndexes from "./Metadata/HistoricScannedIndexes.svelte";
   import LicenseInfo from "./Metadata/LicenseInfo.svelte";
   import SupplementalDownloads from "./Metadata/SupplementalDownloads.svelte";
 
-  export let collection;
+  export let collection = {};
 
   const orderedContemporaryFields = [
     { key: "description", label: "description" },
@@ -21,6 +24,9 @@
     { key: "category", label: "category" },
   ];
   const orderedHistoricFields = [
+    { key: "about", label: "description" },
+    { key: "acquisition_date", label: "acquisition date" },
+    { key: "category", label: "category" },
     { key: "source_name", label: "source name" },
     { key: "collection", label: "mission identifier" },
     { key: "media_type", label: "media type" },
@@ -39,19 +45,28 @@
 
 <section id="metadata-tab-container">
   {#if collection.collection_id}
-    <h2>collection id</h2>
-    <p>{collection.collection_id}</p>
+    <section class="metadata-section">
+      <h2>collection id</h2>
+      <p>{collection.collection_id}</p>
+    </section>
   {/if}
   {#if collection.name}
     {#if collection.category.includes("Historic_Imagery")}
       {#each orderedHistoricFields as field}
         {#if collection[field.key] !== "null" && collection[field.key] !== "undefined" && collection[field.key]}
-          <section>
+          <section class="metadata-section">
             <h2>{field.label}</h2>
             {@html collection[field.key]}
           </section>
         {/if}
       {/each}
+      <section class="metadata-section">
+        <h2>Scan Status</h2>
+        {collection.fully_scanned ? "Completed" : "In Progress"}
+      </section>
+      <HistoricScannedIndexes metadata={collection} />
+      <HistoricProducts metadata={collection} />
+      <LicenseInfo metadata={collection} />
     {:else}
       {#each orderedContemporaryFields as field}
         {@const isUrl = isValidUrl(collection[field.key])}
@@ -70,6 +85,7 @@
           </section>
         {/if}
       {/each}
+      <AboutLidar metadata={collection} />
       {#if collection.wms_link}
         <section class="metadata-section">
           <h2>wms link</h2>
@@ -84,6 +100,7 @@
           <CopyLink href={collection.wms_link} title={collection.wms_link} />
         </section>
       {/if}
+      <SupplementalDownloads metadata={collection} />
       {#if collection.s_three_key}
         <section class="metadata-section s3-url">
           <h2>s3 url</h2>
@@ -104,8 +121,7 @@
           />
         </section>
       {/if}
-      <SupplementalDownloads metadata={collection} />
-      <LicenseInfo metadata={collection}/>
+      <LicenseInfo metadata={collection} />
     {/if}
   {/if}
 </section>

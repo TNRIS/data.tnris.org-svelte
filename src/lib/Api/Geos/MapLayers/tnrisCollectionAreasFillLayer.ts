@@ -31,7 +31,7 @@ export const generateCollectionAreasLayer = (layerId: string, selections) => {
         0.8,
         0.4,
       ],
-      "fill-outline-color": "blue",
+      "fill-outline-color": "#1e8dc1",
     },
   };
 };
