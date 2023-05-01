@@ -19,29 +19,27 @@
 
   function handleMultiples(id) {
     formats = "";
-    var options = document.getElementById(id).options
-    for(let i = 0; i < options.length; i++) {
-      if(options[i].selected) {
+    var options = document.getElementById(id).options;
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
         formats += `${options[i].value}, `;
       }
     }
-    if(formats.length > 2) {
+    if (formats.length > 2) {
       // Delete trailing comma
       formats = formats.slice(0, -2);
       // Update the multiselect value then assign it to select box.
       document.querySelector(`#${id} option.multiselect`).value = formats;
       document.getElementById(id).value = formats;
     }
-
   }
 
   function submit_order() {
     handleMultiples("lidar-format");
-    if(document.getElementById("data-format")) {
+    if (document.getElementById("data-format")) {
       handleMultiples("data-format");
     }
   }
-
 </script>
 
 <form
@@ -159,12 +157,21 @@
         </label>
       {/if}
     {/if}
-    <select id="lidar-format" name="lidar-format" multiple bind:value={formats}>
-      {#each LIDAR_FORMATS as opt}
-        <option value={opt.value}>{opt.label}</option>
-      {/each}
-      <option value="" class="multiselect" style="display:none;"></option>
-    </select>
+    <label for="lidar-format" class="required">
+      Please select the desired formats of lidar data. Hold Ctrl and Click to select multiple.
+      <select
+        id="lidar-format"
+        name="lidar-format"
+        multiple
+        bind:value={formats}
+      >
+        {#each LIDAR_FORMATS as opt}
+          <option value={opt.value}>{opt.label}</option>
+        {/each}
+        <option value="" class="multiselect" style="display:none;" />
+      </select>
+    </label>
+
     {#if isHistoric}
       <HistoricFields />
     {/if}

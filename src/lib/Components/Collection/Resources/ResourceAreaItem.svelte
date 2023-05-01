@@ -95,7 +95,7 @@
       border: solid 1px #ccc;
       box-shadow: $boxShadow-xs;
       &.hover {
-        border: solid 1px blue;
+        border: solid 1px $primaryColor;
       }
       .resource-area-rows {
         display: grid;
