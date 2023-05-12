@@ -161,7 +161,7 @@ export const URL_REGEX_PATTERN =
 
 export const RECAPTCHA_SITE_KEY = "6Lf8GP8SAAAAAFx2H53RtfDO18x7S1q_0pGNdmbd";
 
-export const BASE_URL = "https://stagingapi.tnris.org";
+export const BASE_URL = "https://api.tnris.org";
 
 export const LIDAR_FORMATS = [
   { label: 'Hypsography', value: "HYPS" },

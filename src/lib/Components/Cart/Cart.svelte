@@ -62,7 +62,7 @@
     };
 
     const postOrder = async () =>
-    fetch("https://stagingapi.tnris.org/api/v1/contact/order/", {
+    fetch("https://api.tnris.org/api/v1/contact/order/", {
         method: "POST",
         body: JSON.stringify(payload),
         headers: {
