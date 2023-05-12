@@ -24,10 +24,10 @@
           }
         }}
       >
-        Cart
+      <i class="material-icons">shopping_cart</i> Cart
       </button>
     {:else}
-      <button id="cart-button">Cart</button>
+      <button id="cart-button"><i class="material-icons">shopping_cart</i> Cart</button>
     {/if}
   </div>
 </div>
@@ -49,9 +49,11 @@
       margin: auto;
       max-width: 1600px;
 
-      #tnris-logo,
-      #cart-button {
+      #tnris-logo {
         width: 4rem;
+      }
+      #cart-button {
+        width: auto;
       }
     }
   }
