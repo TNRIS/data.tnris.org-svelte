@@ -20,7 +20,7 @@
     };
 
     const resp = await fetch(
-      `https://stagingapi.tnris.org/api/v1/contact/order/otp?uuid=${orderIDParam}`,
+      `https://api.tnris.org/api/v1/contact/order/otp?uuid=${orderIDParam}`,
       {
         headers: {
           "Content-Type": "application/json",
