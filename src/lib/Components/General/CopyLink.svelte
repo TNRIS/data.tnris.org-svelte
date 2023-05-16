@@ -23,7 +23,7 @@
     display: grid;
     a {
       padding: 0.25rem;
-      word-wrap: break-word;
+      overflow-wrap: anywhere;
     }
     button.copy-link-button {
       margin-top: 0.5rem;
