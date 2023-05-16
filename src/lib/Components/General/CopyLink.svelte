@@ -5,7 +5,7 @@
 </script>
 
 <div class="copy-link">
-  <a id="s3-uri-link" rel="noreferred" target="_blank" {href}>
+  <a id="s3-uri-link" rel="noreferrer" target="_blank" {href}>
     {title}
   </a>
   <button
@@ -23,6 +23,7 @@
     display: grid;
     a {
       padding: 0.25rem;
+      word-wrap: break-word;
     }
     button.copy-link-button {
       margin-top: 0.5rem;
