@@ -96,9 +96,9 @@
       {/each}
     </div>
 
-    <button class="navbar-item-footer">
+    <!-- <button class="navbar-item-footer">
       Contact
-    </button>
+    </button> -->
   </div>
 </div>
 
