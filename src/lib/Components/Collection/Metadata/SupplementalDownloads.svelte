@@ -10,7 +10,7 @@
 
   $:show = () => {
     return supplements.find((s) => {
-      console.log(metadata[s]);
+      //console.log(metadata[s]);
       metadata[s] != "";
     });
   };

@@ -39,8 +39,6 @@
     <CatalogSearchBar />
     {#if queryResult.isLoading}
       <LoadingIndicator loadingMessage="Loading Collections..." />
-      <!--       <CatalogPagination results={0} scrollContainer={catalogScrollWindow} />
- -->
     {:else if queryResult.error}
       An error has occurred:
       <InfoBox infoClass="caution">{queryResult.error}</InfoBox>

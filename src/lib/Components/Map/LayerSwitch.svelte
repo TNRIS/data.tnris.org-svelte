@@ -4,6 +4,7 @@
   import Switch from "../General/Switch.svelte";
   import mapStore from "./mapStore";
   import type { MapLayer } from "../../Api/Geos/tnrisMapLayers";
+
   export let checked: boolean = false;
 
   export let mapLayer: MapLayer = {
@@ -16,38 +17,36 @@
     if ($mapStore == undefined || $mapStore == null) {
       return;
     }
-    if (checked) {
-      $mapStore.addSource(mapLayer.id, mapLayer.source);
-      $mapStore.addLayer(mapLayer.layer);
-      reorderTnrisLayers($mapStore);
+    if (checked == true) {
+      if ($mapStore.getLayer(mapLayer?.layer?.id) == undefined) {
+        $mapStore.addSource(mapLayer?.layer?.id, mapLayer?.source);
+        $mapStore.addLayer(mapLayer?.layer);
+        reorderTnrisLayers($mapStore);
+      }
     }
     if (checked == false) {
-      $mapStore.removeLayer(mapLayer?.layer?.id);
-      $mapStore.removeSource(mapLayer.id, mapLayer.source);
+      if ($mapStore.getLayer(mapLayer?.layer?.id) !== undefined) {
+        $mapStore.removeLayer(mapLayer?.layer?.id);
+        $mapStore.removeSource(mapLayer?.layer?.id);
+      }
     }
     let layers = $mapStore.getStyle().layers;
     //console.log(layers.filter((v) => v.id.includes("tnris")));
   };
-
-  onDestroy(() => {
-    if ($mapStore) {
-      const src = $mapStore.getSource(mapLayer.id);
-      const lyr = $mapStore.getLayer(mapLayer?.layer?.id);
-
-      if (lyr !== undefined && lyr !== null) {
-        $mapStore.removeLayer(mapLayer?.layer?.id);
-      }
-      if (src !== undefined && src !== null) {
-        $mapStore.removeSource(mapLayer.id);
-      }
-    }
-  });
 
   $: {
     if (checked || !checked) {
       toggleLayer();
     }
   }
+
+  onDestroy(() => {
+    //console.log("LayerSwitch removed")
+    if ($mapStore.getLayer(mapLayer?.layer?.id) !== undefined) {
+      $mapStore.removeLayer(mapLayer?.layer?.id);
+      $mapStore.removeSource(mapLayer?.layer?.id);
+    }
+  });
 </script>
 
 <div class="layer-switch">

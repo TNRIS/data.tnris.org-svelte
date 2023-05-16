@@ -5,6 +5,7 @@
   import HistoricScannedIndexes from "./Metadata/HistoricScannedIndexes.svelte";
   import LicenseInfo from "./Metadata/LicenseInfo.svelte";
   import SupplementalDownloads from "./Metadata/SupplementalDownloads.svelte";
+  import WmsPreview from "./WmsPreview.svelte";
 
   export let collection = {};
 
@@ -51,7 +52,21 @@
     </section>
   {/if}
   {#if collection.name}
-    {#if collection.category.includes("Historic_Imagery")}
+    {#if collection.category.includes("Historic_Imagery") && collection.template != "tnris-download"}
+      <section class="metdata-section">
+        <h2>About the Historic Imagery Archive</h2>
+        <p>
+          The Historical Imagery Archive maintained by TNRIS is one of our most
+          used and important data collections. It is comprised of over 1 million
+          frames of photos covering all parts of Texas from dates as far back as
+          the 1920s.
+        </p>
+        <p>
+          The TNRIS Research & Distribution Center (RDC) is charged with
+          preserving this collection, distributing it to the public, and
+          continuing with the large task of digitizing the frames.
+        </p>
+      </section>
       {#each orderedHistoricFields as field}
         {#if collection[field.key] !== "null" && collection[field.key] !== "undefined" && collection[field.key]}
           <section class="metadata-section">
@@ -64,10 +79,34 @@
         <h2>Scan Status</h2>
         {collection.fully_scanned ? "Completed" : "In Progress"}
       </section>
+      {#if collection.index_service_url}
+        <section class="metadata-section">
+          <h2>wms link</h2>
+          <p>
+            This dataset is available as an online mapping service. An OGC WMS
+            service and an ArcGIS service are available. To connect to the WMS
+            service in your software, please copy the unique url provided in the
+            box below. To access the TNRIS ArcGIS Server, please use the
+            following url in your ESRI software and select from the list of
+            available services.
+          </p>
+          <CopyLink
+            href={collection.index_service_url}
+            title={collection.index_service_url}
+          />
+        </section>
+      {/if}
+      {#if collection.index_service_url}
+        <WmsPreview
+          wms_link={collection.index_service_url}
+          src_params={`&mode=tile&tilemode=gmap&tile={x}+{y}+{z}&layers=all&map.imagetype=image/png&transparent=true`}
+        />
+      {/if}
       <HistoricScannedIndexes metadata={collection} />
       <HistoricProducts metadata={collection} />
       <LicenseInfo metadata={collection} />
     {:else}
+      <AboutLidar metadata={collection} />
       {#each orderedContemporaryFields as field}
         {@const isUrl = isValidUrl(collection[field.key])}
         {#if collection[field.key] !== "null" && collection[field.key] !== "undefined" && collection[field.key]}
@@ -85,8 +124,7 @@
           </section>
         {/if}
       {/each}
-      <AboutLidar metadata={collection} />
-      {#if collection.wms_link}
+      {#if collection.popup_link}
         <section class="metadata-section">
           <h2>wms link</h2>
           <p>
@@ -97,8 +135,14 @@
             following url in your ESRI software and select from the list of
             available services.
           </p>
-          <CopyLink href={collection.wms_link} title={collection.wms_link} />
+          <CopyLink
+            href={collection.popup_link}
+            title={collection.popup_link}
+          />
         </section>
+      {/if}
+      {#if collection.wms_link}
+        <WmsPreview wms_link={collection.wms_link} />
       {/if}
       <SupplementalDownloads metadata={collection} />
       {#if collection.s_three_key}

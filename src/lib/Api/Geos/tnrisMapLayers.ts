@@ -27,7 +27,7 @@ export const removeMapLayerById = function (
   filterString: string
 ) {
   let lyrs = get(layers);
-  lyrs = lyrs.filter((v) => v.id == filterString);
+  lyrs = lyrs.filter((v) => v?.layer?.id == filterString);
 
   return lyrs;
 };
@@ -40,7 +40,11 @@ export const reorderTnrisLayers = (map) => {
     let layers = map.getStyle().layers;
 
     layers = layers.filter((v) => v.id.includes("tnris"));
-    if (layers.length > 0 && layers[0].id !== TNRIS_IMAGERY_LAYER_ID) {
+    if (
+      layers.length > 0 &&
+      layers[0].id !== TNRIS_IMAGERY_LAYER_ID &&
+      map.getLayer(TNRIS_IMAGERY_LAYER_ID) != undefined
+    ) {
       map.moveLayer(TNRIS_IMAGERY_LAYER_ID, layers[0].id);
     }
   }

@@ -5,7 +5,7 @@
 </script>
 
 <div class="copy-link">
-  <a id="s3-uri-link" {href}>
+  <a id="s3-uri-link" rel="noreferred" target="_blank" {href}>
     {title}
   </a>
   <button

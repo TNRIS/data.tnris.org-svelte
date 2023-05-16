@@ -4,9 +4,9 @@
 
   export let onSubmit = (e) => {
     let fd = new FormData(e.target);
-    console.log(Object.fromEntries(fd));
+    /* console.log(Object.fromEntries(fd));
     console.log(e.target.checkValidity());
-    console.log(e.target.reportValidity());
+    console.log(e.target.reportValidity()); */
   };
 
   export let steps: WizardSlide[] | [] = [];

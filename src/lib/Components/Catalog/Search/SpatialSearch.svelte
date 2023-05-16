@@ -39,9 +39,9 @@
         },
       });
       $mapStore.moveLayer("tnris-bbox-search");
-      console.log(
+      /* console.log(
         $mapStore.getStyle().layers.filter((v) => v.id.startsWith("tnris-"))
-      );
+      ); */
     }
   };
   const clearSpatialSearch = () => {

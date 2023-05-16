@@ -3,9 +3,9 @@
 
   let products = JSON.parse("[" + metadata?.products + "]");
 
-  $: {
+  /* $: {
     console.log(products);
-  }
+  } */
 </script>
 
 <section>
@@ -29,8 +29,12 @@
     border-bottom: solid 1px #ccc;
 
     .historic-products {
+      border: solid 1px #ccc;
       .historic-product {
-        padding: 0rem 0.5rem;
+        h3 {
+          margin-top: none;
+        }
+        padding: .5rem 0.5rem;
         border-top: solid 1px #ccc;
       }
     }

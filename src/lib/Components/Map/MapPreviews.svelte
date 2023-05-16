@@ -5,7 +5,7 @@
 
 <div id="map-previews">
   {#each $mapLayers as layer}
-    <LayerSwitch mapLayer={layer}>{layer.layer.id.replaceAll("-", " ").toLowerCase()}</LayerSwitch>
+    <LayerSwitch mapLayer={layer}>{layer.id}</LayerSwitch>
   {/each}
 </div>
 

@@ -12,9 +12,9 @@ X 3. add mapdraw component
 
 ## Collection View 
 ### Collection Metadata
-1. historic collection metadata
+X 1. historic collection metadata
 X 2. common fields
-3. lidar metadata extra fields 
+X 3. lidar metadata extra fields 
 X 4. parse links / emails
 ### Collection Resources / Downloads
 X 1. Resource areas in map selected based on selection of area type
@@ -24,20 +24,20 @@ X 4. style selected areas in map
 X 5. add two-way hover effects on areas and area-resources cards
 ### Collection Contact
 X 1. Contact form for collections
-2. Contact form submit function
+X 2. Contact form submit function
 ### Collection Custom Order
 X 1. Custom order form
 X 2. Data Cart and Form Submission
 X 3. LocalStorage for unsubmitted custom orders
 ### Collection Map
 X 1. Zoom to area types features on change
-2. wms layers / map previews
+X 2. wms layers / map previews
 
 ## Global
 ### General Contact Form
 1. General Contact form
 ### Footer Data
-1. all links from prod to v2.1
+X 1. all links from prod to v2.1
 
 
 

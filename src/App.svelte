@@ -13,7 +13,7 @@
   <QueryClientProvider client={queryClient}>
     <Header />
     <Main />
-    <Footer routes={["Footer", "Routes"]} />
+    <Footer />
   </QueryClientProvider>
 </main>
 
