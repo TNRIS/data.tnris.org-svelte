@@ -4,7 +4,7 @@
   import LoadingIndicator from "../General/LoadingIndicator.svelte";
   import Tabs from "./Tabs.svelte";
 
-  import { query } from "svelte-pathfinder";
+  import { back, query } from "svelte-pathfinder";
 
   $: queryOptions = {
     queryKey: ["getCollectionById", $query.params.c],
@@ -18,9 +18,9 @@
     <div id="collection-info-container" slot="query" let:queryResult>
       {#if queryResult.isLoading}
         <div id="collection-info-header">
-          <a href="/" class="link"
-            ><i class="material-icons">arrow_back</i> Back</a
-          >
+          <h1 on:click={() => back()} on:keyup={() => null}>
+            <i class="material-icons">arrow_back</i> Back
+          </h1>
           <LoadingIndicator loadingMessage={"Retreiving collection..."} />
         </div>
         <Tabs />

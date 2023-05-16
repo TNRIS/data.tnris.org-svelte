@@ -43,22 +43,22 @@
     }
 
     &.info {
-      background: hsl(199, 23%, 84%);
+      background: hsl(199, 43%, 94%);
       color: hsl(199, 73%, 44%);
       border-color: hsl(199, 73%, 44%);
     }
     &.success {
-      background: hsl(140, 40%, 80%);
+      background: hsl(140, 40%, 90%);
       color: hsl(140, 80%, 20%);
       border-color: hsl(140, 80%, 20%);
     }
     &.caution {
-      background: hsl(44, 40%, 80%);
+      background: hsl(44, 40%, 90%);
       color: hsl(44, 80%, 30%);
       border-color: hsl(44, 80%, 30%);
     }
     &.danger {
-      background: hsl(0, 40%, 80%);
+      background: hsl(0, 40%, 90%);
       color: hsl(0, 80%, 30%);
       border-color: hsl(0, 80%, 30%);
     }

@@ -1,5 +1,11 @@
 <script>
+  // @ts-nocheck
+
   import InfoBox from "../../General/InfoBox.svelte";
+  import Recaptcha from "../../General/Recaptcha.svelte";
+
+  export let collection = {};
+  let formRef;
 
   const softwareList = [
     "ArcMap",
@@ -13,12 +19,69 @@
     "QGIS",
     "Other",
   ];
+
+  let submitStatus = null;
+  let submitMessage = null;
+
+  const submitContactForm = async (e) => {
+    let fd = new FormData(e.target);
+    let postData = Object.fromEntries(fd);
+
+    let formVals = {
+      name: `${postData["first_name"]} ${postData["last_name"]}`,
+      email: postData["email"],
+      software: postData["software"],
+      message: postData["comment"],
+      form_id: "data-tnris-org-inquiry",
+      uuid: collection.collection_id,
+      collection: collection.name,
+      category: collection.category,
+      acquisition_date: collection.acquisition_date,
+      recaptcha: postData["g-recaptcha-response"],
+    };
+
+    const url = "https://api.tnris.org/api/v1/contact/submit";
+    const payload = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      body: JSON.stringify(formVals),
+    };
+
+    const response = await fetch(url, payload);
+    const data = await response.json();
+
+    submitStatus = data.status;
+    submitMessage = data.message;
+    if (submitStatus == "success") e.target.reset();
+  };
 </script>
 
 <form
   id="collection-contact-form"
-  on:submit|preventDefault={(d) => console.log(d)}
+  on:submit|preventDefault|stopPropagation={submitContactForm}
+  bind:this={formRef}
 >
+  <InfoBox>
+    For questions about the <strong>{collection.name} </strong>
+    dataset, please complete the form below. Orders for this data cannot be submitted
+    via this form.
+    <strong> To order this dataset, please visit the Custom Order tab. </strong>
+  </InfoBox>
+  <br />
+  {#if submitStatus}
+    {#if submitStatus == "success"}
+      <InfoBox infoClass="success">
+        Your inquiry was submitted successfully.
+      </InfoBox>
+    {:else}
+      <InfoBox infoClass="caution">
+        <strong>{submitStatus}</strong>
+        <p>{submitMessage}</p>
+      </InfoBox>
+    {/if}
+  {/if}
   <label for="first_name" class="required">
     First Name
     <input
@@ -62,15 +125,39 @@
   >
   <label for="comment" class="required">
     Comment
-    <textarea
-      id="comment"
-      name="comment"
-      maxlength={400}
-      minlength={10}
-      required
+    <textarea id="comment" name="comment" required />
+  </label>
+  <label for="g-recaptcha-response" class="required">
+    <Recaptcha
+      handleCaptchaCallback={async (v) => {
+        let fd = new FormData(formRef);
+        fd.set("g-recaptcha-response", v);
+        console.log(v, fd);
+      }}
+      handleCaptchaError={async (v) => {
+        let fd = new FormData(formRef);
+        fd.set("g-recaptcha-response", null);
+      }}
+      resetCaptcha={async (v) => {
+        let fd = new FormData(formRef);
+        fd.set("g-recaptcha-response", null);
+
+        window?.grecaptcha?.reset();
+      }}
     />
   </label>
+  <button type="submit">Send</button>
 </form>
 
 <style lang="scss">
+  form {
+    display: flex;
+    gap: .5rem;
+    overflow-y: scroll;
+    flex-direction: column;
+    width: 100%;
+    label {
+      width: 100%;
+    }
+  }
 </style>

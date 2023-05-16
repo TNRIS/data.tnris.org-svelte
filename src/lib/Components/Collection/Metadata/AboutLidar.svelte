@@ -9,7 +9,7 @@
       Lidar data for Texas is available online through the use of <a href="https://rapidlasso.com/lastools/"> LASTools</a>, an open-source collection of tools for lidar data viewing and manipulation.
     </p>
     <p>
-      Click <a href="https://cdn.tnris.org/data/lidar/tnris-lidar_48_vector.zip">here</a> to download a complete index of all available lidar data at TNRIS.
+      Click <a href="https://cdn.tnris.org/lidar-availability/tnris-lidar_48_vector.zip">here</a> to download a complete index of all available lidar data at TNRIS.
     </p>
   </section>
 {/if}

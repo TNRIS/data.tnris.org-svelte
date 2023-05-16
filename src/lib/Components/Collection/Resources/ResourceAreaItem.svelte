@@ -3,6 +3,7 @@
   import { getResourcesByAreaTypeAndCollectionId } from "../../../Api/Collections/getResources";
   import LoadingIndicator from "../../General/LoadingIndicator.svelte";
   import mapStore from "../../Map/mapStore";
+  import Empty from "../../General/Empty.svelte";
 
   export let resourceAreaName;
   export let resourceAreaId;
@@ -73,6 +74,10 @@
         {/each}
       </div>
     </div>
+  {:else if $areaResources && $areaResources.isSuccess && $areaResources.data?.count == 0}
+    <div class="area-resource-row">
+      <Empty message={`Aww, shucks! No resources found for ${resourceAreaName}.`}/>
+    </div>
   {:else}
     <LoadingIndicator loadingMessage="fetching resources..." />
   {/if}
@@ -99,7 +104,7 @@
       }
       .resource-area-rows {
         display: grid;
-        gap: .5rem;
+        gap: 0.5rem;
         .area-resource-row {
           display: grid;
           grid-template-columns: minmax(0, 1fr) auto;

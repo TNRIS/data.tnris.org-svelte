@@ -1,4 +1,5 @@
 <script>
+  import { query } from "svelte-pathfinder";
   import InfoBox from "../General/InfoBox.svelte";
   import CollectionContactForm from "./Contact/CollectionContactForm.svelte";
   import CustomOrderForm from "./CustomOrder/CustomOrderForm.svelte";
@@ -8,10 +9,9 @@
   export let collection = {};
 
   const tabs = ["Metadata", "Downloads", "Custom Order", "Contact"];
-  let activeTab = "Metadata";
-
+  $query.params.activeTab = "Metadata";
   const setActiveTab = (tab) => {
-    activeTab = tab;
+    $query.params.activeTab = tab;
   };
 </script>
 
@@ -19,30 +19,36 @@
   <div id="collection-tabs-nav">
     {#each tabs as tab}
       <button
-        class={`tab-button${activeTab === tab ? " active-tab" : ""}`}
+        class={`tab-button${
+          $query.params.activeTab === tab ? " active-tab" : ""
+        }`}
         on:click={() => setActiveTab(tab)}>{tab}</button
       >
     {/each}
   </div>
-  <div class="collection-tab" class:active={activeTab == "Metadata"}>
+  <div
+    class="collection-tab"
+    class:active={$query.params.activeTab == "Metadata"}
+  >
     <Metadata {collection} />
   </div>
-  <div class="collection-tab" class:active={activeTab == "Downloads"}>
+  <div
+    class="collection-tab"
+    class:active={$query.params.activeTab == "Downloads"}
+  >
     <Downloads collection_id={collection.collection_id} />
   </div>
-  <div class="collection-tab" class:active={activeTab == "Custom Order"}>
+  <div
+    class="collection-tab"
+    class:active={$query.params.activeTab == "Custom Order"}
+  >
     <CustomOrderForm {collection} />
   </div>
-  <div class="collection-tab" class:active={activeTab == "Contact"}>
-    <InfoBox>
-      For questions about the <strong>{collection.name} </strong>
-      dataset, please complete the form below. Orders for this data cannot be submitted
-      via this form.
-      <strong>
-        To order this dataset, please visit the Custom Order tab.
-      </strong>
-    </InfoBox>
-    <CollectionContactForm />
+  <div
+    class="collection-tab"
+    class:active={$query.params.activeTab == "Contact"}
+  >
+    <CollectionContactForm {collection} />
   </div>
 </div>
 
@@ -60,6 +66,7 @@
       display: none;
       grid-template-columns: minmax(0, 1fr);
       grid-template-rows: auto 1fr;
+      gap: 0.5rem;
       border: solid 1px $borderColor;
       padding: 0.25rem;
       min-height: 0px;

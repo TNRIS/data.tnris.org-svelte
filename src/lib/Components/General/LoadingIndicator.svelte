@@ -4,9 +4,7 @@
 
 <div class="loading-indicator">
   <div class="loading-indicator-container">
-    <i class="material-icons loading-indicator-image" alt="loading indicator"
-      >sync</i
-    >
+    <i class="material-icons loading-indicator-image">sync</i>
     <p class="loading-indicator-message">{loadingMessage}</p>
   </div>
 </div>

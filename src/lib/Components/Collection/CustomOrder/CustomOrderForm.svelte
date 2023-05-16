@@ -49,12 +49,12 @@
     let obj = {};
     for (let field of data) {
       // Files should be stored in an array since there can be multiples
-      if(field[1] instanceof File) {
+      if (field[1] instanceof File) {
         let files = obj[field[0]];
-        if(files) {
-          files.push(field[1])
+        if (files) {
+          files.push(field[1]);
         } else {
-          obj[field[0]] = [field[1]]
+          obj[field[0]] = [field[1]];
         }
       } else {
         const [key, value] = field;
@@ -75,6 +75,12 @@
       >Open Cart</button
     >
   {:else}
+    <InfoBox infoClass="info">
+      Is there no download option for this dataset? Is everything you're looking
+      for too large to directly download? Every dataset is available for order
+      directly from TNRIS.
+    </InfoBox>
+    <br />
     <input
       bind:value={collection.collection_id}
       id="data-uuid"
@@ -129,7 +135,12 @@
         <label for="data-description" class="required"
           >Please select a .zip file containing a .shp or .kml outlining the
           desired area<br />
-            <div class="warning">***Notice- All data submitted to TNRIS is subject to Texas Public Information Requests and becomes publicly available. Please do not include personal information in your uploaded area of interest files. </div>
+          <div class="warning">
+            ***Notice- All data submitted to TNRIS is subject to Texas Public
+            Information Requests and becomes publicly available. Please do not
+            include personal information in your uploaded area of interest
+            files.
+          </div>
           <input
             accept=".zip,.rar,.7zip"
             bind:files={dataDescription}
@@ -145,7 +156,12 @@
         <label for="data-description-files" class="required"
           >Please select a .jpeg, .jpg or .png file displaying the desired area
           on a map
-          <div class="warning">***Notice- All data submitted to TNRIS is subject to Texas Public Information Requests and becomes publicly available. Please do not include personal information in your uploaded area of interest files. </div>
+          <div class="warning">
+            ***Notice- All data submitted to TNRIS is subject to Texas Public
+            Information Requests and becomes publicly available. Please do not
+            include personal information in your uploaded area of interest
+            files.
+          </div>
           <input
             accept="image/png, image/jpeg"
             multiple
@@ -172,21 +188,23 @@
         </label>
       {/if}
     {/if}
-    <label for="lidar-format" class="required">
-      Please select the desired formats of lidar data. Hold Ctrl and Click to select multiple.
-      <select
-        id="lidar-format"
-        name="lidar-format"
-        multiple
-        bind:value={formats}
-      >
-        {#each LIDAR_FORMATS as opt}
-          <option value={opt.value}>{opt.label}</option>
-        {/each}
-        <option value="" class="multiselect" style="display:none;" />
-      </select>
-    </label>
-
+    {#if isLidar}
+      <label for="lidar-format" class="required">
+        Please select the desired formats of lidar data. Hold Ctrl and Click to
+        select multiple.
+        <select
+          id="lidar-format"
+          name="lidar-format"
+          multiple
+          bind:value={formats}
+        >
+          {#each LIDAR_FORMATS as opt}
+            <option value={opt.value}>{opt.label}</option>
+          {/each}
+          <option value="" class="multiselect" style="display:none;" />
+        </select>
+      </label>
+    {/if}
     {#if isHistoric}
       <HistoricFields />
     {/if}
@@ -196,9 +214,19 @@
 </form>
 
 <style lang="scss">
+  form {
+    display: flex;
+    gap: .5rem;
+    overflow-y: scroll;
+    flex-direction: column;
+    width: 100%;
+    label {
+      width: 100%;
+    }
+  }
   .warning {
-    padding:1em;
-    padding-right:8em;
-    font-size:.65em;
+    padding: 1em;
+    padding-right: 8em;
+    font-size: 0.65em;
   }
 </style>

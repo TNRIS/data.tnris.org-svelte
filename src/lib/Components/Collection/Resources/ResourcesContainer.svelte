@@ -6,6 +6,8 @@
   import AreaTypeSelect from "./AreaTypeSelect.svelte";
   import ResourceAreaItem from "./ResourceAreaItem.svelte";
   import ResourceAreasMapLayer from "./ResourceAreasMapLayer.svelte";
+  import { query } from "svelte-pathfinder";
+  import InfoBox from "../../General/InfoBox.svelte";
 
   export let collection_id = null;
 
@@ -60,10 +62,19 @@
       label: e.features[0].properties.area_type_name,
     };
     toggleSelection(new_selection);
+
+    if ($query.params.activeTab !== "Downloads") {
+      $query.params.activeTab = "Downloads";
+    }
   };
 </script>
 
 <section id="collection-resources-container">
+  <InfoBox infoClass="info">
+    Select one or more areas from the searchable list below or from the map to
+    view available resources for each respective area for this collection.
+  </InfoBox>
+  <br />
   <div id="collection-resources-area-select">
     <AreaTypeSelect
       bind:areaTypeSelection
@@ -218,6 +229,7 @@
 <style lang="scss">
   #collection-resources-container {
     display: grid;
+    gap: .25rem;
     grid-template-rows: auto 1fr;
     max-height: 100%;
     overflow-y: auto;
