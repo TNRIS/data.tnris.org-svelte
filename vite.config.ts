@@ -1,14 +1,13 @@
-import { defineConfig } from 'vite'
-import { svelte } from '@sveltejs/vite-plugin-svelte'
-import { nodeLoaderPlugin } from "@vavite/node-loader/plugin";
+import { defineConfig } from "vite";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [svelte(),
-    nodeLoaderPlugin(),
-  ],
+  plugins: [svelte()],
   build: {
     sourcemap: true,
+    outDir: "build",
+    assetsDir: "static"
   }
   ,server:{
     port:3000,

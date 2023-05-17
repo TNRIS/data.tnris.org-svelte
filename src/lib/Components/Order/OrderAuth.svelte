@@ -136,7 +136,7 @@
       margin-bottom: 0.5rem;
     }
   }
-  #order_button:hover, #resend_button:hover {
+  #order_button:hover:enabled, #resend_button:hover:enabled {
     font-weight: 100; /* Overwrite bold to none and simulate instead since it causes button shifting. */
     text-shadow: 0 0 1px #333, 0 0 .65px #333; /* Simulate bold without the shift. */
   }
