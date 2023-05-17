@@ -7,6 +7,8 @@ export default defineConfig({
   ],
   build: {
     sourcemap: true,
+    outDir: "build",
+    assetsDir: "static"
   }
   ,server:{
     port:3000,
