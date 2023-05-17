@@ -13,6 +13,7 @@
     "@sveltejs/vite-plugin-svelte": "^1.0.2",
     "@tsconfig/svelte": "^3.0.0",
     "@types/mapbox-gl": "^2.7.10",
+    "@vavite/node-loader": "^1.7.1",
     "sass": "^1.55.0",
     "svelte": "^3.49.0",
     "svelte-check": "^2.8.1",
