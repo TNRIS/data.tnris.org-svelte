@@ -67,7 +67,7 @@
       <div class="resource-area-rows">
         {#each $areaResources.data.results as resource}
           <div class="area-resource-row">
-            {resource.resource_type_name}<a href={resource.resource}
+            {resource.resource_type_name}<a href={resource.resource} download
               >Download (~{(resource.filesize / 1000000).toFixed(2)}mb)</a
             >
           </div>
