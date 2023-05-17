@@ -127,6 +127,8 @@
     .selection-search-tag-container {
       display: flex;
       flex-wrap: wrap;
+      overflow-y: auto;
+      max-height: 200px;
       gap: 0.125rem;
       padding: 0.125rem 0rem;
       .selection-tag {

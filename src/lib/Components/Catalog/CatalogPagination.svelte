@@ -45,7 +45,7 @@
       scrollToTop();
       setPageCallback(pg + 1);
     }}
-    disabled={pg >= count / inc + 1}
+    disabled={pg == numPages}
     >Next<i class="material-icons">chevron_right</i>
   </button>
 </div>
