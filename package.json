@@ -21,6 +21,7 @@
     "mapbox-gl-arcgis-featureserver": "^0.0.7",
     "mapbox-gl-draw-rectangle-mode": "^1.0.4",
     "maplibre-gl": "^2.4.0",
+    "@vavite/node-loader": "^1.7.1",
     "sass": "^1.55.0",
     "svelte": "^3.49.0",
     "svelte-check": "^2.8.1",
