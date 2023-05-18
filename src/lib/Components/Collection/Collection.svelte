@@ -6,15 +6,16 @@
 
   import { back, query } from "svelte-pathfinder";
 
-  $: queryOptions = {
-    queryKey: ["getCollectionById", $query.params.c],
+  let queryOptions = {
+    queryKey: ["collection-details", $query.params.c],
     queryFn: async () => await getCollectionById($query.params.c),
     keepPreviousData: false,
+    refetchOnMount: "always",
   };
 </script>
 
 {#if $query.params.c}
-  <Query options={queryOptions}>
+  <Query options={{}}>
     <div id="collection-info-container" slot="query" let:queryResult>
       {#if queryResult.isLoading}
         <div id="collection-info-header">
