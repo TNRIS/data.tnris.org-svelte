@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { SvelteComponentTyped } from "svelte";
   import ProgressBar from "../ProgressBar.svelte";
+  import InfoBox from "../InfoBox.svelte";
 
   export let onSubmit = (e) => {
     let fd = new FormData(e.target);
@@ -11,6 +12,8 @@
 
   export let steps: WizardSlide[] | [] = [];
   export let stepIdx = 0;
+  //optional validator
+  export let val = null;
 
   interface WizardSlide {
     component: new (...args: any) => SvelteComponentTyped<{}>;
@@ -19,6 +22,13 @@
   let wizForm = null;
 
   $: percent = Math.floor(((stepIdx + 1) / steps.length) * 100);
+
+  // Optional error message to arbitrarily say something.
+  export let error_message = "";
+
+  // Store this variable outside of Interactions to conditionally render based on it.
+  let allowNext = val ? val(): true;
+  console.log("await")
 </script>
 
 <div class="wizard-container">
@@ -32,6 +42,10 @@
     {/if}
   </div>
   <div class="wizard-content">
+    {#if error_message}
+      <InfoBox>{error_message}</InfoBox>
+    {/if}
+
     <form
       class="wizard-form"
       bind:this={wizForm}
@@ -54,21 +68,23 @@
   </div>
   <div class="wizard-footer">
     {#if steps.length > 0}
-      <div class="wiz-nav-buttons">
-        {#if stepIdx > 0}
+    <div class="wiz-nav-buttons">
+      {#if stepIdx > 0}
           <button on:click={() => (stepIdx = stepIdx - 1)}>
             <span>« </span>{steps[stepIdx - 1].title}
           </button>
         {/if}
 
         {#if stepIdx < steps.length - 1}
-          <button
-            on:click={() => {
+          
+          <button id="bid" disabled={!allowNext}
+
+            on:click={(self) => {
               const elsToValidate = wizForm
                 .getElementsByClassName(`wiz-idx-${stepIdx}`)[0]
                 .querySelectorAll("input, textarea, select, radio");
-
-              let allowNext = true;
+              
+              allowNext = val ? val(): true;
 
               elsToValidate.forEach((el) => {
                 let valid = el.reportValidity();

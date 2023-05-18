@@ -78,10 +78,25 @@
       cartStore.reset();
     }
   };
+
+  let validator = function() {
+    try {
+      let itemKeys = Object.keys($cartStore);
+
+      if(itemKeys && itemKeys.length) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch(err) {
+      console.error("Error validating cart.")
+      return false;
+    }
+  }
 </script>
 
 <div class="cart-wrapper">
-  <Wizard bind:stepIdx {steps} onSubmit={submitCart} />
+  <Wizard bind:stepIdx {steps} onSubmit={submitCart} val={validator} error_message = {""}/>
 </div>
 
 <style lang="scss">

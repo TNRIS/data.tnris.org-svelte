@@ -28,9 +28,9 @@ body,
         padding: .5rem .75rem;
         border: solid 1px $borderColor;
 
-        &:hover,
-        &:active,
-        &:focus {
+        &:hover:enabled,
+        &:active:enabled,
+        &:focus:enabled {
             border: solid 1px $primaryColor;
             color: $primaryColor;
         }
@@ -46,15 +46,19 @@ body,
         background-color: #fff;
         padding: .5rem .75rem;
         cursor: pointer;
-
-        &:hover,
-        &:active,
-        &:focus {
+        &:hover:enabled,
+        &:active:enabled,
+        &:focus:enabled {
             border: solid 1px $primaryColor;
             color: $primaryColor;
             font-weight: 600;
         }
 
+        &:disabled {
+            color:gray;
+            cursor:default;
+        }
+        
         &.full-width {
             width: 100%;
         }
@@ -64,7 +68,7 @@ body,
             background: $primaryColor;
             color: #fff;
 
-            &:hover {
+            &:hover:enabled {
                 color: $primaryColor;
                 border-color: $primaryColor;
                 background-color: #fff;
