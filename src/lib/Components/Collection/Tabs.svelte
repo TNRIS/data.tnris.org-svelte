@@ -1,6 +1,5 @@
 <script>
   import { query } from "svelte-pathfinder";
-  import InfoBox from "../General/InfoBox.svelte";
   import CollectionContactForm from "./Contact/CollectionContactForm.svelte";
   import CustomOrderForm from "./CustomOrder/CustomOrderForm.svelte";
   import Downloads from "./Downloads.svelte";
