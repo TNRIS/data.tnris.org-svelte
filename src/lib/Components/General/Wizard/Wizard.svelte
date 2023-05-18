@@ -28,7 +28,6 @@
 
   // Store this variable outside of Interactions to conditionally render based on it.
   let allowNext = val ? val(): true;
-  console.log("await")
 </script>
 
 <div class="wizard-container">
