@@ -10,12 +10,12 @@
     queryKey: ["collection-details", $query.params.c],
     queryFn: async () => await getCollectionById($query.params.c),
     keepPreviousData: false,
-    refetchOnMount: "always",
+    refetchOnMount: "always"
   };
 </script>
 
 {#if $query.params.c}
-  <Query options={{}}>
+  <Query options={queryOptions}>
     <div id="collection-info-container" slot="query" let:queryResult>
       {#if queryResult.isLoading}
         <div id="collection-info-header">

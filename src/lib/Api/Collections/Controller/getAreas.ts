@@ -18,13 +18,25 @@ export const getMapAreasByCollectionId = async (collection_id, signal) => {
     stateUrl,
   ];
 
-  let fetchJobs = urls.map((url) =>
-    fetch(url, { signal })
-      .then((v) => v.json())
-      .catch((e) => console.error(e?.message))
-  );
+  let fetchJobs = urls.map(async (url) => {
+    const r = await fetch(url, { signal });
+    const d = await r.json();
 
-  let results = Promise.all([...fetchJobs]);
+    if (r.ok) {
+      return d;
+    } else {
+      throw new Error(d);
+    }
+  });
 
-  return results.then((v) => v).then((r) => r);
+  let results: Promise<any[]>[] = await Promise.all([...fetchJobs]);
+
+  return {
+    qquad: results[0],
+    quad: results[1],
+    counties: results[2],
+    blocks: results[3],
+    twoFiftyK: results[4],
+    state: results[5],
+  };
 };

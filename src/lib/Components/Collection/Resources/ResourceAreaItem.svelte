@@ -1,9 +1,10 @@
 <script>
   import { useQuery } from "@sveltestack/svelte-query";
-  import { getResourcesByAreaTypeAndCollectionId } from "../../../Api/Collections/getResources";
+  import { getResourcesByAreaTypeAndCollectionId } from "../../../Api/Collections/Controller/getResources";
   import LoadingIndicator from "../../General/LoadingIndicator.svelte";
   import mapStore from "../../Map/mapStore";
   import Empty from "../../General/Empty.svelte";
+  import { onDestroy, onMount } from "svelte";
 
   export let resourceAreaName;
   export let resourceAreaId;
@@ -17,6 +18,43 @@
     async () =>
       await getResourcesByAreaTypeAndCollectionId(collectionId, resourceAreaId)
   );
+
+  onMount(() => {
+    console.log(map, map.isStyleLoaded(), resourceAreaId)
+    if (map && map.loaded() && resourceAreaId) {
+      map.setFeatureState(
+        {
+          source: "tnris-collection-areas",
+          id: resourceAreaId,
+        },
+        {
+          selected: true,
+        }
+      );
+    }
+  });
+  onDestroy(() => {
+    if (map && map.loaded() && resourceAreaId) {
+      map.setFeatureState(
+        {
+          source: "tnris-collection-areas",
+          id: resourceAreaId,
+        },
+        {
+          selected: false,
+        }
+      );
+      map.setFeatureState(
+        {
+          source: "tnris-collection-areas",
+          id: resourceAreaId,
+        },
+        {
+          hover: false,
+        }
+      );
+    }
+  });
 </script>
 
 <div class="area-resource-container">
@@ -31,7 +69,7 @@
         if (map && resourceAreaId) {
           map.setFeatureState(
             {
-              source: "tnris-resources-areas",
+              source: "tnris-collection-areas",
               id: resourceAreaId,
             },
             {
@@ -45,7 +83,7 @@
         if (map && resourceAreaId) {
           map.setFeatureState(
             {
-              source: "tnris-resources-areas",
+              source: "tnris-collection-areas",
               id: resourceAreaId,
             },
             {
@@ -76,7 +114,9 @@
     </div>
   {:else if $areaResources && $areaResources.isSuccess && $areaResources.data?.count == 0}
     <div class="area-resource-row">
-      <Empty message={`Aww, shucks! No resources found for ${resourceAreaName}.`}/>
+      <Empty
+        message={`Aww, shucks! No resources found for ${resourceAreaName}.`}
+      />
     </div>
   {:else}
     <LoadingIndicator loadingMessage="fetching resources..." />

@@ -1,19 +1,20 @@
 <script>
   import { generateCollectionAreasLayer } from "../../../Api/Geos/MapLayers/tnrisCollectionAreasFillLayer";
   import { onDestroy, onMount } from "svelte";
+  import mapStore from "../../Map/mapStore";
 
-  export let map;
-  export let layerId;
+  const layerId = "tnris-collection-areas";
   export let data;
   export let onAreaClick = (e) => console.log("click", e);
   export let selections = [];
   export let hoverAreaTypeId;
+  const layer = generateCollectionAreasLayer(layerId, selections)
 
   export let onAreaMouseMove = (e) => {
     //console.log("mousemove", e, hoverAreaTypeId);
-    map.getCanvas().style.cursor = "pointer";
+    $mapStore.getCanvas().style.cursor = "pointer";
     if (hoverAreaTypeId) {
-      map.removeFeatureState({
+      $mapStore.removeFeatureState({
         source: layerId,
         sourceLayer: layerId,
         id: hoverAreaTypeId,
@@ -22,9 +23,9 @@
 
     hoverAreaTypeId = e.features[0].id;
 
-    // When the mouse moves over the collection area layer, 
+    // When the mouse moves over the collection area layer,
     // update the feature state for the feature under the mouse
-    map.setFeatureState(
+    $mapStore.setFeatureState(
       {
         source: layerId,
         id: hoverAreaTypeId,
@@ -34,11 +35,11 @@
       }
     );
   };
-  
+
   export let onAreaMouseLeave = (e) => {
     //console.log("mouseleave", e, hoverAreaTypeId);
     if (hoverAreaTypeId) {
-      map.setFeatureState(
+      $mapStore.setFeatureState(
         {
           source: layerId,
           id: hoverAreaTypeId,
@@ -52,33 +53,34 @@
     hoverAreaTypeId = null;
     // Remove the information from the previously hovered feature from the sidebar
     // Reset the cursor style
-    map.getCanvas().style.cursor = "";
+    $mapStore.getCanvas().style.cursor = "";
   };
 
   onMount(() => {
-    if (map.getSource(`${layerId}`)) {
-      if (map.getLayer(`${layerId}`)) {
-        map.removeLayer(`${layerId}`);
+    if ($mapStore.getSource(`${layerId}`)) {
+      if ($mapStore.getLayer(`${layerId}`)) {
+        $mapStore.removeLayer(`${layerId}`);
       }
-      map.removeSource(`${layerId}`);
+      $mapStore.removeSource(`${layerId}`);
     }
-    map.addSource(`${layerId}`, {
+    $mapStore.addSource(`${layerId}`, {
       type: "geojson",
       data: data,
       promoteId: "area_type_id",
     });
-    map.addLayer(generateCollectionAreasLayer(layerId, selections));
-    map.off("mousemove", onAreaMouseMove);
-    map.on("mousemove", `${layerId}`, onAreaMouseMove);
-    map.off("mouseleave", onAreaMouseLeave);
-    map.on("mouseleave", `${layerId}`, onAreaMouseLeave);
-    map.off("click", onAreaClick);
-    map.on("click", `${layerId}`, onAreaClick);
+    // @ts-ignore
+    $mapStore.addLayer(layer);
+    $mapStore.off("mousemove", onAreaMouseMove);
+    $mapStore.on("mousemove", `${layerId}`, onAreaMouseMove);
+    $mapStore.off("mouseleave", onAreaMouseLeave);
+    $mapStore.on("mouseleave", `${layerId}`, onAreaMouseLeave);
+    $mapStore.off("click", onAreaClick);
+    $mapStore.on("click", `${layerId}`, onAreaClick);
   });
 
   $: {
-    if (map && selections && map.getLayer(layerId) !== undefined) {
-      map.setPaintProperty(layerId, "fill-color", [
+    if ($mapStore && selections && $mapStore.getLayer(layerId) !== undefined) {
+      $mapStore.setPaintProperty(layerId, "fill-color", [
         "case",
         [
           "boolean",
@@ -96,18 +98,18 @@
   }
 
   onDestroy(() => {
-    if (map) {
-      if (map.getLayer(`${layerId}`) != undefined) {
-        map.off("mousemove", onAreaMouseMove);
-        map.on("mousemove", `${layerId}`, onAreaMouseMove);
-        map.off("mouseleave", onAreaMouseLeave);
-        map.on("mouseleave", `${layerId}`, onAreaMouseLeave);
-        map.off("click", onAreaClick);
-        map.on("click", `${layerId}`, onAreaClick);
-        map.removeLayer(`${layerId}`);
+    if ($mapStore) {
+      if ($mapStore.getLayer(`${layerId}`) != undefined) {
+        $mapStore.off("mousemove", onAreaMouseMove);
+        $mapStore.on("mousemove", `${layerId}`, onAreaMouseMove);
+        $mapStore.off("mouseleave", onAreaMouseLeave);
+        $mapStore.on("mouseleave", `${layerId}`, onAreaMouseLeave);
+        $mapStore.off("click", onAreaClick);
+        $mapStore.on("click", `${layerId}`, onAreaClick);
+        $mapStore.removeLayer(`${layerId}`);
       }
-      if (map.getSource(`${layerId}`) != undefined) {
-        map.removeSource(`${layerId}`);
+      if ($mapStore.getSource(`${layerId}`) != undefined) {
+        $mapStore.removeSource(`${layerId}`);
       }
     }
   });

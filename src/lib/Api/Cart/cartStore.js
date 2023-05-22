@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
+import { uploadFilesToS3 } from "./fileUploadHelpers.js";
 export let cartOpen = writable(false);
-import { uploadFilesToS3 } from "/src/lib/Api/Cart/fileUploadHelpers.js";
 
 function createCart() {
   let cart = localStorage.getItem("data_shopping_cart");
@@ -16,7 +16,6 @@ function createCart() {
   };
 
   const setCart = (newCart) => {
-
     localStorage.setItem("data_shopping_cart", JSON.stringify(newCart));
     const res = getCart();
 
@@ -30,20 +29,28 @@ function createCart() {
     let newCart = {};
 
     // If files were uploaded as descriptions
-    if (newItem["data-description"] && newItem["data-description"].length && newItem["data-description"][0] instanceof File) {
+    if (
+      newItem["data-description"] &&
+      newItem["data-description"].length &&
+      newItem["data-description"][0] instanceof File
+    ) {
       let files = [];
-      for(let i = 0; i < newItem["data-description"].length; i++) {
-        files.push(newItem["data-description"][i])
+      for (let i = 0; i < newItem["data-description"].length; i++) {
+        files.push(newItem["data-description"][i]);
       }
 
-      let itemLinks = await uploadFilesToS3("test_" + newItem["data-uuid"], files, files[0].type, function(item) {})
+      let itemLinks = await uploadFilesToS3(
+        "test_" + newItem["data-uuid"],
+        files,
+        files[0].type,
+        function (item) {}
+      );
       newItem["data-description"] = "";
-      itemLinks.forEach(
-        file => {
-          newItem["data-description"] += `${file["link"]} \n`;
-        });
-        //Remove last newline
-        newItem["data-description"] = newItem["data-description"].trim()
+      itemLinks.forEach((file) => {
+        newItem["data-description"] += `${file["link"]} \n`;
+      });
+      //Remove last newline
+      newItem["data-description"] = newItem["data-description"].trim();
     }
     newCart = { ...cart, [newItemKey]: newItem };
     return setCart(newCart);

@@ -4,7 +4,7 @@
   import {
     catalogParamsStore,
     getCollections,
-  } from "../../Api/Collections/getCollections";
+  } from "../../Api/Collections/Controller/getCollections";
   import Empty from "../General/Empty.svelte";
   import InfoBox from "../General/InfoBox.svelte";
 

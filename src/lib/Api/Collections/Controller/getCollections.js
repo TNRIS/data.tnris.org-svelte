@@ -105,8 +105,8 @@ export const getCollections = async (queryString) => {
   return resp.json();
 };
 
-export const getCollectionById = async (collection_id) => {
-  const resp = await fetch(`${GET_COLLECTION_BY_ID_URL}/${collection_id}`);
+export const getCollectionById = async (collection_id, signal) => {
+  const resp = await fetch(`${GET_COLLECTION_BY_ID_URL}/${collection_id}`, {signal});
 
   if (resp.ok == false) {
     const resp = await fetch(
