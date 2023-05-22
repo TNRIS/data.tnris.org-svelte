@@ -2,20 +2,21 @@
   import { Collection } from "../../Api/Collections/Controller/Collection";
   import LoadingIndicator from "../General/LoadingIndicator.svelte";
 
+  import { onDestroy } from "svelte";
   import { query } from "svelte-pathfinder";
   import mapStore from "../Map/mapStore";
-  import { onDestroy } from "svelte";
-  import { each } from "svelte/internal";
   import Tabs from "./Tabs.svelte";
-  import Metadata from "./Metadata.svelte";
 
   let collectionCtrl: Collection | null = null;
+  let mapReady = false;
 
   $: {
     const uuid = String($query.params.c);
     if (uuid && $query.params.c) {
       collectionCtrl = new Collection(uuid);
     }
+    if($mapStore) {
+      $mapStore.on("styledata", () => mapReady = true)}
   }
 
   onDestroy(() => {
@@ -27,7 +28,7 @@
 </script>
 
 <div id="collection-info-container">
-  {#if $query.params.c && collectionCtrl}
+  {#if $query.params.c && collectionCtrl && mapReady}
     {#await collectionCtrl.details}
       <LoadingIndicator loadingMessage="Loading Collection Details" />
     {:then details}

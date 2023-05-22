@@ -9,7 +9,7 @@
   $: {
     //console.log("STATE", collectionAreas["state"])
     //console.log("AREA TYPE SELECT", areaTypeSelection, $mapStore, $mapStore.loaded())
-    if(areaTypeSelection && $mapStore && $mapStore.loaded() && collectionAreas){
+    if(areaTypeSelection && $mapStore && $mapStore.isStyleLoaded() && collectionAreas){
       collectionCtrl.addCollectionAreasToMap($mapStore, collectionAreas[areaTypeSelection])
     }
   }
