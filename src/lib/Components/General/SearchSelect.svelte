@@ -20,7 +20,7 @@
   //selected areas
   export let selections = [];
   //toggle area from selections array
-  const toggleSelection = (opt) => {
+  export let toggleSelection = (opt) => {
     if (selections.some((cur) => cur.value == opt.value)) {
       removeSelection(opt);
     } else {
@@ -28,10 +28,10 @@
     }
   };
   //remove area from selections
-  const removeSelection = (opt) =>
-    (selections = selections.filter((cur) => cur.value != opt.value));
+  export let removeSelection = (opt) =>{
+    (selections = selections.filter((cur) => cur.value != opt.value));}
   //add area to selections
-  const addSelection = (opt) => (selections = [...selections, opt]);
+  export let addSelection = (opt) => {(selections = [...selections, opt])};
   //clear all areas from selections
   const clearSelections = () => {
     selections = [];

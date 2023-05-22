@@ -1,10 +1,8 @@
 <script>
-  import { useQuery } from "@sveltestack/svelte-query";
   import { getResourcesByAreaTypeAndCollectionId } from "../../../Api/Collections/Controller/getResources";
+  import Empty from "../../General/Empty.svelte";
   import LoadingIndicator from "../../General/LoadingIndicator.svelte";
   import mapStore from "../../Map/mapStore";
-  import Empty from "../../General/Empty.svelte";
-  import { onDestroy, onMount } from "svelte";
 
   export let resourceAreaName;
   export let resourceAreaId;
@@ -13,113 +11,78 @@
   export let hoverAreaTypeId;
 
   const map = $mapStore;
-  const areaResources = useQuery(
-    ["area-resource", resourceAreaId, collectionId],
-    async () =>
-      await getResourcesByAreaTypeAndCollectionId(collectionId, resourceAreaId)
-  );
-
-  onMount(() => {
-    console.log(map, map.isStyleLoaded(), resourceAreaId)
-    if (map && map.loaded() && resourceAreaId) {
-      map.setFeatureState(
-        {
-          source: "tnris-collection-areas",
-          id: resourceAreaId,
-        },
-        {
-          selected: true,
-        }
-      );
-    }
-  });
-  onDestroy(() => {
-    if (map && map.loaded() && resourceAreaId) {
-      map.setFeatureState(
-        {
-          source: "tnris-collection-areas",
-          id: resourceAreaId,
-        },
-        {
-          selected: false,
-        }
-      );
-      map.setFeatureState(
-        {
-          source: "tnris-collection-areas",
-          id: resourceAreaId,
-        },
-        {
-          hover: false,
-        }
-      );
-    }
-  });
 </script>
 
 <div class="area-resource-container">
-  {#if $areaResources && $areaResources.isSuccess && $areaResources.data?.count > 0}
-    <div
-      class="area-resource-item"
-      id={`${collectionId}_${resourceAreaId}`}
-      class:hover={resourceAreaId == hoverAreaTypeId}
-      on:mouseenter={() => {
-        hoverAreaTypeId = resourceAreaId;
+  {#if resourceAreaId && collectionId}
+  {#await getResourcesByAreaTypeAndCollectionId(collectionId, resourceAreaId)}
+      <LoadingIndicator loadingMessage="fetching resources..." />
+    {:then rscs}
+      {#if rscs && rscs.count > 0}
+        <div
+          class="area-resource-item"
+          id={`${collectionId}_${resourceAreaId}`}
+          class:hover={resourceAreaId == hoverAreaTypeId}
+          on:mouseenter={() => {
+            hoverAreaTypeId = resourceAreaId;
 
-        if (map && resourceAreaId) {
-          map.setFeatureState(
-            {
-              source: "tnris-collection-areas",
-              id: resourceAreaId,
-            },
-            {
-              hover: true,
+            if (map && resourceAreaId) {
+              map.setFeatureState(
+                {
+                  source: "tnris-collection-areas",
+                  id: resourceAreaId,
+                },
+                {
+                  hover: true,
+                }
+              );
             }
-          );
-        }
-      }}
-      on:mouseleave={() => {
-        hoverAreaTypeId = null;
-        if (map && resourceAreaId) {
-          map.setFeatureState(
-            {
-              source: "tnris-collection-areas",
-              id: resourceAreaId,
-            },
-            {
-              hover: false,
+          }}
+          on:mouseleave={() => {
+            hoverAreaTypeId = null;
+            if (map && resourceAreaId) {
+              map.setFeatureState(
+                {
+                  source: "tnris-collection-areas",
+                  id: resourceAreaId,
+                },
+                {
+                  hover: false,
+                }
+              );
             }
-          );
-        }
-      }}
-    >
-      <div class="area-resource-header">
-        <h3>{resourceAreaName}</h3>
-        <button
-          on:click={removeResourceSelectionFn({
-            value: resourceAreaId,
-            label: resourceAreaName,
-          })}>X</button
+          }}
         >
-      </div>
-      <div class="resource-area-rows">
-        {#each $areaResources.data.results as resource}
-          <div class="area-resource-row">
-            {resource.resource_type_name}<a href={resource.resource} download
-              >Download (~{(resource.filesize / 1000000).toFixed(2)}mb)</a
+          <div class="area-resource-header">
+            <h3>{resourceAreaName}</h3>
+            <button
+              on:click={removeResourceSelectionFn({
+                value: resourceAreaId,
+                label: resourceAreaName,
+              })}>X</button
             >
           </div>
-        {/each}
-      </div>
-    </div>
-  {:else if $areaResources && $areaResources.isSuccess && $areaResources.data?.count == 0}
-    <div class="area-resource-row">
-      <Empty
-        message={`Aww, shucks! No resources found for ${resourceAreaName}.`}
-      />
-    </div>
-  {:else}
-    <LoadingIndicator loadingMessage="fetching resources..." />
+          <div class="resource-area-rows">
+            {#each rscs.results as resource}
+              <div class="area-resource-row">
+                {resource.resource_type_name}<a href={resource.resource} download
+                  >Download (~{(resource.filesize / 1000000).toFixed(2)}mb)</a
+                >
+              </div>
+            {/each}
+          </div>
+        </div>
+      {:else }
+        <div class="area-resource-row">
+          <Empty
+            message={`Aww, shucks! No resources found for ${resourceAreaName}.`}
+          />
+        </div>
+      {/if}
+    {:catch error}
+      <h4>ERROR</h4>
+      <p>{error.message}</p>
+  {/await}
   {/if}
 </div>
 

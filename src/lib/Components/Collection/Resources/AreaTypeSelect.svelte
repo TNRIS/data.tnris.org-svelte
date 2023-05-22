@@ -7,13 +7,15 @@
   export let areaTypeSelection;
 
   $: {
-    if(areaTypeSelection && $mapStore?.loaded()){
+    //console.log("STATE", collectionAreas["state"])
+    //console.log("AREA TYPE SELECT", areaTypeSelection, $mapStore, $mapStore.loaded())
+    if(areaTypeSelection && $mapStore && $mapStore.loaded() && collectionAreas){
       collectionCtrl.addCollectionAreasToMap($mapStore, collectionAreas[areaTypeSelection])
     }
   }
 </script>
 
-{#if collectionAreas && collectionAreas["state"]}
+{#if collectionAreas && collectionAreas["state"]?.numberMatched >= 0 }
   <select id="area-type-select" bind:value={areaTypeSelection}>
     {#if Object.keys(collectionAreas).length > 1}
       {#each Object.keys(collectionAreas).sort((a, b) => {

@@ -1,3 +1,4 @@
+import bbox from "@turf/bbox";
 import type { GeoJSONSourceSpecification, Map } from "maplibre-gl";
 import { getMapAreasByCollectionId } from "./getAreas";
 import { getCollectionById } from "./getCollections";
@@ -23,6 +24,7 @@ export class Collection {
     await getCollectionById(this.collection_id, this.sig);
 
   public addCollectionAreasToMap = (map: Map, areas) => {
+    console.log("ADD COLLECTION TO MAP...")
     if (map && map.loaded()) {
       if (map.getLayer("tnris-collection-areas") !== undefined) {
         map.removeLayer("tnris-collection-areas");
@@ -58,6 +60,11 @@ export class Collection {
           ],
         },
       });
+
+      let bb = bbox(areas);
+      map.fitBounds([bb[0], bb[1], bb[2], bb[3]], {
+        padding: 16,
+      });
     }
   };
 
@@ -71,9 +78,4 @@ export class Collection {
       map.removeSource(`tnris-collection-areas`);
     }
   };
-
-  public setSelectedAreas = (selections) => {
-    this.selectedAreas = selections;
-  }
-  public getSelectedAreas = () => this.selectedAreas
 }

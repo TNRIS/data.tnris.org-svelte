@@ -1,11 +1,12 @@
-<script>
-  import CollectionContactForm from "./Contact/CollectionContactForm.svelte";
+<script lang="ts">
+  import type { Collection } from "src/lib/Api/Collections/Controller/Collection";
+import CollectionContactForm from "./Contact/CollectionContactForm.svelte";
   import CustomOrderForm from "./CustomOrder/CustomOrderForm.svelte";
   import Metadata from "./Metadata.svelte";
   import ResourcesContainer from "./Resources/ResourcesContainer.svelte";
 
-  export let collection = {};
-  export let collectionCtrl;
+  export let collection;
+  export let collectionCtrl: Collection;
 
   const tabs = ["Metadata", "Downloads", "Custom Order", "Contact"];
   let active = "Metadata";
@@ -16,7 +17,7 @@
     ><i class="material-icons">arrow_back</i></a
   >
   <h1>
-    {collection.name}
+    {collection?.name}
   </h1>
 </div>
 <div id="collection-tabs-wrapper">

@@ -15,23 +15,53 @@
   let areaSelections = [];
 
   $: mapReady = () => {
-    $mapStore && $mapStore.loaded() && $mapStore.isStyleLoaded();
+    return $mapStore && $mapStore.loaded() && $mapStore.isStyleLoaded();
   };
 
   const removeSelection = (opt) => {
-    return (areaSelections = areaSelections.filter(
+    (areaSelections = areaSelections.filter(
       (cur) => cur.value != opt.value
     ));
+    //remove states
+    map.setFeatureState({
+      "id": opt.value,
+      "source": "tnris-collection-areas"
+    }, {
+      hover: false
+    });
+    map.setFeatureState({
+      "id": opt.value,
+      "source": "tnris-collection-areas"
+    }, {
+      selected: false
+    });
   };
+
   const addSelection = (opt) => {
-    return (areaSelections = [...areaSelections, opt]);
+    //console.log(opt)
+    map.setFeatureState({
+      "id": opt.value,
+      "source": "tnris-collection-areas"
+    }, {
+      selected: true
+    });
+    (areaSelections = [...areaSelections, opt]);
   };
+
   const toggleSelection = (opt) => {
     if (areaSelections.some((cur) => cur.value == opt.value)) {
       removeSelection(opt);
     } else {
       addSelection(opt);
     }
+  };
+
+  const onAreaClick = (e) => {
+    let new_selection = {
+      value: e.features[0].id,
+      label: e.features[0].properties.area_type_name,
+    };
+    toggleSelection(new_selection);
   };
 </script>
 
@@ -54,6 +84,9 @@
       />
       <SearchSelect
         {collectionCtrl}
+        removeSelection={removeSelection}
+        addSelection={addSelection}
+        toggleSelection={toggleSelection}
         options={areas[areaTypeSelection]?.features
           .map((v) => {
             return {
