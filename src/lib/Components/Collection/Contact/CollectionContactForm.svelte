@@ -132,7 +132,7 @@
       handleCaptchaCallback={async (v) => {
         let fd = new FormData(formRef);
         fd.set("g-recaptcha-response", v);
-        console.log(v, fd);
+        //console.log(v, fd);
       }}
       handleCaptchaError={async (v) => {
         let fd = new FormData(formRef);

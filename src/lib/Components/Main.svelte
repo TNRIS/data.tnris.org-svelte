@@ -3,10 +3,10 @@
   import { cartOpen } from "../Api/Cart/cartStore";
   import Cart from "./Cart/Cart.svelte";
   import Catalog from "./Catalog/Catalog.svelte";
-  import Collection from "./Collection/Collection.svelte";
   import Drawer from "./General/Drawer.svelte";
   import MapLibre from "./Map/MapLibre.svelte";
   import Order from "./Order/Order.svelte";
+  import CollectionContainer from "./Collection/CollectionContainer.svelte";
 
   prefs.array.format = "separator";
 
@@ -25,7 +25,7 @@
   {/if}
 
   {#if $pattern("/collection")}
-    <section id="left-pane"><Collection /></section>
+    <section id="left-pane"><CollectionContainer /></section>
   {/if}
 
   {#if $pattern("/order/*")}

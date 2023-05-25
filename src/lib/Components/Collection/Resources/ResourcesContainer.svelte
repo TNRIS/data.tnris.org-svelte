@@ -1,233 +1,75 @@
-<script>
-  import { useQuery } from "@sveltestack/svelte-query";
-  import { onDestroy } from "svelte";
-  import { query } from "svelte-pathfinder";
-  import * as rscs from "../../../Api/Collections/getAreas";
-  import mapStore from "../../Map/mapStore";
-  import LoadingIndicator from "../../General/LoadingIndicator.svelte";
+<script lang="ts">
+  import type { Collection } from "src/lib/Api/Collections/Controller/Collection";
   import InfoBox from "../../General/InfoBox.svelte";
-  import AreaTypeSelect from "./AreaTypeSelect.svelte";
+  import LoadingIndicator from "../../General/LoadingIndicator.svelte";
   import SearchSelect from "../../General/SearchSelect.svelte";
-  import ResourceAreasMapLayer from "./ResourceAreasMapLayer.svelte";
+  import mapStore from "../../Map/mapStore";
+  import AreaTypeSelect from "./AreaTypeSelect.svelte";
   import ResourceAreaItem from "./ResourceAreaItem.svelte";
 
-  export let collection_id = null;
-
-  let map = mapStore;
-
-  // TODO! //////////////////////////////////////////////////////////////////////////
-  //////////// use query seems to be encountering a race condition
-  //////////// this causes the wrong collections to load for a collection
-  //////////// if the user has not allowed the areas to load fully before navigating
-  //////////// away from the collection
-  //////////// look into https://sveltequery.vercel.app/guides/query-cancellation
-  ///////////////////////////////////////////////////////////////////////////////////
-
-  const controller = new AbortController();
-  // Get the abortController's signal
-  const signal = controller.signal;
-
-  let areas;
-
-  const queryAreas = useQuery(
-    ["123collection-areas-12121", collection_id],
-    () => rscs.getMapAreasByCollectionId(collection_id, signal)
-  );
-
+  export let collectionCtrl: Collection | null = null;
+  let map = $mapStore;
   let areaTypeSelection;
 
-  //variable to store id of map resource area currently hovered over
-  let hoverAreaTypeId = null;
-  //variable to store area-type selections
-  let areaSelections = [];
+  /* $: mapReady = () => {
+    return $mapStore && $mapStore.loaded() && $mapStore.isStyleLoaded();
+  }; */
 
-  const removeSelection = (opt) =>
-    (areaSelections = areaSelections.filter((cur) => cur.value != opt.value));
-  const addSelection = (opt) => (areaSelections = [...areaSelections, opt]);
-  const toggleSelection = (opt) => {
-    if (areaSelections.some((cur) => cur.value == opt.value)) {
-      removeSelection(opt);
-    } else {
-      addSelection(opt);
-    }
-  };
-
-  const onAreaClick = (e) => {
-    let new_selection = {
-      value: e.features[0].id,
-      label: e.features[0].properties.area_type_name,
-    };
-    toggleSelection(new_selection);
-
-    if ($query.params.activeTab !== "Downloads") {
-      $query.params.activeTab = "Downloads";
-    }
-  };
-
-  onDestroy(() => {
-    controller.abort();
-  });
+  const { selectedAreas, mapReady } = collectionCtrl;
 </script>
 
 <section id="collection-resources-container">
-  {#if $queryAreas.status === "loading"}
-    <LoadingIndicator />
-  {:else if $queryAreas.status === "error"}
-    <h3>ERROR: {$queryAreas.error}</h3>
-  {:else if $queryAreas.status === "success"}
-    <InfoBox infoClass="info">
-      Select one or more areas from the searchable list below or from the map to
-      view available resources for each respective area for this collection.
-    </InfoBox>
-    <br />
-    <div id="collection-resources-area-select">
+  {#if collectionCtrl.areas && collectionCtrl.collection_id && $mapReady}
+    {#await collectionCtrl.areas}
+      <LoadingIndicator
+        loadingMessage="Loading Download Areas for Collection"
+      />
+    {:then areas}
+      <InfoBox infoClass="info">
+        Select county, state, 250k, block, quad, or qquad from the area types
+        dropdown below, then select the resource areas you would like to
+        download resources for.
+      </InfoBox>
       <AreaTypeSelect
         bind:areaTypeSelection
-        areasQQuad={$queryAreas.data[0]}
-        areasQuad={$queryAreas.data[1]}
-        areasCounty={$queryAreas.data[2]}
-        areasBlock={$queryAreas.data[3]}
-        areas250k={$queryAreas.data[4]}
-        areasState={$queryAreas.data[5]}
+        collectionAreas={areas}
+        {collectionCtrl}
       />
-      {#if areaTypeSelection == "State"}
-        <SearchSelect
-          options={$queryAreas.data[5].features
-            .map((v) => {
-              return {
-                label: v.properties.area_type_name,
-                value: v.properties.area_type_id,
-              };
-            })
-            .sort((a, b) => {
-              if (a.label > b.label) {
-                return -1;
-              }
-              if (a.label > b.label) {
-                return 1;
-              }
-              if (a.label == b.label) {
-                return 0;
-              }
-            })}
-          bind:selections={areaSelections}
-        />
-        <ResourceAreasMapLayer
-          map={$map}
-          data={$queryAreas.data[5]}
-          layerId={"tnris-resources-areas"}
-          {onAreaClick}
-          selections={areaSelections}
-          bind:hoverAreaTypeId
-        />
-      {/if}
-      {#if areaTypeSelection == "County"}
-        <SearchSelect
-          options={$queryAreas.data[2].features.map((v) => {
+      <SearchSelect
+        {collectionCtrl}
+        options={areas[areaTypeSelection]?.features
+          .map((v) => {
             return {
               label: v.properties.area_type_name,
               value: v.properties.area_type_id,
             };
+          })
+          .sort((a, b) => {
+            if (a.label > b.label) {
+              return 1;
+            }
+            if (a.label < b.label) {
+              return -1;
+            }
+            if (a.label == b.label) {
+              return 0;
+            }
           })}
-          bind:selections={areaSelections}
-        />
-        <ResourceAreasMapLayer
-          map={$map}
-          data={$queryAreas.data[2]}
-          layerId={"tnris-resources-areas"}
-          {onAreaClick}
-          selections={areaSelections}
-          bind:hoverAreaTypeId
-        />
-      {/if}
-      {#if areaTypeSelection == "Block"}
-        <SearchSelect
-          options={$queryAreas.data[3].features.map((v) => {
-            return {
-              label: v.properties.area_type_name,
-              value: v.properties.area_type_id,
-            };
-          })}
-          bind:selections={areaSelections}
-        />
-        <ResourceAreasMapLayer
-          map={$map}
-          data={$queryAreas.data[3]}
-          layerId={"tnris-resources-areas"}
-          {onAreaClick}
-          selections={areaSelections}
-          bind:hoverAreaTypeId
-        />
-      {/if}
-      {#if areaTypeSelection == "250k"}
-        <SearchSelect
-          options={$queryAreas.data[4].features?.map((v) => {
-            return {
-              label: v.properties.area_type_name,
-              value: v.properties.area_type_id,
-            };
-          })}
-          bind:selections={areaSelections}
-        />
-        <ResourceAreasMapLayer
-          map={$map}
-          data={$queryAreas.data[4]}
-          layerId={"tnris-resources-areas"}
-          {onAreaClick}
-          selections={areaSelections}
-          bind:hoverAreaTypeId
-        />
-      {/if}
-      {#if areaTypeSelection == "Quad"}
-        <SearchSelect
-          options={$queryAreas.data[1].features.map((v) => {
-            return {
-              label: v.properties.area_type_name,
-              value: v.properties.area_type_id,
-            };
-          })}
-          bind:selections={areaSelections}
-        />
-        <ResourceAreasMapLayer
-          map={$map}
-          data={$queryAreas.data[1]}
-          layerId={"tnris-resources-areas"}
-          {onAreaClick}
-          selections={areaSelections}
-          bind:hoverAreaTypeId
-        />
-      {/if}
-      {#if areaTypeSelection == "QQuad"}
-        <SearchSelect
-          options={$queryAreas.data[0].features.map((v) => {
-            return {
-              label: v.properties.area_type_name,
-              value: v.properties.area_type_id,
-            };
-          })}
-          bind:selections={areaSelections}
-        />
-        <ResourceAreasMapLayer
-          map={$map}
-          data={$queryAreas.data[0]}
-          layerId={"tnris-resources-areas"}
-          {onAreaClick}
-          selections={areaSelections}
-          bind:hoverAreaTypeId
-        />
-      {/if}
-    </div>
-
+      />
+    {:catch error}
+      <h3>ERROR</h3>
+      <p>{error.message}</p>
+    {/await}
     <section id="area-selections-resource-list-container">
-      {#each areaSelections as area}
-        <ResourceAreaItem
-          resourceAreaId={area.value}
-          resourceAreaName={area.label}
-          collectionId={collection_id}
-          removeResourceSelectionFn={removeSelection}
-          bind:hoverAreaTypeId
-        />
-      {/each}
+      {#if $selectedAreas && $selectedAreas.length > 0}
+        {#each $selectedAreas as area}
+          <ResourceAreaItem
+            {collectionCtrl}
+            resourceAreaId={area.value}
+            resourceAreaName={area.label}
+          />
+        {/each}
+      {/if}
     </section>
   {/if}
 </section>
@@ -240,16 +82,9 @@
     max-height: 100%;
     overflow-y: auto;
 
-    #collection-resources-area-select {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      :global(.select-search input) {
-        border-left: none;
-      }
-    }
     #area-selections-resource-list-container {
       display: grid;
-      gap: 0.5rem;
+      gap: 0.25rem;
       justify-content: stretch;
       align-content: flex-start;
       overflow-y: scroll;

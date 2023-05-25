@@ -215,8 +215,7 @@
 
 <style lang="scss">
   form {
-    display: flex;
-    gap: .5rem;
+    gap: 1rem;
     overflow-y: scroll;
     flex-direction: column;
     width: 100%;
