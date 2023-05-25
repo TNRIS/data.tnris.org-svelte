@@ -2,40 +2,40 @@
   import { Collection } from "../../Api/Collections/Controller/Collection";
   import LoadingIndicator from "../General/LoadingIndicator.svelte";
 
-  import { onDestroy } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import { query } from "svelte-pathfinder";
   import mapStore from "../Map/mapStore";
   import Tabs from "./Tabs.svelte";
 
   let collectionCtrl: Collection | null = null;
-  let mapReady = false;
 
   $: {
     const uuid = String($query.params.c);
-    if (uuid && $query.params.c) {
+    if (uuid && $query.params.c && $mapStore) {
       collectionCtrl = new Collection(uuid);
+      collectionCtrl.onMapLoaded();
     }
-    if($mapStore) {
-      $mapStore.on("styledata", () => mapReady = true)}
   }
 
   onDestroy(() => {
-    if (collectionCtrl && collectionCtrl.areas && $mapStore) {
+    if (collectionCtrl && collectionCtrl.areas) {
       collectionCtrl.sigCtrl.abort();
-      collectionCtrl.removeCollectionAreasFromMap($mapStore);
+      if ($mapStore) {
+        collectionCtrl.destroy();
+      }
     }
   });
 </script>
 
 <div id="collection-info-container">
-  {#if $query.params.c && collectionCtrl && mapReady}
+  {#if $query.params.c && collectionCtrl && $mapStore}
     {#await collectionCtrl.details}
       <LoadingIndicator loadingMessage="Loading Collection Details" />
     {:then details}
       <Tabs collection={details} {collectionCtrl} />
     {:catch error}
       <h3>ERROR</h3>
-      <p>{error.message}</p>
+      <p>{error.message}m</p>
     {/await}
   {/if}
 </div>

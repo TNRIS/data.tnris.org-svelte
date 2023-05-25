@@ -9,13 +9,28 @@
   $: {
     //console.log("STATE", collectionAreas["state"])
     //console.log("AREA TYPE SELECT", areaTypeSelection, $mapStore, $mapStore.loaded())
-    if(areaTypeSelection && $mapStore && $mapStore.isStyleLoaded() && collectionAreas){
-      collectionCtrl.addCollectionAreasToMap($mapStore, collectionAreas[areaTypeSelection])
+    console.log("PRE ADD TO MAP");
+    console.log(
+      areaTypeSelection,
+      $mapStore,
+      $mapStore.isStyleLoaded(),
+      collectionAreas
+    );
+    if (
+      areaTypeSelection &&
+      $mapStore &&
+      $mapStore.isStyleLoaded() &&
+      collectionAreas
+    ) {
+      console.log("ADDING TO MAP");
+      collectionCtrl.addCollectionAreasToMap(
+        collectionAreas[areaTypeSelection]
+      );
     }
   }
 </script>
 
-{#if collectionAreas && collectionAreas["state"]?.numberMatched >= 0 }
+{#if collectionAreas && collectionAreas["state"]?.numberMatched >= 0}
   <select id="area-type-select" bind:value={areaTypeSelection}>
     {#if Object.keys(collectionAreas).length > 1}
       {#each Object.keys(collectionAreas).sort((a, b) => {

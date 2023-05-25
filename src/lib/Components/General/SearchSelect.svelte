@@ -1,44 +1,32 @@
 <script lang="ts">
+  import type { Collection } from "../../Api/Collections/Controller/Collection";
   import { clickOutside } from "../General/clickOutside";
-  export let collectionCtrl = null;
+  import mapStore from "../Map/mapStore";
+  export let collectionCtrl: Collection = null;
   //options state
   export let showOptions: boolean = false;
   //input
   export let searchInput: string = "";
   export let options: { label: string; value: any }[];
 
-  
-  
   //function to filter selections
   let filterOptions = (opts) => {
     if (searchInput) {
-      return opts.filter((v) => v.label.toLowerCase().includes(searchInput.toLowerCase()  ));
+      return opts.filter((v) =>
+        v.label.toLowerCase().includes(searchInput.toLowerCase())
+      );
     } else {
       return options;
     }
   };
-  //selected areas
-  export let selections = [];
-  //toggle area from selections array
-  export let toggleSelection = (opt) => {
-    if (selections.some((cur) => cur.value == opt.value)) {
-      removeSelection(opt);
-    } else {
-      addSelection(opt);
-    }
-  };
-  //remove area from selections
-  export let removeSelection = (opt) =>{
-    (selections = selections.filter((cur) => cur.value != opt.value));}
-  //add area to selections
-  export let addSelection = (opt) => {(selections = [...selections, opt])};
-  //clear all areas from selections
+  const { toggleAreaSelection, removeAreaSelection, selectedAreas } =
+    collectionCtrl;
+
   const clearSelections = () => {
-    selections = [];
+    $selectedAreas = [];
   };
 
   $: filteredOptions = filterOptions(options);
-
 </script>
 
 {#if options && filteredOptions}
@@ -54,8 +42,8 @@
         type="search"
         placeholder="select download areas"
         bind:value={searchInput}
-        on:change={e => console.log(e)}
-        on:keyup={() => filteredOptions = filterOptions(options)}
+        on:change={(e) => console.log(e)}
+        on:keyup={() => (filteredOptions = filterOptions(options))}
         on:click={() => {
           showOptions = true;
         }}
@@ -66,8 +54,9 @@
           <a
             class="select-search-result"
             href="/"
-            class:selected={selections.some((cur) => cur.value == opt.value)}
-            on:click|preventDefault|stopPropagation={() => toggleSelection(opt)}
+            class:selected={$selectedAreas.some((cur) => cur.value == opt.value)}
+            on:click|preventDefault|stopPropagation={() =>
+              toggleAreaSelection($mapStore, opt)}
           >
             {opt.label}
           </a>
@@ -75,21 +64,21 @@
       </div>
     </div>
     <div class="selection-search-tag-container">
-      {#each selections as s}
+      {#each $selectedAreas as s}
         <div class="selection-tag">
           {s.label}
           <button
             class="selection-tag-button"
-            on:click={() => removeSelection(s)}>X</button
+            on:click={() => removeAreaSelection($mapStore, s)}>X</button
           >
         </div>
       {/each}
-      {#if selections.length >= 1}
+      {#if $selectedAreas.length >= 1}
         <div class="selection-tag">
           Clear Selections
           <button
             class="selection-tag-button"
-            on:click={() => clearSelections()}>X</button
+            on:click={collectionCtrl.clearAreaSelection}>X</button
           >
         </div>
       {/if}

@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Collection } from "src/lib/Api/Collections/Controller/Collection";
-import CollectionContactForm from "./Contact/CollectionContactForm.svelte";
+  import CollectionContactForm from "./Contact/CollectionContactForm.svelte";
   import CustomOrderForm from "./CustomOrder/CustomOrderForm.svelte";
   import Metadata from "./Metadata.svelte";
   import ResourcesContainer from "./Resources/ResourcesContainer.svelte";
@@ -8,8 +8,14 @@ import CollectionContactForm from "./Contact/CollectionContactForm.svelte";
   export let collection;
   export let collectionCtrl: Collection;
 
-  const tabs = ["Metadata", "Downloads", "Custom Order", "Contact"];
-  let active = "Metadata";
+  const { currentTab } = collectionCtrl;
+
+  const tabs: ("Metadata" | "Downloads" | "Custom Order" | "Contact")[] = [
+    "Metadata",
+    "Downloads",
+    "Custom Order",
+    "Contact",
+  ];
 </script>
 
 <div id="collection-info-header">
@@ -25,25 +31,22 @@ import CollectionContactForm from "./Contact/CollectionContactForm.svelte";
     {#each tabs as tab}
       <button
         class="tab-button"
-        class:active={active == tab}
-        on:click={() => (active = tab)}>{tab}</button
+        class:active={$currentTab == tab}
+        on:click={() => ($currentTab = tab)}>{tab}</button
       >
     {/each}
   </div>
   <div class="collection-tab-container">
-    <div class="collection-tab" class:active={active == "Metadata"}>
+    <div class="collection-tab" class:active={$currentTab == "Metadata"}>
       <Metadata {collection} />
     </div>
-    <div class="collection-tab" class:active={active == "Downloads"}>
-      <ResourcesContainer
-        collectionCtrl={collectionCtrl}
-        collectionId={collection.collection_id}
-      />
+    <div class="collection-tab" class:active={$currentTab == "Downloads"}>
+      <ResourcesContainer {collectionCtrl} />
     </div>
-    <div class="collection-tab" class:active={active == "Custom Order"}>
+    <div class="collection-tab" class:active={$currentTab == "Custom Order"}>
       <CustomOrderForm {collection} />
     </div>
-    <div class="collection-tab" class:active={active == "Contact"}>
+    <div class="collection-tab" class:active={$currentTab == "Contact"}>
       <CollectionContactForm {collection} />
     </div>
   </div>

@@ -7,75 +7,28 @@
   import AreaTypeSelect from "./AreaTypeSelect.svelte";
   import ResourceAreaItem from "./ResourceAreaItem.svelte";
 
-  export let collectionId = null;
   export let collectionCtrl: Collection | null = null;
   let map = $mapStore;
   let areaTypeSelection;
-  let hoverAreaTypeId = null;
-  let areaSelections = [];
 
-  $: mapReady = () => {
+  /* $: mapReady = () => {
     return $mapStore && $mapStore.loaded() && $mapStore.isStyleLoaded();
-  };
+  }; */
 
-  const removeSelection = (opt) => {
-    (areaSelections = areaSelections.filter(
-      (cur) => cur.value != opt.value
-    ));
-    //remove states
-    map.setFeatureState({
-      "id": opt.value,
-      "source": "tnris-collection-areas"
-    }, {
-      hover: false
-    });
-    map.setFeatureState({
-      "id": opt.value,
-      "source": "tnris-collection-areas"
-    }, {
-      selected: false
-    });
-  };
-
-  const addSelection = (opt) => {
-    //console.log(opt)
-    map.setFeatureState({
-      "id": opt.value,
-      "source": "tnris-collection-areas"
-    }, {
-      selected: true
-    });
-    (areaSelections = [...areaSelections, opt]);
-  };
-
-  const toggleSelection = (opt) => {
-    if (areaSelections.some((cur) => cur.value == opt.value)) {
-      removeSelection(opt);
-    } else {
-      addSelection(opt);
-    }
-  };
-
-  const onAreaClick = (e) => {
-    let new_selection = {
-      value: e.features[0].id,
-      label: e.features[0].properties.area_type_name,
-    };
-    toggleSelection(new_selection);
-  };
+  const { selectedAreas, mapReady } = collectionCtrl;
 </script>
 
 <section id="collection-resources-container">
-  {#if collectionCtrl.areas && collectionId && mapReady}
+  {#if collectionCtrl.areas && collectionCtrl.collection_id && $mapReady}
     {#await collectionCtrl.areas}
       <LoadingIndicator
         loadingMessage="Loading Download Areas for Collection"
       />
     {:then areas}
       <InfoBox infoClass="info">
-        Select one or more areas from the searchable list below or from the map
-        to view available resources for each respective area for this
-        collection.
+        Select county, state, 250k, block, quad, or qquad from the area types
+        dropdown below, then select the resource areas you would like to
+        download resources for.
       </InfoBox>
       <AreaTypeSelect
         bind:areaTypeSelection
@@ -84,9 +37,6 @@
       />
       <SearchSelect
         {collectionCtrl}
-        removeSelection={removeSelection}
-        addSelection={addSelection}
-        toggleSelection={toggleSelection}
         options={areas[areaTypeSelection]?.features
           .map((v) => {
             return {
@@ -105,22 +55,21 @@
               return 0;
             }
           })}
-        bind:selections={areaSelections}
       />
     {:catch error}
       <h3>ERROR</h3>
       <p>{error.message}</p>
     {/await}
     <section id="area-selections-resource-list-container">
-      {#each areaSelections as area}
-        <ResourceAreaItem
-          resourceAreaId={area.value}
-          resourceAreaName={area.label}
-          {collectionId}
-          removeResourceSelectionFn={removeSelection}
-          bind:hoverAreaTypeId
-        />
-      {/each}
+      {#if $selectedAreas && $selectedAreas.length > 0}
+        {#each $selectedAreas as area}
+          <ResourceAreaItem
+            {collectionCtrl}
+            resourceAreaId={area.value}
+            resourceAreaName={area.label}
+          />
+        {/each}
+      {/if}
     </section>
   {/if}
 </section>

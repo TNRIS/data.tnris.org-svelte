@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+  import type { Collection } from "../../../Api/Collections/Controller/Collection";
   import { getResourcesByAreaTypeAndCollectionId } from "../../../Api/Collections/Controller/getResources";
   import Empty from "../../General/Empty.svelte";
   import LoadingIndicator from "../../General/LoadingIndicator.svelte";
@@ -6,25 +7,24 @@
 
   export let resourceAreaName;
   export let resourceAreaId;
-  export let collectionId;
-  export let removeResourceSelectionFn;
-  export let hoverAreaTypeId;
+  export let collectionCtrl: Collection;
 
+  const { hoveredAreaId } = collectionCtrl;
   const map = $mapStore;
 </script>
 
 <div class="area-resource-container">
-  {#if resourceAreaId && collectionId}
-  {#await getResourcesByAreaTypeAndCollectionId(collectionId, resourceAreaId)}
+  {#if resourceAreaId && collectionCtrl.collection_id}
+    {#await getResourcesByAreaTypeAndCollectionId(collectionCtrl.collection_id, resourceAreaId)}
       <LoadingIndicator loadingMessage="fetching resources..." />
     {:then rscs}
       {#if rscs && rscs.count > 0}
         <div
           class="area-resource-item"
-          id={`${collectionId}_${resourceAreaId}`}
-          class:hover={resourceAreaId == hoverAreaTypeId}
+          id={`${collectionCtrl.collection_id}_${resourceAreaId}`}
+          class:hover={resourceAreaId == $hoveredAreaId}
           on:mouseenter={() => {
-            hoverAreaTypeId = resourceAreaId;
+            $hoveredAreaId = resourceAreaId;
 
             if (map && resourceAreaId) {
               map.setFeatureState(
@@ -39,7 +39,7 @@
             }
           }}
           on:mouseleave={() => {
-            hoverAreaTypeId = null;
+            $hoveredAreaId = null;
             if (map && resourceAreaId) {
               map.setFeatureState(
                 {
@@ -56,23 +56,26 @@
           <div class="area-resource-header">
             <h3>{resourceAreaName}</h3>
             <button
-              on:click={removeResourceSelectionFn({
-                value: resourceAreaId,
-                label: resourceAreaName,
-              })}>X</button
+              on:click={() =>
+                collectionCtrl.removeAreaSelection($mapStore, {
+                  label: resourceAreaName,
+                  value: resourceAreaId,
+                })}>X</button
             >
           </div>
           <div class="resource-area-rows">
             {#each rscs.results as resource}
               <div class="area-resource-row">
-                {resource.resource_type_name}<a href={resource.resource} download
+                {resource.resource_type_name}<a
+                  href={resource.resource}
+                  download
                   >Download (~{(resource.filesize / 1000000).toFixed(2)}mb)</a
                 >
               </div>
             {/each}
           </div>
         </div>
-      {:else }
+      {:else}
         <div class="area-resource-row">
           <Empty
             message={`Aww, shucks! No resources found for ${resourceAreaName}.`}
@@ -82,7 +85,7 @@
     {:catch error}
       <h4>ERROR</h4>
       <p>{error.message}</p>
-  {/await}
+    {/await}
   {/if}
 </div>
 
