@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import type { Collection } from "../../../Api/Collections/Controller/Collection";
   import { getResourcesByAreaTypeAndCollectionId } from "../../../Api/Collections/Controller/getResources";
   import Empty from "../../General/Empty.svelte";
@@ -11,14 +12,28 @@
 
   const { hoveredAreaId } = collectionCtrl;
   const map = $mapStore;
+
+  let loading = true;
+  let data = null;
+  
+  onMount(async () => {
+    //console.log(resourceAreaId, "MOUNTED");
+    const r = await getResourcesByAreaTypeAndCollectionId(
+      collectionCtrl.collection_id,
+      resourceAreaId
+    );
+
+    data = r;
+    loading = false;
+  });
 </script>
 
 <div class="area-resource-container">
   {#if resourceAreaId && collectionCtrl.collection_id}
-    {#await getResourcesByAreaTypeAndCollectionId(collectionCtrl.collection_id, resourceAreaId)}
+    {#if loading == true}
       <LoadingIndicator loadingMessage="fetching resources..." />
-    {:then rscs}
-      {#if rscs && rscs.count > 0}
+    {:else}
+      {#if data && data.count >= 1}
         <div
           class="area-resource-item"
           id={`${collectionCtrl.collection_id}_${resourceAreaId}`}
@@ -64,7 +79,7 @@
             >
           </div>
           <div class="resource-area-rows">
-            {#each rscs.results as resource}
+            {#each data.results as resource}
               <div class="area-resource-row">
                 {resource.resource_type_name}<a
                   href={resource.resource}
@@ -78,14 +93,11 @@
       {:else}
         <div class="area-resource-row">
           <Empty
-            message={`Aww, shucks! No resources found for ${resourceAreaName}.`}
+            message={`Aww, shucks! No resources to download found for ${resourceAreaName}.`}
           />
         </div>
       {/if}
-    {:catch error}
-      <h4>ERROR</h4>
-      <p>{error.message}</p>
-    {/await}
+    {/if}
   {/if}
 </div>
 
