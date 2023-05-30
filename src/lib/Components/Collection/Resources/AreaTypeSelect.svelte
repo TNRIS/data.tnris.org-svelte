@@ -6,6 +6,7 @@
   export let collectionAreas = null;
   export let areaTypeSelection;
 
+  const { mapReady } = collectionCtrl;
   $: {
     //console.log("STATE", collectionAreas["state"])
     //console.log("AREA TYPE SELECT", areaTypeSelection, $mapStore, $mapStore.loaded())
@@ -13,16 +14,11 @@
     console.log(
       areaTypeSelection,
       $mapStore,
-      $mapStore.isStyleLoaded(),
+      $mapReady,
       collectionAreas
     );
-    if (
-      areaTypeSelection &&
-      $mapStore &&
-      $mapStore.isStyleLoaded() &&
-      collectionAreas
-    ) {
-      console.log("ADDING TO MAP");
+    if (areaTypeSelection && $mapStore && $mapReady && collectionAreas) {
+      console.log("ADDING TO MAP", collectionAreas, $mapReady, areaTypeSelection);
       collectionCtrl.addCollectionAreasToMap(
         collectionAreas[areaTypeSelection]
       );

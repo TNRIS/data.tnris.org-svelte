@@ -47,18 +47,19 @@ export class Collection {
   //////////////////////////////////
   public onMapLoaded = () => {
     const map = get(mapStore);
-    if (map.loaded()){
-      console.log("map loaded already...")
-      this.mapReady.update(v => true);
-    }
-    if (map) {
-      map.on("load", () => {
-        console.log("map loaded...");
-        this.mapReady.update(v => true)
-      })
-    }
-  }
-  
+
+    const waiting = () => {
+      if (!map.isStyleLoaded()) {
+        console.log("loading map style...");
+        setTimeout(waiting, 200);
+      } else {
+        console.log("map style loaded...");
+        this.mapReady.update((v) => true);
+      }
+    };
+    waiting();
+  };
+
   onMapAreaClick = (e) => {
     const map = get(mapStore);
     const selectedAreas = this.selectedAreas;
@@ -68,6 +69,7 @@ export class Collection {
         label: e.features[0].properties.area_type_name,
         value: e.features[0].properties.area_type_id,
       };
+      console.log(newArea);
       this.toggleAreaSelection(map, newArea);
     }
   };
@@ -105,8 +107,7 @@ export class Collection {
     const map = get(mapStore);
     if (map && map.loaded()) {
       if (map.getLayer("tnris-collection-areas") !== undefined) {
-        map.removeLayer("tnris-collection-areas");
-        map.removeSource("tnris-collection-areas");
+        this.removeCollectionAreasFromMap();
       }
       map.addSource(`tnris-collection-areas`, {
         type: "geojson",

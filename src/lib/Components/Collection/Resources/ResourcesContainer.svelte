@@ -3,12 +3,10 @@
   import InfoBox from "../../General/InfoBox.svelte";
   import LoadingIndicator from "../../General/LoadingIndicator.svelte";
   import SearchSelect from "../../General/SearchSelect.svelte";
-  import mapStore from "../../Map/mapStore";
   import AreaTypeSelect from "./AreaTypeSelect.svelte";
   import ResourceAreaItem from "./ResourceAreaItem.svelte";
 
   export let collectionCtrl: Collection | null = null;
-  let map = $mapStore;
   let areaTypeSelection;
 
   /* $: mapReady = () => {
