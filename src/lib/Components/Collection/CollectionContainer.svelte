@@ -2,7 +2,7 @@
   import { Collection } from "../../Api/Collections/Controller/Collection";
   import LoadingIndicator from "../General/LoadingIndicator.svelte";
 
-  import { onDestroy, onMount } from "svelte";
+  import { onDestroy } from "svelte";
   import { query } from "svelte-pathfinder";
   import mapStore from "../Map/mapStore";
   import Tabs from "./Tabs.svelte";

@@ -9,10 +9,6 @@
   export let collectionCtrl: Collection | null = null;
   let areaTypeSelection;
 
-  /* $: mapReady = () => {
-    return $mapStore && $mapStore.loaded() && $mapStore.isStyleLoaded();
-  }; */
-
   const { selectedAreas, mapReady } = collectionCtrl;
 </script>
 
