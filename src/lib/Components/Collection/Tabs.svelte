@@ -20,19 +20,21 @@
 </script>
 
 <div id="collection-info-header">
-  <button on:click={() => {
-    console.log(history)
-    //goes back twice
-    // 1. navigate backward for query param history
-    // 2. navigate backward to catalog page
-    back()
-    back()
-    }}
-  ><i class="material-icons">arrow_back</i></button
+  <button
+    on:click={() => {
+      console.log(history);
+      //goes back twice
+      // 1. navigate backward for query param history
+      // 2. navigate backward to catalog page
+      back();
+      back();
+    }}><i class="material-icons">arrow_back</i></button
   >
-  <h1>
-    {collection?.name}
-  </h1>
+  <div>
+    <h1>
+      {collection?.name} | <small>{new Date(collection?.acquisition_date).getFullYear()}</small>
+    </h1>
+  </div>
 </div>
 <div id="collection-tabs-wrapper">
   <div id="collection-tabs-nav">

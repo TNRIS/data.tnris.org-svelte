@@ -126,6 +126,8 @@
         .area-resource-row {
           display: grid;
           grid-template-columns: minmax(0, 1fr) auto;
+          overflow-wrap: break-word;
+          gap: .5rem;
           border-bottom: 1px solid #cccccc80;
         }
       }

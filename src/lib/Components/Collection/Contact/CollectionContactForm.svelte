@@ -153,7 +153,7 @@
   form {
     display: flex;
     gap: .5rem;
-    overflow-y: scroll;
+    overflow-y: auto;
     flex-direction: column;
     width: 100%;
     label {

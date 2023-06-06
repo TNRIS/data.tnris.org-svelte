@@ -129,7 +129,7 @@
     }
     .wizard-content {
       padding: 1rem 0.5rem;
-      overflow-y: scroll;
+      overflow-y: auto;
 
       .wizard-form {
         max-width: 100%;

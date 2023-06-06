@@ -81,7 +81,7 @@
       gap: 0.25rem;
       justify-content: stretch;
       align-content: flex-start;
-      overflow-y: scroll;
+      overflow-y: auto;
     }
   }
 </style>

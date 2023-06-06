@@ -112,7 +112,7 @@
         padding: 0.5rem;
         z-index: 9999999999;
         max-height: 200px;
-        overflow-y: scroll;
+        overflow-y: auto;
         min-width: 300px;
 
         .select-search-result {

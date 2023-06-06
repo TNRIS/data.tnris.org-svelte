@@ -175,7 +175,7 @@
     font-size: 0.9rem;
     max-height: 100%;
     width: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
     white-space: pre-line;
     .metadata-section {
       border-bottom: 1px solid #ccc;

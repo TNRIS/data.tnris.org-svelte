@@ -72,7 +72,7 @@
     border: solid 1px $borderColor;
 
     #CatalogItemList {
-      overflow-y: scroll;
+      overflow-y: auto;
       display: grid;
       align-content: flex-start;
       gap: 0.5rem;

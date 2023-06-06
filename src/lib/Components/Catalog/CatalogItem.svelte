@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import mapStore from "../Map/mapStore";
   export let collection;
 

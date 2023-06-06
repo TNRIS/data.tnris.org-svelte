@@ -180,7 +180,6 @@
             id="data-description"
             name="data-description"
             rows="4"
-            cols="60"
             required
             aria-required="true"
             bind:value={dataDescription}
@@ -216,7 +215,7 @@
 <style lang="scss">
   form {
     gap: 1rem;
-    overflow-y: scroll;
+    overflow-y: auto;
     flex-direction: column;
     width: 100%;
     label {
