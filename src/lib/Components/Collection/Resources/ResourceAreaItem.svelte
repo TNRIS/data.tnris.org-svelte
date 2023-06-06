@@ -103,6 +103,8 @@
 
 <style lang="scss">
   .area-resource-container {
+    background: white;
+    
     .area-resource-header {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;

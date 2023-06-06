@@ -74,7 +74,6 @@
     gap: 0.25rem;
     grid-template-rows: auto 1fr;
     max-height: 100%;
-    overflow-y: auto;
 
     #area-selections-resource-list-container {
       display: grid;
@@ -82,6 +81,8 @@
       justify-content: stretch;
       align-content: flex-start;
       overflow-y: auto;
+      padding: 0.2rem;
+      background: #f3f2ed;
     }
   }
 </style>
