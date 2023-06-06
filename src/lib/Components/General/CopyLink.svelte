@@ -2,11 +2,13 @@
   export let href = "#";
   export let title = "link";
   export let buttonText = "Copy Link";
+
+  let link = href.replace(".org/arcgis/", ".org/arcgis/rest/");
 </script>
 
 <div class="copy-link">
-  <a id="s3-uri-link" rel="noreferrer" target="_blank" {href}>
-    {title}
+  <a id="s3-uri-link" href={link} target="_blank" rel="noreferrer">
+    {link}
   </a>
   <button
     on:click={() => {

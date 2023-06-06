@@ -124,25 +124,15 @@
           </section>
         {/if}
       {/each}
-      {#if collection.popup_link}
+      {#if collection.wms_link}
         <section class="metadata-section">
           <h2>wms link</h2>
           <p>
-            This dataset is available as an online mapping service. An OGC WMS
-            service and an ArcGIS service are available. To connect to the WMS
-            service in your software, please copy the unique url provided in the
-            box below. To access the TNRIS ArcGIS Server, please use the
-            following url in your ESRI software and select from the list of
-            available services.
+            This dataset is available as an online mapping service. An OGC WMS service and an ArcGIS service are available. To connect to the WMS service in your software, please copy the unique url provided in the box below. To access the TNRIS ArcGIS Server, please use the following url in your ESRI software and select from the list of available services.
           </p>
-          <CopyLink
-            href={collection.popup_link}
-            title={collection.popup_link}
-          />
+          <CopyLink href={collection.wms_link} title={collection.wms_link} />
+          <WmsPreview wms_link={collection.wms_link} />
         </section>
-      {/if}
-      {#if collection.wms_link}
-        <WmsPreview wms_link={collection.wms_link} />
       {/if}
       <SupplementalDownloads metadata={collection} />
       {#if collection.s_three_key}
