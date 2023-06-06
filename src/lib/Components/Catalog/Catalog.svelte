@@ -74,8 +74,10 @@
     #CatalogItemList {
       overflow-y: auto;
       display: grid;
+      grid-template-columns: 1fr;
+      background: #f3f2ed;
       align-content: flex-start;
-      gap: 0.5rem;
+      gap: 0.25rem;
       padding-top: 0.5rem;
       padding-bottom: 0.5rem;
       padding-left: 0.5rem;

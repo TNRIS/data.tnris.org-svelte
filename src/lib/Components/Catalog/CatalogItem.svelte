@@ -53,113 +53,117 @@
   };
 </script>
 
-<div
-  class="catalog-item"
-  on:mouseenter={() => addCollectionExtent(collection.the_geom)}
->
+<div class="catalog-item-container">
   <div
-    class="catalog-item-thumbnail"
-    style="background-image: url({collection.thumbnail_image})"
-  />
-  <div id={collection.collection_id} class="catalog-item-meta">
-    <h2 class="catalog-item-title">
-      <a href="/collection?c={collection.collection_id}" class="link"
-        >{collection.name}</a
-      >
-    </h2>
-    <div class="catalog-item-tags">
-      <div class="tags tags-date">
-        {#each collection.acquisition_date.split(",") as d}
-          <div class="tag">{new Date(d).getFullYear()}</div>
-        {/each}
-      </div>
-      <div class="tags tags-category">
-        {#each collection.category.split(",") as cat}
-          <div class="tag">{cat.replace("_", " ")}</div>
-        {/each}
-      </div>
-      <div class="tags tags-availability">
-        {#each collection.availability.split(",") as a}
-          <div class="tag">{a.replace("_", " ")}</div>
-        {/each}
+    class="catalog-item"
+    on:mouseenter={() => addCollectionExtent(collection.the_geom)}
+  >
+    <div
+      class="catalog-item-thumbnail"
+      style="background-image: url({collection.thumbnail_image})"
+    />
+    <div id={collection.collection_id} class="catalog-item-meta">
+      <h2 class="catalog-item-title">
+        <a href="/collection?c={collection.collection_id}" class="link"
+          >{collection.name}</a
+        >
+      </h2>
+      <div class="catalog-item-tags">
+        <div class="tags tags-date">
+          {#each collection.acquisition_date.split(",") as d}
+            <div class="tag">{new Date(d).getFullYear()}</div>
+          {/each}
+        </div>
+        <div class="tags tags-category">
+          {#each collection.category.split(",") as cat}
+            <div class="tag">{cat.replace("_", " ")}</div>
+          {/each}
+        </div>
+        <div class="tags tags-availability">
+          {#each collection.availability.split(",") as a}
+            <div class="tag">{a.replace("_", " ")}</div>
+          {/each}
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <style lang="scss">
-  .catalog-item {
+  .catalog-item-container {
+    height: fit-content;
+    padding: 0.2rem;
     display: grid;
-    grid-template-columns: 1fr 3fr;
-    gap: 0.25rem;
-    min-height: 120px;
-    max-height: 120px;
-    padding: 0.1rem;
     background: white;
     box-shadow: $boxShadow-xs;
-    border: 1px solid #fbf8f3;
+    border: 1px solid #ccc;
 
-    .catalog-item-meta {
-      h2.catalog-item-title {
-        margin-top: 0 !important;
-        font-size: 0.8rem !important;
-      }
-      padding: 0.125rem;
+    .catalog-item {
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      gap: 0.25rem;
 
-      :global(.link) {
-        font-size: 1rem;
-        font-weight: 600;
-        text-decoration: none;
-
-        &:visited {
-          color: $primaryColor;
+      .catalog-item-meta {
+        h2.catalog-item-title {
+          margin-top: 0 !important;
+          margin-bottom: 1.25rem !important;
+          font-size: 0.8rem !important;
+          line-height: 1 !important;
         }
-        color: #333;
-      }
-      .catalog-item-tags {
-        display: grid;
-        grid-template-rows: auto auto auto;
-        margin-top: -0.75rem;
-        font-size: 0.6rem;
-        gap: 0.125rem;
+        padding: 0.125rem;
 
-        .tags {
-          display: flex;
-          gap: 0.25rem;
+        :global(.link) {
+          font-size: 1rem;
           font-weight: 600;
+          text-decoration: none;
+
+          &:visited {
+            color: $primaryColor;
+          }
+          color: #333;
+        }
+        .catalog-item-tags {
+          display: grid;
+          grid-template-rows: auto auto auto;
+          margin-top: -0.75rem;
+          font-size: 0.6rem;
+          gap: 0.125rem;
+
+          .tags {
+            display: flex;
+            gap: 0.25rem;
+            font-weight: 600;
+            .tag {
+              padding: 0.125rem 0.25rem;
+            }
+          }
+        }
+
+        .tags-date {
           .tag {
-            padding: 0.125rem 0.25rem;
+            background: #a86b08;
+            color: white;
+          }
+        }
+        .tags-availability {
+          .tag {
+            background: #333;
+            color: white;
+          }
+        }
+        .tags-category {
+          .tag {
+            background: #25825f;
+            color: white;
           }
         }
       }
-
-      .tags-date {
-        .tag {
-          background: #a86b08;
-          color: white;
-          border: none;
-        }
+      .catalog-item-thumbnail {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        max-height: 120px;
       }
-      .tags-availability {
-        .tag {
-          background: #333;
-          color: white;
-          border: none;
-        }
-      }
-      .tags-category {
-        .tag {
-          background: #25825f;
-          color: white;
-          border: none;
-        }
-      }
-    }
-    .catalog-item-thumbnail {
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      max-height: 120px;
     }
   }
 </style>
