@@ -35,7 +35,7 @@
       <Tabs collection={details} {collectionCtrl} />
     {:catch error}
       <h3>ERROR</h3>
-      <p>{error.message}m</p>
+      <p>{error.message}</p>
     {/await}
   {/if}
 </div>

@@ -109,45 +109,57 @@ export class Collection {
       if (map.getLayer("tnris-collection-areas") !== undefined) {
         this.removeCollectionAreasFromMap();
       }
-      map.addSource(`tnris-collection-areas`, {
-        type: "geojson",
-        data: areas,
-        promoteId: "area_type_id",
-      });
-      map.addLayer({
-        id: `tnris-collection-areas`,
-        source: `tnris-collection-areas`,
-        type: "fill",
-        paint: {
-          //selected feature style filter
-          "fill-color": [
-            "case",
-            ["boolean", ["feature-state", "selected"], false],
-            "#888",
-            "#fff",
-          ],
-          //hovered feature style filter
-          "fill-opacity": [
-            "case",
-            ["boolean", ["feature-state", "hover"], false],
-            0.8,
-            0.4,
-          ],
-          //selected feature style filter
-          "fill-outline-color": [
-            "case",
-            ["boolean", ["feature-state", "selected"], false],
-            "#fof",
-            "#444",
-          ],
-        },
-      });
+      try {
+        map.addSource(`tnris-collection-areas`, {
+          type: "geojson",
+          data: areas,
+          promoteId: "area_type_id",
+        });
+      } catch (e) {
+        console.log(e);
+      }
+      try {
+        map.addLayer({
+          id: `tnris-collection-areas`,
+          source: `tnris-collection-areas`,
+          type: "fill",
+          paint: {
+            //selected feature style filter
+            "fill-color": [
+              "case",
+              ["boolean", ["feature-state", "selected"], false],
+              "#888",
+              "#fff",
+            ],
+            //hovered feature style filter
+            "fill-opacity": [
+              "case",
+              ["boolean", ["feature-state", "hover"], false],
+              0.8,
+              0.4,
+            ],
+            //selected feature style filter
+            "fill-outline-color": [
+              "case",
+              ["boolean", ["feature-state", "selected"], false],
+              "#fof",
+              "#444",
+            ],
+          },
+        });
+      } catch (e) {
+        console.log(e);
+      }
 
       let bb = bbox(areas);
-      map.fitBounds([bb[0], bb[1], bb[2], bb[3]], {
-        padding: 16,
-      });
-
+      try {
+        map.fitBounds([bb[0], bb[1], bb[2], bb[3]], {
+          padding: 16,
+        });
+      } catch (e) {
+        console.log(e);
+      }
+      
       map.on("click", "tnris-collection-areas", this.onMapAreaClick);
       map.on("mousemove", "tnris-collection-areas", this.onMapAreaMove);
       map.on("mouseleave", "tnris-collection-areas", this.onMapAreaLeave);

@@ -52,6 +52,7 @@
       on:change={(e) => {
         let d = e.currentTarget;
         wizForm = d;
+        allowNext = true;
       }}
     >
       {#if steps.length > 0}

@@ -1,10 +1,10 @@
 <script lang="ts">
   import type { Collection } from "src/lib/Api/Collections/Controller/Collection";
-  import InfoBox from "../../General/InfoBox.svelte";
   import LoadingIndicator from "../../General/LoadingIndicator.svelte";
   import SearchSelect from "../../General/SearchSelect.svelte";
   import AreaTypeSelect from "./AreaTypeSelect.svelte";
   import ResourceAreaItem from "./ResourceAreaItem.svelte";
+  import InfoBox from "../../General/InfoBox.svelte";
 
   export let collectionCtrl: Collection | null = null;
   let areaTypeSelection;
@@ -19,11 +19,6 @@
         loadingMessage="Loading Download Areas for Collection"
       />
     {:then areas}
-      <InfoBox infoClass="info">
-        Select county, state, 250k, block, quad, or qquad from the area types
-        dropdown below, then select the resource areas you would like to
-        download resources for.
-      </InfoBox>
       <AreaTypeSelect
         bind:areaTypeSelection
         collectionAreas={areas}
@@ -63,6 +58,13 @@
             resourceAreaName={area.label}
           />
         {/each}
+      {/if}
+      {#if $selectedAreas.length == 0}
+        <InfoBox infoClass="info">
+          Select county, state, 250k, block, quad, or qquad from the area types
+          dropdown above, then select the resource areas you would like to
+          download resources for.
+        </InfoBox>
       {/if}
     </section>
   {/if}
