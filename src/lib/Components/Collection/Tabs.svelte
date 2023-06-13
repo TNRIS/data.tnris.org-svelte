@@ -51,7 +51,7 @@
       <Metadata {collection} />
     </div>
     <div class="collection-tab" class:active={$currentTab == "Downloads"}>
-      <ResourcesContainer {collectionCtrl} />
+      <ResourcesContainer {collection} {collectionCtrl} />
     </div>
     <div class="collection-tab" class:active={$currentTab == "Custom Order"}>
       <CustomOrderForm {collection} />

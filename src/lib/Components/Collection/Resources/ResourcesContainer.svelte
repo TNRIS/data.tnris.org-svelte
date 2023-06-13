@@ -7,66 +7,73 @@
   import InfoBox from "../../General/InfoBox.svelte";
 
   export let collectionCtrl: Collection | null = null;
+  export let collection;
   let areaTypeSelection;
 
   const { selectedAreas, mapReady } = collectionCtrl;
 </script>
 
 <section id="collection-resources-container">
-  {#if collectionCtrl.areas && collectionCtrl.collection_id && $mapReady}
-    {#await collectionCtrl.areas}
-      <LoadingIndicator
-        loadingMessage="Loading Download Areas for Collection"
-      />
-    {:then areas}
-      <AreaTypeSelect
-        bind:areaTypeSelection
-        collectionAreas={areas}
-        {collectionCtrl}
-      />
-      <SearchSelect
-        {collectionCtrl}
-        options={areas[areaTypeSelection]?.features
-          .map((v) => {
-            return {
-              label: v.properties.area_type_name,
-              value: v.properties.area_type_id,
-            };
-          })
-          .sort((a, b) => {
-            if (a.label > b.label) {
-              return 1;
-            }
-            if (a.label < b.label) {
-              return -1;
-            }
-            if (a.label == b.label) {
-              return 0;
-            }
-          })}
-      />
-    {:catch error}
-      <h3>ERROR</h3>
-      <p>{error.message}</p>
-    {/await}
-    <section id="area-selections-resource-list-container">
-      {#if $selectedAreas && $selectedAreas.length > 0}
-        {#each $selectedAreas as area}
-          <ResourceAreaItem
-            {collectionCtrl}
-            resourceAreaId={area.value}
-            resourceAreaName={area.label}
-          />
-        {/each}
-      {/if}
-      {#if $selectedAreas.length == 0}
-        <InfoBox infoClass="info">
-          Select county, state, 250k, block, quad, or qquad from the area types
-          dropdown above, then select the resource areas you would like to
-          download resources for.
-        </InfoBox>
-      {/if}
-    </section>
+  {#if collectionCtrl.areas && collectionCtrl.collection_id && $mapReady && collection}
+    {#if collection.category.includes("Historic_Imagery")}
+      <InfoBox>
+        To get historic imagery, please use the "Custom Order" tab above.
+      </InfoBox>
+    {:else}
+      {#await collectionCtrl.areas}
+        <LoadingIndicator
+          loadingMessage="Loading Download Areas for Collection"
+        />
+      {:then areas}
+        <AreaTypeSelect
+          bind:areaTypeSelection
+          collectionAreas={areas}
+          {collectionCtrl}
+        />
+        <SearchSelect
+          {collectionCtrl}
+          options={areas[areaTypeSelection]?.features
+            .map((v) => {
+              return {
+                label: v.properties.area_type_name,
+                value: v.properties.area_type_id,
+              };
+            })
+            .sort((a, b) => {
+              if (a.label > b.label) {
+                return 1;
+              }
+              if (a.label < b.label) {
+                return -1;
+              }
+              if (a.label == b.label) {
+                return 0;
+              }
+            })}
+        />
+      {:catch error}
+        <h3>ERROR</h3>
+        <p>{error.message}</p>
+      {/await}
+      <section id="area-selections-resource-list-container">
+        {#if $selectedAreas && $selectedAreas.length > 0}
+          {#each $selectedAreas as area}
+            <ResourceAreaItem
+              {collectionCtrl}
+              resourceAreaId={area.value}
+              resourceAreaName={area.label}
+            />
+          {/each}
+        {/if}
+        {#if $selectedAreas.length == 0}
+          <InfoBox infoClass="info">
+            Select county, state, 250k, block, quad, or qquad from the area
+            types dropdown above, then select the resource areas you would like
+            to download resources for.
+          </InfoBox>
+        {/if}
+      </section>
+    {/if}
   {/if}
 </section>
 
