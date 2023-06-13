@@ -5,6 +5,11 @@
 html,
 body,
 #app {
+    
+    * {
+        border-radius: 2px;
+    }
+
     color: #333;
     margin: 0;
     padding: 0;
@@ -14,8 +19,12 @@ body,
     font-family: $fontFamily;
 
     a {
-        color: $primaryColor;
+        color: #444;
         font-weight: 600;
+
+        &:visited {
+            color: #555;
+        }
     }
 
     i {
@@ -31,8 +40,7 @@ body,
         &:hover:enabled,
         &:active:enabled,
         &:focus:enabled {
-            border: solid 1px $primaryColor;
-            color: $primaryColor;
+            border: solid 1px #9b9b9b;
         }
     }
 
@@ -43,22 +51,24 @@ body,
         font-weight: 500;
         color: #333;
         border: solid 1px $borderColor;
+        border-radius: 2px;
         background-color: #fff;
+        box-shadow: 0 0 4px 0px #85858529;
         padding: .5rem .75rem;
         cursor: pointer;
+
         &:hover:enabled,
         &:active:enabled,
         &:focus:enabled {
-            border: solid 1px $primaryColor;
-            color: $primaryColor;
+            border: solid 1px #9b9b9b;
             font-weight: 600;
         }
 
         &:disabled {
-            color:gray;
-            cursor:default;
+            color: gray;
+            cursor: default;
         }
-        
+
         &.full-width {
             width: 100%;
         }
@@ -87,13 +97,11 @@ body,
     h4,
     h5,
     h6 {
-        font-family: 'Oswald', sans-serif;
         font-size: 1.5rem;
         line-height: 1.5rem;
         margin: 0;
         margin-top: .5rem;
         margin-bottom: 1rem;
-        font-variant: all-small-caps;
     }
 
     h1 {

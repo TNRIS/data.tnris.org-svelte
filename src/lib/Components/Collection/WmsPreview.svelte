@@ -5,7 +5,7 @@
 
   export let wms_link = undefined;
   export let layer_name = "tnris-collection-wms-link";
-  export let layer_label = "wms preview";
+  export let layer_label = "WMS Preview";
   export let src_params = "?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&SRS=EPSG:3857&styles=default&width=256&height=256&layers=0&transparent=true";
 
   const src: AnySourceData = {

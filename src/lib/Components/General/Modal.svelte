@@ -6,13 +6,18 @@
 </script>
 
 {#key open}
-  <div class="modal" class:active={open} in:fade={{ duration: 50 }} out:fade={{ delay: 200, duration: 100 }}>
+  <div
+    class="modal"
+    class:active={open}
+    in:fade={{ duration: 50 }}
+    out:fade={{ delay: 200, duration: 100 }}
+  >
     <div
       class="modal-content-container"
       use:clickOutside
       on:click_outside={() => (open = false)}
       in:fly|local={{ y: 800, delay: 50, duration: 100 }}
-      out:fly|local={{ y: 800, duration: 100, }}
+      out:fly|local={{ y: 800, duration: 100 }}
     >
       <div class="modal-header">
         <div class="modal-title">
@@ -69,8 +74,7 @@
       overflow: hidden;
 
       .modal-header {
-        color: $primaryColor;
-        border-bottom: $primaryColor 1px solid;
+        border-bottom: 1px solid #ccc;
         display: grid;
         grid-template-columns: minmax(0, 1fr) auto;
         padding: 0.5rem;

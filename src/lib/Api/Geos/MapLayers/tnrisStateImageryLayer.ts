@@ -25,7 +25,7 @@ const STATE_IMAGERY_LAYER: Layer = {
   layout: { visibility: "visible" },
 };
 export const STATE_IMAGERY_MAPLAYER: MapLayer = {
-  id: STATE_IMAGERY_SRC_ID,
+  id: "Imagery",
   layer: STATE_IMAGERY_LAYER,
   source: STATE_IMAGERY_SRC,
 };

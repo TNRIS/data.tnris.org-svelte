@@ -24,6 +24,9 @@
 
   <div id="CatalogSearchBarFilterBar">
     <SearchFiltersMobile />
+    <!-- {#if $query.params.availability}
+      Availability: {$query.params.availability.split(",").length}
+    {/if} -->
   </div>
 </div>
 
@@ -40,14 +43,16 @@
     height: min-content;
 
     #CatalogSearchBarFilterBar {
-      display: block;
+      display: grid;
+      justify-content: start;
+      grid-template-rows: auto auto;
       max-width: 500px;
       width: 100%;
     }
-    
+
     #CatalogSearch {
       display: grid;
-      gap: .25rem;
+      gap: 0.25rem;
       max-width: 500px;
       width: 100%;
     }

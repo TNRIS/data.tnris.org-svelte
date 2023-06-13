@@ -53,44 +53,57 @@
   };
 </script>
 
-<div class="catalog-item-container">
-  <div
-    class="catalog-item"
-    on:mouseenter={() => addCollectionExtent(collection.the_geom)}
-  >
+<a href="/collection?c={collection.collection_id}">
+  <div class="catalog-item-container">
     <div
-      class="catalog-item-thumbnail"
-      style="background-image: url({collection.thumbnail_image})"
-    />
-    <div id={collection.collection_id} class="catalog-item-meta">
-      <h2 class="catalog-item-title">
-        <a href="/collection?c={collection.collection_id}" class="link"
-          >{collection.name}</a
-        >
-      </h2>
-      <div class="catalog-item-tags">
-        <div class="tags tags-date">
-          {#each collection.acquisition_date.split(",") as d}
-            <div class="tag">{new Date(d).getFullYear()}</div>
-          {/each}
+      class="catalog-item"
+      on:mouseenter={() => addCollectionExtent(collection.the_geom)}
+    >
+      <div
+        class="catalog-item-thumbnail"
+        style="background-image: url({collection.thumbnail_image})"
+      />
+      <div id={collection.collection_id} class="catalog-item-meta">
+        <div class="catalog-item-title">
+          <h2>{collection.name}</h2>
+          <div class="catalog-item-date">
+            {new Date(collection.acquisition_date).getFullYear()}
+          </div>
         </div>
-        <div class="tags tags-category">
-          {#each collection.category.split(",") as cat}
-            <div class="tag">{cat.replace("_", " ")}</div>
-          {/each}
-        </div>
-        <div class="tags tags-availability">
-          {#each collection.availability.split(",") as a}
-            <div class="tag">{a.replace("_", " ")}</div>
-          {/each}
+        <div class="catalog-item-tags">
+          {#if collection.category}
+            <div class="tags tags-category">
+              {#each collection.category.split(",") as cat}
+                <div class="tag">{cat.replace("_", " ")}</div>
+              {/each}
+            </div>
+          {/if}
+          {#if collection.availability}
+            <div class="tags tags-availability">
+              {#each collection.availability.split(",") as a}
+                <div class="tag">{a.replace("_", " ")}</div>
+              {/each}
+            </div>
+          {/if}
+          {#if collection.file_type}
+            <div class="tags tags-filetype">
+              {#each collection.file_type.split(",") as ft}
+                <div class="tag">{ft.replace("_", " ")}</div>
+              {/each}
+            </div>
+          {/if}
         </div>
       </div>
     </div>
   </div>
-</div>
+</a>
 
 <style lang="scss">
+  a {
+    text-decoration: none;
+  }
   .catalog-item-container {
+    min-height: 8rem;
     height: fit-content;
     padding: 0.2rem;
     display: grid;
@@ -98,63 +111,71 @@
     box-shadow: $boxShadow-xs;
     border: 1px solid #ccc;
 
+    &:hover {
+      border: 1px solid #9b9b9b;
+      box-shadow: $boxShadow-md;
+      cursor: pointer;
+    }
+
     .catalog-item {
       display: grid;
       grid-template-columns: 1fr 3fr;
       gap: 0.25rem;
 
       .catalog-item-meta {
-        h2.catalog-item-title {
-          margin-top: 0 !important;
-          margin-bottom: 1.25rem !important;
-          font-size: 0.8rem !important;
-          line-height: 1 !important;
-        }
         padding: 0.125rem;
 
-        :global(.link) {
-          font-size: 1rem;
-          font-weight: 600;
-          text-decoration: none;
+        .catalog-item-title {
+          display: grid;
+          grid-template-columns: 1fr auto;
+          gap: 1fr;
 
-          &:visited {
-            color: $primaryColor;
+          h2,
+          .catalog-item-date {
+            margin-top: 0 !important;
+            margin-bottom: 0.5rem !important;
+            font-size: 1.25rem !important;
+            line-height: 1 !important;
           }
-          color: #333;
+          .catalog-item-date {
+            color: #666;
+          }
         }
+
         .catalog-item-tags {
           display: grid;
           grid-template-rows: auto auto auto;
-          margin-top: -0.75rem;
-          font-size: 0.6rem;
-          gap: 0.125rem;
+          font-size: 0.8rem;
+          gap: 0.5rem;
 
           .tags {
             display: flex;
+            flex-wrap: wrap;
             gap: 0.25rem;
             font-weight: 600;
             .tag {
               padding: 0.125rem 0.25rem;
+              white-space: nowrap;
             }
           }
         }
 
-        .tags-date {
+        .tags-filetype {
           .tag {
-            background: #a86b08;
-            color: white;
+            border: solid 1px #ccc;
+            border-left: solid 0.125rem #a86b08;
           }
         }
         .tags-availability {
           .tag {
-            background: #333;
-            color: white;
+            border: solid 1px #ccc;
+            border-left: solid 0.125rem #333;
           }
         }
         .tags-category {
           .tag {
-            background: #25825f;
-            color: white;
+            border: solid 1px #ccc;
+            border-left: solid 0.125rem #25825f;
           }
         }
       }
@@ -162,7 +183,7 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        max-height: 120px;
+        max-height: 100%;
       }
     }
   }

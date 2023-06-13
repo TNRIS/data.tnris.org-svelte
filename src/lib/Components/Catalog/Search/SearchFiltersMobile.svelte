@@ -12,7 +12,7 @@
 <button
   on:click={() => {
     open = !open;
-  }}><i class="material-icons">filter_alt</i>Filters</button
+  }}><i class="material-icons">filter_alt</i>Add Filters</button
 >
 <Modal bind:open>
   <div slot="title"><h1>Catalog Filters</h1></div>

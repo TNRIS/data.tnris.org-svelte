@@ -32,7 +32,8 @@
   >
   <div>
     <h1>
-      {collection?.name} | <small>{new Date(collection?.acquisition_date).getFullYear()}</small>
+      {collection?.name} |
+      <small>{new Date(collection?.acquisition_date).getFullYear()}</small>
     </h1>
   </div>
 </div>
@@ -95,6 +96,7 @@
       align-items: flex-end;
       gap: 0.25rem;
       overflow-x: auto;
+      border-bottom: .125rem solid #ccc;
 
       button {
         width: 100%;
@@ -103,8 +105,15 @@
         border-bottom: none;
 
         &.active {
-          color: white;
-          background: $primaryColor;
+          border: 1px solid #ccc;
+          border-bottom: 0.15rem solid $primaryColor;
+          &:hover {
+            border-bottom: 0.15rem solid $primaryColor;
+          }
+        }
+        &:hover {
+          border: 1px solid #ccc;
+          border-bottom: 0.15rem solid #ccc;
         }
       }
     }

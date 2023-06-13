@@ -15,7 +15,7 @@
 
   let loading = true;
   let data = null;
-  
+
   onMount(async () => {
     //console.log(resourceAreaId, "MOUNTED");
     const r = await getResourcesByAreaTypeAndCollectionId(
@@ -32,71 +32,67 @@
   {#if resourceAreaId && collectionCtrl.collection_id}
     {#if loading == true}
       <LoadingIndicator loadingMessage="fetching resources..." />
-    {:else}
-      {#if data && data.count >= 1}
-        <div
-          class="area-resource-item"
-          id={`${collectionCtrl.collection_id}_${resourceAreaId}`}
-          class:hover={resourceAreaId == $hoveredAreaId}
-          on:mouseenter={() => {
-            $hoveredAreaId = resourceAreaId;
+    {:else if data && data.count >= 1}
+      <div
+        class="area-resource-item"
+        id={`${collectionCtrl.collection_id}_${resourceAreaId}`}
+        class:hover={resourceAreaId == $hoveredAreaId}
+        on:mouseenter={() => {
+          $hoveredAreaId = resourceAreaId;
 
-            if (map && resourceAreaId) {
-              map.setFeatureState(
-                {
-                  source: "tnris-collection-areas",
-                  id: resourceAreaId,
-                },
-                {
-                  hover: true,
-                }
-              );
-            }
-          }}
-          on:mouseleave={() => {
-            $hoveredAreaId = null;
-            if (map && resourceAreaId) {
-              map.setFeatureState(
-                {
-                  source: "tnris-collection-areas",
-                  id: resourceAreaId,
-                },
-                {
-                  hover: false,
-                }
-              );
-            }
-          }}
-        >
-          <div class="area-resource-header">
-            <h3>{resourceAreaName}</h3>
-            <button
-              on:click={() =>
-                collectionCtrl.removeAreaSelection($mapStore, {
-                  label: resourceAreaName,
-                  value: resourceAreaId,
-                })}>X</button
-            >
-          </div>
-          <div class="resource-area-rows">
-            {#each data.results as resource}
-              <div class="area-resource-row">
-                {resource.resource_type_name}<a
-                  href={resource.resource}
-                  download
-                  >Download (~{(resource.filesize / 1000000).toFixed(2)}mb)</a
-                >
-              </div>
-            {/each}
-          </div>
+          if (map && resourceAreaId) {
+            map.setFeatureState(
+              {
+                source: "tnris-collection-areas",
+                id: resourceAreaId,
+              },
+              {
+                hover: true,
+              }
+            );
+          }
+        }}
+        on:mouseleave={() => {
+          $hoveredAreaId = null;
+          if (map && resourceAreaId) {
+            map.setFeatureState(
+              {
+                source: "tnris-collection-areas",
+                id: resourceAreaId,
+              },
+              {
+                hover: false,
+              }
+            );
+          }
+        }}
+      >
+        <div class="area-resource-header">
+          <h3>{resourceAreaName}</h3>
+          <button
+            on:click={() =>
+              collectionCtrl.removeAreaSelection($mapStore, {
+                label: resourceAreaName,
+                value: resourceAreaId,
+              })}>X</button
+          >
         </div>
-      {:else}
-        <div class="area-resource-row">
-          <Empty
-            message={`Aww, shucks! No resources to download found for ${resourceAreaName}.`}
-          />
+        <div class="resource-area-rows">
+          {#each data.results as resource}
+            <div class="area-resource-row">
+              {resource.resource_type_name}<a href={resource.resource} download
+                >Download (~{(resource.filesize / 1000000).toFixed(2)}mb)</a
+              >
+            </div>
+          {/each}
         </div>
-      {/if}
+      </div>
+    {:else}
+      <div class="area-resource-row">
+        <Empty
+          message={`Aww, shucks! No resources to download found for ${resourceAreaName}.`}
+        />
+      </div>
     {/if}
   {/if}
 </div>
@@ -104,7 +100,7 @@
 <style lang="scss">
   .area-resource-container {
     background: white;
-    
+
     .area-resource-header {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
@@ -120,7 +116,7 @@
       border: solid 1px #ccc;
       box-shadow: $boxShadow-xs;
       &.hover {
-        border: solid 1px $primaryColor;
+        border: solid 1px #9b9b9b;
       }
       .resource-area-rows {
         display: grid;
@@ -129,7 +125,7 @@
           display: grid;
           grid-template-columns: minmax(0, 1fr) auto;
           overflow-wrap: break-word;
-          gap: .5rem;
+          gap: 0.5rem;
           border-bottom: 1px solid #cccccc80;
         }
       }

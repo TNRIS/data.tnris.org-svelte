@@ -58,9 +58,10 @@
   .layer-switch {
     display: grid;
     gap: 0.5rem;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto auto;
     align-items: center;
-    justify-content: center;
+    justify-content: stretch;
+    justify-items: end;
     height: fit-content;
   }
 </style>
