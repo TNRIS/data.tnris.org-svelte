@@ -45,11 +45,6 @@
     {:else if queryResult && queryResult.data.results.length < 1}
       <Empty />
     {:else}
-      <div id="CatalogItemList" bind:this={catalogScrollWindow}>
-        {#each queryResult.data.results as col}
-          <CatalogItem collection={col} />
-        {/each}
-      </div>
       <CatalogPagination
         results={queryResult?.data}
         scrollContainer={catalogScrollWindow}
@@ -59,6 +54,11 @@
           $query.params.pg = value;
         }}
       />
+      <div id="CatalogItemList" bind:this={catalogScrollWindow}>
+        {#each queryResult.data.results as col}
+          <CatalogItem collection={col} />
+        {/each}
+      </div>
     {/if}
   </div>
 </Query>
@@ -66,7 +66,7 @@
 <style lang="scss">
   #CatalogContainer {
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto auto 1fr;
     height: 100%;
     width: 100%;
     border: solid 1px $borderColor;

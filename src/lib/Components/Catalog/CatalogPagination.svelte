@@ -21,9 +21,6 @@
 </script>
 
 <div id="CatalogPaginationWrapper">
-  <div id="CatalogPaginationStatus">
-    <span> {min} - {max} of {results.count}</span>
-  </div>
   <div id="CatalogPagination">
     <button
       on:click={() => {
@@ -55,6 +52,9 @@
       >Next<i class="material-icons">chevron_right</i>
     </button>
   </div>
+  <div id="CatalogPaginationStatus">
+    <span> {min} - {max} of {results.count}</span>
+  </div>
 </div>
 
 <style lang="scss">
@@ -81,7 +81,7 @@
       padding: 0.25rem;
       background: #efefef;
       color: #555;
-      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
     }
   }
 </style>
