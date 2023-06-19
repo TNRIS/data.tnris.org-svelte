@@ -29,7 +29,7 @@
         }}
       />
     </div>
-    <h4>Categories</h4>
+    <h4>Category</h4>
     <div class="grid-two-column">
       <MultiSelect
         options={CATALOG_FILTER_CONSTANTS.CATEGORIES}
