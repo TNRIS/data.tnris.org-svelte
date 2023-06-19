@@ -53,7 +53,7 @@
   };
 </script>
 
-<a href="/collection?c={collection.collection_id}">
+<a href="/collection/?c={collection.collection_id}">
   <div class="catalog-item-container">
     <div
       class="catalog-item"

@@ -7,8 +7,9 @@
   const queryClient = new QueryClient();
 </script>
 
-<svelte:window on:click={click} />
-
+<!-- 
+  <svelte:window on:click={click} />
+ -->
 <main id="app">
   <QueryClientProvider client={queryClient}>
     <Header />
