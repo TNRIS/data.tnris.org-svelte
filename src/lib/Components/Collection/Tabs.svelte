@@ -27,7 +27,7 @@
       // 1. navigate backward for query param history
       // 2. navigate backward to catalog page
       //back();
-      back();
+      window.history.back();
     }}><i class="material-icons">arrow_back</i></button
   >
   <div>
