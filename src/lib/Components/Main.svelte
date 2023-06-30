@@ -3,6 +3,7 @@
   import { cartOpen } from "../Api/Cart/cartStore";
   import Cart from "./Cart/Cart.svelte";
   import Catalog from "./Catalog/Catalog.svelte";
+  import Metrics from "./Metrics/Metrics.svelte";
   import Drawer from "./General/Drawer.svelte";
   import MapLibre from "./Map/MapLibre.svelte";
   import Order from "./Order/Order.svelte";
@@ -26,6 +27,10 @@
 
   {#if $pattern("/collection")}
     <section id="left-pane"><CollectionContainer /></section>
+  {/if}
+
+  {#if $pattern("/metrics")}
+    <p><Metrics /></p>
   {/if}
 
   {#if $pattern("/order/*")}

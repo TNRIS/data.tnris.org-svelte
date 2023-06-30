@@ -1,0 +1,32 @@
+<script>
+    let body = {}
+    fetch("https://stagingapi.tnris.org/api/v1/tnris_org/metrics", {
+        method: "POST",
+        body: JSON.stringify({
+            "bucket":"tnris-analytics",
+            "key":"analytics.html"
+        }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    })  .then((response) => response.json())
+  .then((json) => body = json.message);
+</script>
+    <div id="mbox">{@html body}</div>
+<style>
+    #mbox {
+        position: fixed;
+        width: 100%;
+        height: 85%;
+        overflow:auto;
+    }
+    #mbox::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    #mbox {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+</style>
