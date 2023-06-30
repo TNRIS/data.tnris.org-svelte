@@ -30,7 +30,7 @@
   {/if}
 
   {#if $pattern("/metrics")}
-    <p><Metrics /></p>
+    <Metrics />
   {/if}
 
   {#if $pattern("/order/*")}

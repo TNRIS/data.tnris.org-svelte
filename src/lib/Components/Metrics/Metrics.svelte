@@ -17,8 +17,10 @@
     #mbox {
         position: fixed;
         width: 100%;
-        height: 85%;
-        overflow:auto;
+        height: auto;
+        top: 51px;
+        overflow: auto;
+        bottom: 65px;
     }
     #mbox::-webkit-scrollbar {
         display: none;
