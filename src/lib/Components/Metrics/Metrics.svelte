@@ -1,10 +1,8 @@
 <script>
     let body = {}
-    fetch("https://stagingapi.tnris.org/api/v1/tnris_org/metrics", {
+    fetch("https://api.tnris.org/api/v1/tnris_org/metrics", {
         method: "POST",
         body: JSON.stringify({
-            "bucket":"tnris-analytics",
-            "key":"analytics.html"
         }),
         headers: {
             "Content-type": "application/json; charset=UTF-8"
