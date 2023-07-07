@@ -1,6 +1,8 @@
 <script lang="ts">
   import { autoPlacement, computePosition, shift } from "@floating-ui/dom";
   import { clickOutside } from "./General/clickOutside";
+  import GeneralContactForm from "./Forms/GeneralContactForm.svelte";
+  import Modal from "./General/Modal.svelte";
 
   const routes = {
     Legal: {
@@ -33,6 +35,8 @@
   let legalMenuRef;
   let programsButtonRef;
   let programsMenuRef;
+
+  let contactModalOpen = false;
 
   const setPos = (btnRef, menuRef) =>
     computePosition(btnRef, menuRef, {
@@ -95,10 +99,16 @@
         <p><a href={routes["Programs"][link]}>{link}</a></p>
       {/each}
     </div>
-
-    <!-- <button class="navbar-item-footer">
-      Contact
-    </button> -->
+    <button
+      class="navbar-item-footer"
+      on:click={() => (contactModalOpen = !contactModalOpen)}>Contact Us</button
+    >
+    <Modal open={contactModalOpen}>
+      <h1 slot="title">General Contact Form</h1>
+      <div slot="content">
+        <GeneralContactForm />
+      </div>
+    </Modal>
   </div>
 </div>
 
@@ -106,7 +116,6 @@
   #main-navbar-footer {
     padding: 1rem;
     background: #333;
-    color: white;
 
     #main-navbar-container {
       display: grid;

@@ -19,6 +19,17 @@
       <InfoBox>
         To get historic imagery, please use the "Custom Order" tab above.
       </InfoBox>
+    {:else if collection.availability.includes("External_Link")}
+      <InfoBox>
+        This data collection references an external data source. To find this
+        data, please visit
+        <a
+          target="_blank"
+          referrerpolicy="no-referrer"
+          href={collection.source_data_website}
+          >{collection.source_data_website}</a
+        >
+      </InfoBox>
     {:else}
       {#await collectionCtrl.areas}
         <LoadingIndicator

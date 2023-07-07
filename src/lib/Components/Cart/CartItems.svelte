@@ -60,5 +60,11 @@
     gap: 0.5rem;
     padding: 0.5rem;
     border-bottom: solid 1px #ccc;
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+      border: none;
+    }
   }
 </style>

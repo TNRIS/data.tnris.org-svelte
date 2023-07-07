@@ -1,8 +1,7 @@
 <script>
   // @ts-nocheck
-
-  export let results;
   export let scrollContainer;
+  export let results;
   export let inc;
   export let pg;
   export let setPageCallback = () => console.log(pg, inc);
@@ -12,7 +11,7 @@
   $: max = pg * inc;
 
   const numPages =
-    Math.floor(count / inc) + (count % inc > 0 && count % inc < inc ? 1 : 0);
+    Math.floor(count / inc) + (count % inc > 0 ? 1 : 0);
   let pages = Array.from(Array(numPages).keys());
 
   const scrollToTop = () => {
@@ -53,7 +52,7 @@
     </button>
   </div>
   <div id="CatalogPaginationStatus">
-    <span> {min} - {max} of {results.count}</span>
+    <span>showing results {min} - {max > results.count ? results.count : max} of {results.count}</span>
   </div>
 </div>
 

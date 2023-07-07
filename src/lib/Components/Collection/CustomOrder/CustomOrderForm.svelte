@@ -208,7 +208,7 @@
       <HistoricFields />
     {/if}
     <br />
-    <input on:click={submit_order} type="submit" value="add to cart" />
+    <input on:click={submit_order} type="submit" value="Add To Cart" />
   {/if}
 </form>
 
