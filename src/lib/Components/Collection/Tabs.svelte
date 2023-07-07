@@ -22,7 +22,6 @@
 <div id="collection-info-header">
   <button
     on:click={() => {
-      console.log(history);
       //goes back twice
       // 1. navigate backward for query param history
       // 2. navigate backward to catalog page

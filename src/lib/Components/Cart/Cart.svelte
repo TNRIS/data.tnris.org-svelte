@@ -10,7 +10,7 @@
   let stepIdx = 0;
 
   const steps = [
-    { title: "Cart", component: CartItems },
+    { title: "Data Shopping Cart", component: CartItems },
     { title: "Personal Info", component: PersonalInfo },
     { title: "Delivery Method", component: DeliveryMethod },
     { title: "Payment Method", component: PaymentMethod },

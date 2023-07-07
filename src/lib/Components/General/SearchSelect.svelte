@@ -30,12 +30,7 @@
 </script>
 
 {#if options && filteredOptions}
-  <div
-    class="select-search-container"
-    use:clickOutside
-    on:click_outside={() => (showOptions = false)}
-    on:keydown={() => null}
-  >
+  <div class="select-search-container">
     <div class="select-search">
       <input
         id="spatial-search-bar"
@@ -49,12 +44,19 @@
         }}
       />
 
-      <div class={`${showOptions ? "open " : "closed "}select-search-results`}>
+      <div
+        class={`${showOptions ? "open " : "closed "}select-search-results`}
+        use:clickOutside
+        on:click_outside={() => (showOptions = true ? showOptions = false : null)}
+        on:keydown={() => null}
+      >
         {#each filteredOptions as opt}
           <a
             class="select-search-result"
             href="/"
-            class:selected={$selectedAreas.some((cur) => cur.value == opt.value)}
+            class:selected={$selectedAreas.some(
+              (cur) => cur.value == opt.value
+            )}
             on:click|preventDefault|stopPropagation={() =>
               toggleAreaSelection($mapStore, opt)}
           >
@@ -109,7 +111,7 @@
         background: white;
         border: solid 1px #ccc;
         box-shadow: 1px 1px 3px #cccccc80, 1px 1px 6px #cccccc80;
-        padding: 0.5rem;
+        padding: 0.125rem;
         z-index: 9999999999;
         max-height: 200px;
         overflow-y: auto;
