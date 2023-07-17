@@ -18,7 +18,7 @@
 
 {#if show }
   <section>
-    <h2>supplemental downloads</h2>
+    <h2>Supplemental Downloads</h2>
     <div>
       {#each supplements as s}
         {#if metadata[s]}

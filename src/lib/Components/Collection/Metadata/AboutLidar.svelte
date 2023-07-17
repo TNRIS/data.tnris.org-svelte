@@ -4,7 +4,7 @@
 
 {#if metadata?.category?.includes("Lidar")}
   <section>
-    <h2>about lidar data</h2>
+    <h2>About Lidar Data</h2>
     <p>
       Lidar data for Texas is available online through the use of <a
         href="https://rapidlasso.com/product-overview/"
