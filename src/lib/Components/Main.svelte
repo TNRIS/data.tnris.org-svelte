@@ -94,5 +94,6 @@
     grid-template-columns: 1fr;
     justify-content: center;
     align-content: start;
+    overflow: hidden;
   }
 </style>
