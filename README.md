@@ -1,7 +1,18 @@
-# Svelte + TS + Vite
+# data.tnris.org-svelte
+A rewrite of data.tnris.org in svelte. Added interface for shopping cart integrated with CCP Payment system endpoints.
 
+## node version
+This app is built using node version 16.13.1
+
+## port config
+This app is configured to run on port 3000
+
+## build config
+This app is configured to build to the ./build directory with assets stored in ./build/static
+
+# Svelte + TS + Vite
 This template should help get you started developing with Svelte and TypeScript in Vite.
-#
+
 ## Recommended IDE Setup
 
 [VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
