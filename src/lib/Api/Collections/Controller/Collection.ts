@@ -42,6 +42,18 @@ export class Collection {
   getResourceAreas = async () =>
     await getMapAreasByCollectionId(this.collection_id, this.sig);
 
+  ///////////////////////////////////
+  // Collection Extent from Catalog
+  ///////////////////////////////////
+  getCollectionExtent = async (collection_id) => {
+    const resp = await fetch(
+      `https://api.tnris.org/api/v1/collections_catalog/${collection_id}`
+    );
+    const json = await resp.json();
+
+    return json.the_geom;
+  };
+
   //////////////////////////////////
   // Mapbox/Maplibre event methods
   //////////////////////////////////
@@ -78,13 +90,59 @@ export class Collection {
     map.getCanvas().style.cursor = "pointer";
     if (e?.features?.length > 0) {
       if (e.features[0].area_type_id != this.hoveredAreaId) {
-        this.hoveredAreaId.update((v) => e.features[0].id);
+        const prevHoverArea = get(this.hoveredAreaId);
+        const curHoverArea = e.features[0]?.id;
+
+        if (curHoverArea !== prevHoverArea) {
+          this.hoveredAreaId.update((v) => curHoverArea);
+
+          if (map) {
+            map.setFeatureState(
+              {
+                source: "tnris-collection-areas",
+                id: prevHoverArea,
+              },
+              {
+                hover: false,
+              }
+            );
+            map.setFeatureState(
+              {
+                source: "tnris-collection-areas",
+                id: curHoverArea,
+              },
+              {
+                hover: true,
+              }
+            );
+          }
+        }
+        /*  if (map && resourceAreaId) {
+          map.setFeatureState(
+            {
+              source: "tnris-collection-areas",
+              id: resourceAreaId,
+            },
+            {
+              hover: true,
+            }
+          );
+        } */
       }
     }
   };
   onMapAreaLeave = (e) => {
     const map = get(mapStore);
     map.getCanvas().style.cursor = "";
+    map.setFeatureState(
+      {
+        source: "tnris-collection-areas",
+        id: get(this.hoveredAreaId),
+      },
+      {
+        hover: false,
+      }
+    );
     this.hoveredAreaId.update((v) => null);
     //console.log("mouseexit", e, get(this.hoveredAreaId));
   };
@@ -159,11 +217,54 @@ export class Collection {
       } catch (e) {
         console.log(e);
       }
-      
+
       map.on("click", "tnris-collection-areas", this.onMapAreaClick);
       map.on("mousemove", "tnris-collection-areas", this.onMapAreaMove);
       map.on("mouseleave", "tnris-collection-areas", this.onMapAreaLeave);
     }
+
+    return this;
+  };
+
+  // add collection extent to map
+  public addCollectionExtentToMap = async () => {
+    const map = get(mapStore);
+    const extent = await this.getCollectionExtent(this.collection_id);
+
+    console.log(extent, this.collection_id, map, map.loaded);
+    console.log("adding extent");
+    if (map.getLayer("tnris-collection-extent") !== undefined) {
+      map.removeLayer("tnris-collection-extent");
+      map.removeSource("tnris-collection-extent");
+    }
+    try {
+      console.log("adding extent src", extent);
+      map.addSource(`tnris-collection-extent`, {
+        type: "geojson",
+        data: extent,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+    try {
+      console.log("adding extent layer", extent);
+      map.addLayer({
+        id: `tnris-collection-extent`,
+        source: `tnris-collection-extent`,
+        type: "line",
+        paint: {
+          //selected feature style filter
+          "line-color": "#ff00ff",
+          "line-width": 3,
+        },
+      });
+
+      return map;
+    } catch (e) {
+      console.log(e);
+    }
+
+    return this;
   };
 
   public removeAreaSelection = (map, opt) => {

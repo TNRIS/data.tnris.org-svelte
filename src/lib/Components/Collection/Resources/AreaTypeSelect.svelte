@@ -9,19 +9,23 @@
   const { mapReady } = collectionCtrl;
   $: {
     //console.log("STATE", collectionAreas["state"])
-    //console.log("AREA TYPE SELECT", areaTypeSelection, $mapStore, $mapStore.loaded())
-    console.log("PRE ADD TO MAP");
-    console.log(
+    /* console.log(
+      "AREA TYPE SELECT",
       areaTypeSelection,
       $mapStore,
-      $mapReady,
-      collectionAreas
-    );
+      $mapStore.loaded()
+    ); */
     if (areaTypeSelection && $mapStore && $mapReady && collectionAreas) {
-      console.log("ADDING TO MAP", collectionAreas, $mapReady, areaTypeSelection);
+      console.log(
+        "ADDING TO MAP",
+        collectionAreas,
+        $mapReady,
+        areaTypeSelection
+      );
       collectionCtrl.addCollectionAreasToMap(
         collectionAreas[areaTypeSelection]
       );
+      collectionCtrl.addCollectionExtentToMap();
     }
   }
 </script>
