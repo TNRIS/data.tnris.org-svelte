@@ -87,8 +87,18 @@ body,
 
         &.danger {
             border: solid 1px red;
+            background: white;
             color: red;
         }
+        &.success {
+            border: solid 1px green;
+            background: white;
+            color: green;
+        }
+    }
+
+    button, input[type="submit"] {
+        background: #efefef;
     }
 
     h1,
