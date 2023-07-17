@@ -128,7 +128,7 @@
     </div>
   </Query>
   {#if $query.params.geo}
-    <button class="alert" on:click={() => clearSpatialSearch()}>clear</button>
+    <button class="danger" on:click={() => clearSpatialSearch()}>clear</button>
   {/if}
   <DrawBBox />
 </div>
@@ -138,10 +138,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 0rem;
-    .alert {
-      border: solid 1px #d00404;
-      color: #d00404;
-    }
+
     #spatial-search {
       /* #spatial-search-bar {
       } */
