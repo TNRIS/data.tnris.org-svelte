@@ -40,9 +40,6 @@
             <div id="cart-length">{Object.keys($cartStore).length}</div>
           {/if}
         </button>
-        <!-- <div>
-          <span><i class="material-icons">shopping_cart</i> Cart</span>
-        </div> -->
       </div>
     </div>
     {#if showAlert != "F"}
