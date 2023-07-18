@@ -4,7 +4,6 @@
   import CustomOrderForm from "./CustomOrder/CustomOrderForm.svelte";
   import Metadata from "./Metadata.svelte";
   import ResourcesContainer from "./Resources/ResourcesContainer.svelte";
-  import { back } from "svelte-pathfinder";
 
   export let collection;
   export let collectionCtrl: Collection;
@@ -22,10 +21,6 @@
 <div id="collection-info-header">
   <button
     on:click={() => {
-      //goes back twice
-      // 1. navigate backward for query param history
-      // 2. navigate backward to catalog page
-      //back();
       window.history.back();
     }}><i class="material-icons">arrow_back</i></button
   >
