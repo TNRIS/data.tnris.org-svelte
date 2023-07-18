@@ -64,10 +64,7 @@
       display: flex;
       overflow: hidden;
       background-color: white;
-    }
-
-    #left-pane {
-      padding: 0.5rem;
+      padding: .5rem;
     }
 
     @media (max-width: 1000px) {
