@@ -55,7 +55,7 @@
               >betadata.tnris.org</a
             > until at least August 15, 2023.
           </span>
-          <button on:click={() => setAlertLocalStorage("F")}>Okay</button>
+          <button on:click={() => {setAlertLocalStorage("F"); showAlert = "F"}}>Okay</button>
         </div>
       </div>
     {/if}
@@ -140,7 +140,8 @@
           margin: auto;
           max-width: 1600px;
           background: white;
-          padding: 0.125rem 0.5rem;
+          padding: .125rem;
+          padding-left: 0.5rem;
         }
       }
     }
