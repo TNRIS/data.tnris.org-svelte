@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import { cartOpen, cartStore } from "../Api/Cart/cartStore";
 
 
