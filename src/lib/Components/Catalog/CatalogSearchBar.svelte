@@ -111,7 +111,6 @@
       grid-template-columns: 1fr;
       grid-template-rows: auto auto;
       gap: 0.5rem;
-      max-width: 500px;
       width: 100%;
 
       #catalog-filter-badge-wrapper {
@@ -156,7 +155,6 @@
     #CatalogSearch {
       display: grid;
       gap: 0.25rem;
-      max-width: 500px;
       width: 100%;
     }
   }
