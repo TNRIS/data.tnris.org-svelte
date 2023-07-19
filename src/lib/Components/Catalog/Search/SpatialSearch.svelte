@@ -140,8 +140,6 @@
     gap: 0rem;
 
     #spatial-search {
-      /* #spatial-search-bar {
-      } */
 
       #spatial-search-input {
         width: 100%;

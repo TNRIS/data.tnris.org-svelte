@@ -42,175 +42,184 @@
   }
 </script>
 
-<form
-  id="custom-order-form"
-  on:submit|preventDefault|stopPropagation={(event) => {
-    const data = new FormData(event.target);
-    let obj = {};
-    for (let field of data) {
-      // Files should be stored in an array since there can be multiples
-      if (field[1] instanceof File) {
-        let files = obj[field[0]];
-        if (files) {
-          files.push(field[1]);
+{#if collection.availability == "External_Link"}
+  <InfoBox>
+    This data is not maintained by TNRIS and is only available as a link to an
+    external data source. You can find this dataset at the maintainers website, <a
+      href={collection.source_data_website}>{collection.source_data_website}</a
+    >. 
+  </InfoBox>
+{:else}
+  <form
+    id="custom-order-form"
+    on:submit|preventDefault|stopPropagation={(event) => {
+      const data = new FormData(event.target);
+      let obj = {};
+      for (let field of data) {
+        // Files should be stored in an array since there can be multiples
+        if (field[1] instanceof File) {
+          let files = obj[field[0]];
+          if (files) {
+            files.push(field[1]);
+          } else {
+            obj[field[0]] = [field[1]];
+          }
         } else {
-          obj[field[0]] = [field[1]];
+          const [key, value] = field;
+          obj[key] = value;
         }
-      } else {
-        const [key, value] = field;
-        obj[key] = value;
       }
-    }
-    cartStore.addItem(obj, collection.collection_id);
-  }}
->
-  {#if $cartStore && Object.keys($cartStore)?.length > 0 && $cartStore[collection.collection_id]}
-    <InfoBox infoClass="success"
-      >This item has already been added to your cart. Open the cart to checkout
-      or remove items from the cart.</InfoBox
-    ><br />
-    <button
-      class="full-width inverse-colors"
-      on:click|preventDefault|stopPropagation={() => ($cartOpen = true)}
-      >Open Cart</button
-    >
-  {:else}
-    <InfoBox infoClass="info">
-      Is there no download option for this dataset? Is everything you're looking
-      for too large to directly download? Every dataset is available for order
-      directly from TNRIS.
-    </InfoBox>
-    <br />
-    <input
-      bind:value={collection.collection_id}
-      id="data-uuid"
-      name="data-uuid"
-      required
-      style="display: none;"
-    />
-    <input
-      bind:value={collection.name}
-      id="data-name"
-      name="data-name"
-      required
-      style="display: none;"
-    />
-    <input
-      bind:value={collection.acquisition_date}
-      id="data-acquisition-date"
-      name="data-acquisition-date"
-      required
-      style="display: none;"
-    />
-    <label for="data-portion" class="required">
-      Would you like the entire dataset, or just a portion of it?
-      <select
-        id="data-portion"
-        name="data-portion"
-        required
-        bind:value={dataPortion}
+      cartStore.addItem(obj, collection.collection_id);
+    }}
+  >
+    {#if $cartStore && Object.keys($cartStore)?.length > 0 && $cartStore[collection.collection_id]}
+      <InfoBox infoClass="success"
+        >This item has already been added to your cart. Open the cart to
+        checkout or remove items from the cart.</InfoBox
+      ><br />
+      <button
+        class="full-width inverse-colors"
+        on:click|preventDefault|stopPropagation={() => ($cartOpen = true)}
+        >Open Cart</button
       >
-        <option value="Full">Full (Entire Dataset)</option>
-        <option value="Partial">Partial (Described Portion)</option>
-      </select>
-    </label>
-    {#if dataPortion == "Partial"}
-      <label for="data-description-type" class="required">
+    {:else}
+      <InfoBox infoClass="info">
+        Is there no download option for this dataset? Is everything you're
+        looking for too large to directly download? Every dataset is available
+        for order directly from TNRIS.
+      </InfoBox>
+      <br />
+      <input
+        bind:value={collection.collection_id}
+        id="data-uuid"
+        name="data-uuid"
+        required
+        style="display: none;"
+      />
+      <input
+        bind:value={collection.name}
+        id="data-name"
+        name="data-name"
+        required
+        style="display: none;"
+      />
+      <input
+        bind:value={collection.acquisition_date}
+        id="data-acquisition-date"
+        name="data-acquisition-date"
+        required
+        style="display: none;"
+      />
+      <label for="data-portion" class="required">
         Would you like the entire dataset, or just a portion of it?
         <select
-          id="data-description-type"
-          name="data-description-type"
+          id="data-portion"
+          name="data-portion"
           required
-          bind:value={dataDescriptionType}
+          bind:value={dataPortion}
         >
-          <option value="Shapefile"
-            >Shapefile (.kml, .shp compressed as a .zip file)</option
-          >
-          <option value="Screenshot">Screenshot (.png, .jpeg)</option>
-          <option value="Text">Describe it (text)</option>
+          <option value="Full">Full (Entire Dataset)</option>
+          <option value="Partial">Partial (Described Portion)</option>
         </select>
       </label>
+      {#if dataPortion == "Partial"}
+        <label for="data-description-type" class="required">
+          Would you like the entire dataset, or just a portion of it?
+          <select
+            id="data-description-type"
+            name="data-description-type"
+            required
+            bind:value={dataDescriptionType}
+          >
+            <option value="Shapefile"
+              >Shapefile (.kml, .shp compressed as a .zip file)</option
+            >
+            <option value="Screenshot">Screenshot (.png, .jpeg)</option>
+            <option value="Text">Describe it (text)</option>
+          </select>
+        </label>
 
-      {#if dataDescriptionType == "Shapefile"}
-        <label for="data-description" class="required"
-          >Please select a .zip file containing a .shp or .kml outlining the
-          desired area<br />
-          <div class="warning">
-            ***Notice- All data submitted to TNRIS is subject to Texas Public
-            Information Requests and becomes publicly available. Please do not
-            include personal information in your uploaded area of interest
-            files.
-          </div>
-          <input
-            accept=".zip,.rar,.7zip"
-            bind:files={dataDescription}
+        {#if dataDescriptionType == "Shapefile"}
+          <label for="data-description" class="required"
+            >Please select a .zip file containing a .shp or .kml outlining the
+            desired area<br />
+            <div class="warning">
+              ***Notice- All data submitted to TNRIS is subject to Texas Public
+              Information Requests and becomes publicly available. Please do not
+              include personal information in your uploaded area of interest
+              files.
+            </div>
+            <input
+              accept=".zip,.rar,.7zip"
+              bind:files={dataDescription}
+              multiple
+              id="data-description"
+              name="data-description"
+              type="file"
+              required
+              aria-required="true"
+            /></label
+          >
+        {:else if dataDescriptionType == "Screenshot"}
+          <label for="data-description-files" class="required"
+            >Please select a .jpeg, .jpg or .png file displaying the desired
+            area on a map
+            <div class="warning">
+              ***Notice- All data submitted to TNRIS is subject to Texas Public
+              Information Requests and becomes publicly available. Please do not
+              include personal information in your uploaded area of interest
+              files.
+            </div>
+            <input
+              accept="image/png, image/jpeg"
+              multiple
+              bind:files={dataDescription}
+              id="data-description"
+              name="data-description"
+              type="file"
+              required
+              aria-required="true"
+            /></label
+          >
+        {:else if dataDescriptionType == "Text"}
+          <label for="data-description" class="required">
+            Please describe the desired geographic boundary area
+            <textarea
+              id="data-description"
+              name="data-description"
+              rows="4"
+              required
+              aria-required="true"
+              bind:value={dataDescription}
+            />
+          </label>
+        {/if}
+      {/if}
+      {#if isLidar}
+        <label for="lidar-format" class="required">
+          Please select the desired formats of lidar data. Hold Ctrl and Click
+          to select multiple.
+          <select
+            id="lidar-format"
+            name="lidar-format"
             multiple
-            id="data-description"
-            name="data-description"
-            type="file"
-            required
-            aria-required="true"
-          /></label
-        >
-      {:else if dataDescriptionType == "Screenshot"}
-        <label for="data-description-files" class="required"
-          >Please select a .jpeg, .jpg or .png file displaying the desired area
-          on a map
-          <div class="warning">
-            ***Notice- All data submitted to TNRIS is subject to Texas Public
-            Information Requests and becomes publicly available. Please do not
-            include personal information in your uploaded area of interest
-            files.
-          </div>
-          <input
-            accept="image/png, image/jpeg"
-            multiple
-            bind:files={dataDescription}
-            id="data-description"
-            name="data-description"
-            type="file"
-            required
-            aria-required="true"
-          /></label
-        >
-      {:else if dataDescriptionType == "Text"}
-        <label for="data-description" class="required">
-          Please describe the desired geographic boundary area
-          <textarea
-            id="data-description"
-            name="data-description"
-            rows="4"
-            required
-            aria-required="true"
-            bind:value={dataDescription}
-          />
+            bind:value={formats}
+          >
+            {#each LIDAR_FORMATS as opt}
+              <option value={opt.value}>{opt.label}</option>
+            {/each}
+            <option value="" class="multiselect" style="display:none;" />
+          </select>
         </label>
       {/if}
+      {#if isHistoric}
+        <HistoricFields />
+      {/if}
+      <br />
+      <input on:click={submit_order} type="submit" value="Add To Cart" />
     {/if}
-    {#if isLidar}
-      <label for="lidar-format" class="required">
-        Please select the desired formats of lidar data. Hold Ctrl and Click to
-        select multiple.
-        <select
-          id="lidar-format"
-          name="lidar-format"
-          multiple
-          bind:value={formats}
-        >
-          {#each LIDAR_FORMATS as opt}
-            <option value={opt.value}>{opt.label}</option>
-          {/each}
-          <option value="" class="multiselect" style="display:none;" />
-        </select>
-      </label>
-    {/if}
-    {#if isHistoric}
-      <HistoricFields />
-    {/if}
-    <br />
-    <input on:click={submit_order} type="submit" value="Add To Cart" />
-  {/if}
-</form>
+  </form>
+{/if}
 
 <style lang="scss">
   form {
