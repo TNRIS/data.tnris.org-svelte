@@ -27,7 +27,7 @@
     width: 100%;
     max-width: 1200px;
     margin: auto;
-    overflow: scroll;
+    overflow-y: auto;
 
     .order-nav {
       display: grid;

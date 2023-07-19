@@ -127,9 +127,12 @@
 
       #main-navbar-alert-wrapper {
         padding: .5rem;
+        display: grid;
+        justify-content: center;
 
         #main-navbar-alert-container {
           display: grid;
+          gap: 1rem;
           grid-template-columns: 1fr auto;
           align-items: center;
           justify-content: space-between;
