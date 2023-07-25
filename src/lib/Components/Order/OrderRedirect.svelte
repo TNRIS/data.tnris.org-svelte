@@ -21,7 +21,7 @@
         }
 
         setTimeout(function() {
-            window.location.replace("https://www.data.tnris.org");
+            window.location.replace("https://data.tnris.org");
         }, 5000)
     }
 
