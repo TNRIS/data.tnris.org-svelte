@@ -25,13 +25,13 @@ export const getAddressCandidates = async (
 
   if (type == "ESRI") {
     return fetch(
-      `${ESRI_BASE_URI}?${esriQueryString}&SingleLine=${searchText}`
+      `${ESRI_BASE_URI}?${esriQueryString}&SingleLine=${searchText}`,{cache: "no-cache"}
     ).then((data) => {
       return data.json();
     });
   }
   if (type == "NOMINATIM") {
-    return fetch(NOMINATIM_BASE_URI).then((data) => {
+    return fetch(NOMINATIM_BASE_URI, {cache: "no-cache"}).then((data) => {
       return data.json();
     });
   }

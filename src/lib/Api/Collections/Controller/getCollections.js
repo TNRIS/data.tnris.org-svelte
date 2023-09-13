@@ -98,7 +98,7 @@ export const catalogParamsStore = derived(
 );
 
 export const getCollections = async (queryString) => {
-  const resp = await fetch(`${GET_COLLECTIONS_URL}?${queryString}`);
+  const resp = await fetch(`${GET_COLLECTIONS_URL}?${queryString}`, {cache: "no-cache"});
   if (resp.ok == false) {
     throw new Error(`Error retreiving collection catalog`);
   }
@@ -110,7 +110,7 @@ export const getCollectionById = async (collection_id, signal) => {
 
   if (resp.ok == false) {
     const resp = await fetch(
-      `${GET_HISTORICAL_COLLECTION_BY_ID_URL}/${collection_id}`
+      `${GET_HISTORICAL_COLLECTION_BY_ID_URL}/${collection_id}`, {cache: "no-cache"}
     );
 
     if (resp.ok == false) {

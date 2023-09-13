@@ -68,6 +68,7 @@
         headers: {
           "Content-Type": "application/json",
         },
+        cache: "no-cache"
       });
 
     let resp = await postOrder();

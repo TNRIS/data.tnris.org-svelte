@@ -14,6 +14,7 @@ export async function getUploadPolicy(fileInfo) {
     headers: {
       "Content-Type": "application/json",
     },
+    cache: "no-cache"
   };
   const policyResponse = await fetch(policyUrl, payload);
   return await policyResponse.json();
@@ -78,6 +79,7 @@ export async function uploadFilesToS3(
       const payload = {
         method: "POST",
         body: formData,
+        cache: "no-cache"
       };
       setStatusCallback({
         status: `Uploading ${file.name}`,
