@@ -57,6 +57,7 @@
         },
         method: "POST",
         body: JSON.stringify(payload),
+        cache: "no-cache"
       }
     );
 

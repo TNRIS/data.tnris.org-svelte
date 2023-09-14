@@ -47,7 +47,8 @@ export class Collection {
   ///////////////////////////////////
   getCollectionExtent = async (collection_id) => {
     const resp = await fetch(
-      `https://api.tnris.org/api/v1/collections_catalog/${collection_id}`
+      `https://api.tnris.org/api/v1/collections_catalog/${collection_id}`,
+      {cache: "no-cache"}
     );
     const json = await resp.json();
 

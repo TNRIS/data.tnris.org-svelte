@@ -6,6 +6,7 @@
     headers: {
       "Content-type": "application/json; charset=UTF-8",
     },
+    cache: "no-cache"
   })
     .then((response) => response.json())
     .then((json) => (body = json.message));

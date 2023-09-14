@@ -47,6 +47,7 @@
         "Content-Type": "application/json; charset=utf-8",
       },
       body: JSON.stringify(formVals),
+      cache: "no-cache"
     };
 
     const response = await fetch(url, payload);

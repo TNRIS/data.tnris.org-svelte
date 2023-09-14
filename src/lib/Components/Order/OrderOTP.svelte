@@ -17,6 +17,7 @@
 
     const payload = {
       recaptcha: d["g-recaptcha-response"],
+
     };
 
     const resp = await fetch(
@@ -27,6 +28,7 @@
         },
         method: "POST",
         body: JSON.stringify(payload),
+        cache: "no-cache"
       }
     );
 
