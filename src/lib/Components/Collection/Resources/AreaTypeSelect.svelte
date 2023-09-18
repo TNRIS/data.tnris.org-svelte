@@ -16,12 +16,12 @@
       $mapStore.loaded()
     ); */
     if (areaTypeSelection && $mapStore && $mapReady && collectionAreas) {
-      console.log(
+      /* console.log(
         "ADDING TO MAP",
         collectionAreas,
         $mapReady,
         areaTypeSelection
-      );
+      ); */
       collectionCtrl.addCollectionAreasToMap(
         collectionAreas[areaTypeSelection]
       );

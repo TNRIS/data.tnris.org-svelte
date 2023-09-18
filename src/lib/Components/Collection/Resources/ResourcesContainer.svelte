@@ -72,7 +72,7 @@
       {/await}
       <section id="area-selections-resource-list-container">
         {#if $selectedAreas && $selectedAreas.length > 0}
-          {#each $selectedAreas as area}
+          {#each $selectedAreas as area (area.value)}
             <ResourceAreaItem
               {collectionCtrl}
               resourceAreaId={area.value}

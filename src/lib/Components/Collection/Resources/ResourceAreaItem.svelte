@@ -16,23 +16,17 @@
   let loading = true;
   let data = null;
 
-  onMount(async () => {
-    //console.log(resourceAreaId, "MOUNTED");
-    const r = await getResourcesByAreaTypeAndCollectionId(
-      collectionCtrl.collection_id,
-      resourceAreaId
-    );
-
-    data = r;
-    loading = false;
-  });
+  const rscPromise = getResourcesByAreaTypeAndCollectionId(
+    collectionCtrl.collection_id,
+    resourceAreaId
+  );
 </script>
 
 <div class="area-resource-container">
-  {#if resourceAreaId && collectionCtrl.collection_id}
-    {#if loading == true}
-      <LoadingIndicator loadingMessage="fetching resources..." />
-    {:else if data && data.count >= 1}
+  {#await rscPromise}
+    <LoadingIndicator loadingMessage="fetching resources..." />
+  {:then data}
+    {#if data && data.count >= 1}
       <div
         class="area-resource-item"
         id={`${collectionCtrl.collection_id}_${resourceAreaId}`}
@@ -94,7 +88,7 @@
         />
       </div>
     {/if}
-  {/if}
+  {/await}
 </div>
 
 <style lang="scss">
