@@ -4,6 +4,7 @@ export const getResourcesByAreaTypeAndCollectionId = async (
   collection_id,
   area_type_id
 ) => {
+  // console.log({ collection_id: collection_id, area_type_id: area_type_id });
   const resp = await fetch(
     `${RESOURCES_BASE_URL}/?area_type_id=${area_type_id}&collection_id=${collection_id}`,
     {cache: "no-cache"}

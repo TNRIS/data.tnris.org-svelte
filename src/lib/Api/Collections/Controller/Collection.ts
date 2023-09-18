@@ -9,7 +9,7 @@ export class Collection {
     this.collection_id = collection_id;
     this.currentTab = this.currentTab;
     this.hoveredAreaId = this.hoveredAreaId;
-    this.selectedAreas = this.selectedAreas;
+    this.selectedAreas = writable([])
     this.selectedAreaType = this.selectedAreaType;
     this.areaSearch = this.areaSearch;
     this.details = this.getCollectionDetails();
@@ -63,10 +63,10 @@ export class Collection {
 
     const waiting = () => {
       if (!map.isStyleLoaded()) {
-        console.log("loading map style...");
+        //console.log("loading map style...");
         setTimeout(waiting, 200);
       } else {
-        console.log("map style loaded...");
+        //console.log("map style loaded...");
         this.mapReady.update((v) => true);
       }
     };
@@ -75,14 +75,13 @@ export class Collection {
 
   onMapAreaClick = (e) => {
     const map = get(mapStore);
-    const selectedAreas = this.selectedAreas;
 
     if (e.features[0]) {
       let newArea = {
         label: e.features[0].properties.area_type_name,
         value: e.features[0].properties.area_type_id,
       };
-      console.log(newArea);
+      //console.log(newArea);
       this.toggleAreaSelection(map, newArea);
     }
   };
@@ -232,14 +231,14 @@ export class Collection {
     const map = get(mapStore);
     const extent = await this.getCollectionExtent(this.collection_id);
 
-    console.log(extent, this.collection_id, map, map.loaded);
-    console.log("adding extent");
+    //console.log(extent, this.collection_id, map, map.loaded);
+    //console.log("adding extent");
     if (map.getLayer("tnris-collection-extent") !== undefined) {
       map.removeLayer("tnris-collection-extent");
       map.removeSource("tnris-collection-extent");
     }
     try {
-      console.log("adding extent src", extent);
+      //console.log("adding extent src", extent);
       map.addSource(`tnris-collection-extent`, {
         type: "geojson",
         data: extent,
@@ -248,7 +247,7 @@ export class Collection {
       console.log(e);
     }
     try {
-      console.log("adding extent layer", extent);
+      //console.log("adding extent layer", extent);
       map.addLayer({
         id: `tnris-collection-extent`,
         source: `tnris-collection-extent`,
@@ -269,8 +268,8 @@ export class Collection {
   };
 
   public removeAreaSelection = (map, opt) => {
-    const selectedAreas = this.selectedAreas;
-    selectedAreas.update((s) => s.filter((v) => v.value != opt.value));
+    this.selectedAreas.update((s) => s.filter((v) => v.value != opt.value));
+    
     //remove states
     map.setFeatureState(
       {
@@ -311,8 +310,7 @@ export class Collection {
       this.currentTab.update((v) => "Downloads");
       //console.log(get(this.currentTab));
     }
-    const selectedAreas = get(this.selectedAreas);
-    if (selectedAreas.some((cur) => cur.value == opt.value)) {
+    if (get(this.selectedAreas).some((cur) => cur.value == opt.value)) {
       this.removeAreaSelection(map, opt);
     } else {
       this.addAreaSelection(map, opt);
