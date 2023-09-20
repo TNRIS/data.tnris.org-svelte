@@ -9,6 +9,11 @@
     bind:value={value}
     type="search"
     placeholder="keyword search"
+    on:keydown={(e) => {
+      if(e.key == "Enter") {
+        callback(value)
+      }
+    }}
   /><button class="keyword-search-button" on:click={() => callback(value)}
     ><i class="material-icons">search</i></button
   >
