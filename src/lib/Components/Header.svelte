@@ -1,16 +1,15 @@
 <script lang="ts">
   import { cartOpen, cartStore } from "../Api/Cart/cartStore";
 
-
-  /* const setAlertLocalStorage = (value: "T" | "F") => {
-    localStorage.setItem("showAlertLegacyHub071823", value)
-  }
+  const setAlertLocalStorage = (value: "T" | "F") => {
+    localStorage.setItem("showAlertAGS11082023", value);
+  };
   const getAlertLocalStorage = (): string | undefined => {
-    return localStorage.getItem("showAlertLegacyHub071823")
-  }
+    return localStorage.getItem("showAlertAGS11082023");
+  };
 
   let open: boolean;
-  let showAlert = getAlertLocalStorage(); */
+  let showAlert = getAlertLocalStorage();
 </script>
 
 <div id="main-navbar-wrapper">
@@ -42,19 +41,23 @@
         </button>
       </div>
     </div>
-    <!-- {#if showAlert != "F"}
+    {#if showAlert != "F"}
       <div id="main-navbar-alert-wrapper">
         <div id="main-navbar-alert-container">
           <span>
-            The new TNRIS DataHub Experience is here! If you need to use the old
-            experience, it is available at <a href="https://betadata.tnris.org"
-              >betadata.tnris.org</a
-            > until at least August 15, 2023.
+            We will be upgrading our Feature and Imagery Mapping servers
+            11/13/2023. ArcGIS and WMS services will be intermittently
+            unavailable during the change window.
           </span>
-          <button on:click={() => {setAlertLocalStorage("F"); showAlert = "F"}}>Okay</button>
+          <button
+            on:click={() => {
+              setAlertLocalStorage("F");
+              showAlert = "F";
+            }}>Okay</button
+          >
         </div>
       </div>
-    {/if} -->
+    {/if}
   </div>
 </div>
 
@@ -112,7 +115,6 @@
             background: $primaryColor;
             font-weight: 600;
 
-
             #cart-length {
               background: red;
               color: white;
@@ -126,7 +128,7 @@
       }
 
       #main-navbar-alert-wrapper {
-        padding: .5rem;
+        padding: 0.5rem;
         display: grid;
         justify-content: center;
 
@@ -139,7 +141,7 @@
           margin: auto;
           max-width: 1600px;
           background: white;
-          padding: .125rem;
+          padding: 0.125rem;
           padding-left: 0.5rem;
         }
       }

@@ -29,7 +29,7 @@ export const getMapAreasByCollectionId = async (collection_id, signal) => {
     }
   });
 
-  let results: Promise<any[]>[] = await Promise.all([...fetchJobs]);
+  let results: PromiseSettledResult<any>[] = (await Promise.allSettled([...fetchJobs]).then(r => r)).map(v => v.value);
 
   return {
     qquad: results[0],
