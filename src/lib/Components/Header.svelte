@@ -46,7 +46,7 @@
         <div id="main-navbar-alert-container">
           <span>
             We will be upgrading our Feature and Imagery Mapping servers
-            11/13/2023. ArcGIS and WMS services will be intermittently
+            11/13/2023 and 11/14/2023. ArcGIS and WMS services will be intermittently
             unavailable during the change window.
           </span>
           <button
