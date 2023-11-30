@@ -34,6 +34,7 @@
     { key: "media_type", label: "media type" },
     { key: "general_scale", label: "general scale" },
     { key: "s_three_key", label: "s3 bucket key" },
+    { key: "source_abbreviation", label: "source abbreviation" }
   ];
 
   const isValidUrl = (str) => {
@@ -76,7 +77,15 @@
           </section>
         {/if}
       {/each}
+
+      <!-- Limit the S3 download to these abbreviations. -->
+      {#if ['AV', 'ASCS', 'AMNN', 'BAFB', 'CAPCOG', 'COA', 'FCD', 'HAS',
+       'IBWC', 'IS', 'LCRA', 'MKD', 'MC', 'MLR', 'MJH', 'MPSI', 'NGS',
+       'NHA', 'NPS', 'TAMFS', 'TXDOT', 'TFS', 'GLO', 'TPWD', 'TWC',
+       'TBN', 'TCAD', 'USDA', 'WLCE', 'WQC', 'WMSH']
+       .indexOf(collection.source_abbreviation) > -1 }
       <S3Links {collection} topfolder={"LORE"}/>
+      {/if}
       <section class="metadata-section">
         <h2>Scan Status</h2>
         {collection.fully_scanned ? "Completed" : "In Progress"}
