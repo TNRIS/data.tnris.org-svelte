@@ -6,6 +6,7 @@
   import LicenseInfo from "./Metadata/LicenseInfo.svelte";
   import SupplementalDownloads from "./Metadata/SupplementalDownloads.svelte";
   import WmsPreview from "./WmsPreview.svelte";
+  import S3Links from "./S3Links.svelte";
 
   export let collection = {};
 
@@ -33,6 +34,7 @@
     { key: "media_type", label: "media type" },
     { key: "general_scale", label: "general scale" },
     { key: "s_three_key", label: "s3 bucket key" },
+    { key: "source_abbreviation", label: "source abbreviation" }
   ];
 
   const isValidUrl = (str) => {
@@ -75,6 +77,15 @@
           </section>
         {/if}
       {/each}
+
+      <!-- Limit the S3 download to these abbreviations. -->
+      {#if ['AV', 'ASCS', 'AMNN', 'BAFB', 'CAPCOG', 'COA', 'FCD', 'HAS',
+       'IBWC', 'IS', 'LCRA', 'MKD', 'MC', 'MLR', 'MJH', 'MPSI', 'NGS',
+       'NHA', 'NPS', 'TAMFS', 'TXDOT', 'TFS', 'GLO', 'TPWD', 'TWC',
+       'TBN', 'TCAD', 'USDA', 'WLCE', 'WQC', 'WMSH']
+       .indexOf(collection.source_abbreviation) > -1 }
+      <S3Links {collection} topfolder={"LORE"}/>
+      {/if}
       <section class="metadata-section">
         <h2>Scan Status</h2>
         {collection.fully_scanned ? "Completed" : "In Progress"}
@@ -150,26 +161,7 @@
         </section>
       {/if}
       <SupplementalDownloads metadata={collection} />
-      {#if collection.s_three_key}
-        <section class="metadata-section s3-url">
-          <h2>s3 url</h2>
-          <CopyLink
-            href={"https://tnris-data-warehouse.s3.us-east-1.amazonaws.com/index.html?prefix=LCD/collection/" +
-              collection.s_three_key}
-            title={"https://tnris-data-warehouse.s3.us-east-1.amazonaws.com/index.html?prefix=LCD/collection/" +
-              collection.s_three_key}
-          />
-        </section>
-        <section class="metadata-section s3-uri">
-          <h2>s3 uri</h2>
-          <CopyLink
-            href={"s3://tnris-data-warehouse/LCD/collection/" +
-              collection.s_three_key}
-            title={"s3://tnris-data-warehouse/LCD/collection/" +
-              collection.s_three_key}
-          />
-        </section>
-      {/if}
+      <S3Links {collection} topfolder={"LCD"}/>
       <LicenseInfo metadata={collection} />
     {/if}
   {/if}
