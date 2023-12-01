@@ -33,7 +33,6 @@
     { key: "collection", label: "mission identifier" },
     { key: "media_type", label: "media type" },
     { key: "general_scale", label: "general scale" },
-    { key: "s_three_key", label: "s3 bucket key" },
     { key: "source_abbreviation", label: "source abbreviation" }
   ];
 
