@@ -4,7 +4,7 @@
 
   let dates = $query.params.dates;
 
-  let range = [1900, new Date().getFullYear()];
+  let range = [1900, new Date().getUTCFullYear()];
   let start =
     dates && String(dates).split(",").length == 2
       ? Number(String(dates).split(",")[0])
