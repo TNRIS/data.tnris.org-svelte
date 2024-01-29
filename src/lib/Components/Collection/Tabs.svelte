@@ -27,7 +27,7 @@
   <div>
     <h1>
       {collection?.name} |
-      <small>{new Date(collection?.acquisition_date).getFullYear()}</small>
+      <small>{new Date(collection?.acquisition_date).getUTCFullYear()}</small>
     </h1>
   </div>
 </div>
