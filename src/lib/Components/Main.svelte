@@ -22,7 +22,9 @@
 
   function acknowledge() {
     let acknowledged = localStorage.getItem("02_08_24_acknowledgement");
-    localStorage.setItem("02_08_24_acknowledgement", "false");
+    if(acknowledged !== "false") {
+      localStorage.setItem("02_08_24_acknowledgement", "false");
+    }
 
     return acknowledged;
   }
