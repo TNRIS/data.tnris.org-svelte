@@ -8,7 +8,6 @@
   import MapLibre from "./Map/MapLibre.svelte";
   import Order from "./Order/Order.svelte";
   import CollectionContainer from "./Collection/CollectionContainer.svelte";
-  import Modal from "./General/Modal.svelte";
 
   prefs.array.format = "separator";
 
@@ -19,17 +18,6 @@
   };
 
   $: showMap = checkShowMap($pattern);
-
-  function acknowledge() {
-    let acknowledged = localStorage.getItem("02_08_24_acknowledgement");
-    if(acknowledged !== "false") {
-      localStorage.setItem("02_08_24_acknowledgement", "false");
-    }
-
-    return acknowledged;
-  }
-
-  let show = acknowledge() !== "false";
 </script>
 
 <div id={showMap ? "main-app-container-split" : "main-app-container"}>
@@ -58,12 +46,6 @@
 <Drawer bind:open={$cartOpen}>
   <Cart />
 </Drawer>
-<Modal open={show}>
-  <h1 slot="title">Easy Access to Historic Imagery</h1>
-  <div slot="content">
-    <span>Individual imagery frames and indices for the Historical Imagery Archive collections are now available for download! Access and explore the digital archive of the historic imagery collections via a clickable hyperlink, located in the metadata for the historic collection. The Historical Imagery Archive maintained by TxGIO is one of our most used and important data collections. It is comprised of over 1 million frames of photos covering all parts of Texas from dates as far back as the 1920s.</span>
-  </div>
-</Modal>
 <style lang="scss">
   #main-app-container-split {
     display: grid;
