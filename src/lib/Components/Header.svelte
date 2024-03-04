@@ -69,7 +69,6 @@
     #main-navbar-container {
       display: grid;
       gap: 0.25rem;
-      padding: 0.25rem;
 
       #main-navbar-content-wrapper {
         #main-navbar-content-container {
@@ -97,6 +96,7 @@
 
               img {
                 display: inline-flex;
+                height: 77px;
               }
               div {
                 display: inline-flex;
@@ -115,7 +115,8 @@
             color: white;
             background: $primaryColor;
             font-weight: 600;
-
+            margin-right: 1rem;
+  
             #cart-length {
               background: red;
               color: white;
