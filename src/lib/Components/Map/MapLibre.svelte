@@ -25,6 +25,7 @@
         MapboxDraw;
         let modes = MapboxDraw.modes;
         modes["draw_rectangle"] = DrawRectangle;
+        modes.draw_rectangle.clickAnywhere = function () { return }
         $draw = new MapboxDraw({
           displayControlsDefault: false,
           modes: modes,
@@ -61,7 +62,7 @@
               paint: {
                 "fill-color": "#D20C0C",
                 "fill-outline-color": "#D20C0C",
-                "fill-opacity": 0.1,
+                "fill-opacity": 0.01,
               },
             },
             // polygon mid points
@@ -74,7 +75,7 @@
                 ["==", "meta", "midpoint"],
               ],
               paint: {
-                "circle-radius": 3,
+                "circle-radius": 0,
                 "circle-color": "#fbb03b",
               },
             },
@@ -94,7 +95,6 @@
               },
               paint: {
                 "line-color": "#D20C0C",
-                "line-dasharray": [0.2, 2],
                 "line-width": 2,
               },
             },
@@ -109,7 +109,7 @@
                 ["!=", "mode", "static"],
               ],
               paint: {
-                "circle-radius": 5,
+                "circle-radius": 0,
                 "circle-color": "#FFF",
               },
             },
@@ -124,7 +124,7 @@
                 ["!=", "mode", "static"],
               ],
               paint: {
-                "circle-radius": 3,
+                "circle-radius": 0,
                 "circle-color": "#D20C0C",
               },
             },

@@ -19,7 +19,7 @@
         <div id="tnris-logo">
           <a href="/" class="link"
             ><img
-              src="https://cdn.tnris.org/images/tnris_logo.svg"
+              src="/logo.svg"
               alt="TNRIS"
             />
             <div>DataHub</div></a
@@ -63,15 +63,15 @@
 
 <style lang="scss">
   #main-navbar-wrapper {
-    background: $primaryColor;
+    background: white;
+    border: solid 1px #ccc;
 
     #main-navbar-container {
       display: grid;
       gap: 0.25rem;
-      padding: 0.25rem;
+
       #main-navbar-content-wrapper {
         #main-navbar-content-container {
-          color: white;
           font-weight: 600;
           text-decoration: none;
           display: grid;
@@ -82,28 +82,29 @@
           max-width: 1600px;
 
           #tnris-logo {
-            display: flex;
+            display: grid;
+            align-items: center;
+            justify-content: start;
+  
             a {
-              color: white;
+              color: $primaryColor;
               font-weight: 600;
               text-decoration: none;
               display: flex;
               gap: 0.25rem;
-              align-items: end;
+              align-items: center;
 
               img {
                 display: inline-flex;
-                max-width: 4rem;
+                height: 77px;
               }
               div {
                 display: inline-flex;
-                align-items: end;
+                align-items: center;
                 width: auto;
-                //font-size: 1.25rem;
                 font-style: italic;
               }
             }
-            width: 100%;
           }
           #cart-button {
             display: grid;
@@ -114,7 +115,8 @@
             color: white;
             background: $primaryColor;
             font-weight: 600;
-
+            margin-right: 1rem;
+  
             #cart-length {
               background: red;
               color: white;
