@@ -67,7 +67,7 @@
         <div class="catalog-item-title">
           <h2>{collection.name}</h2>
           <div class="catalog-item-date">
-            {new Date(collection.acquisition_date).getFullYear()}
+            {new Date(collection.acquisition_date).getUTCFullYear()}
           </div>
         </div>
         <div class="catalog-item-tags">

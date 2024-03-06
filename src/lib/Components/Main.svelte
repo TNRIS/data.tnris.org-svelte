@@ -46,7 +46,6 @@
 <Drawer bind:open={$cartOpen}>
   <Cart />
 </Drawer>
-
 <style lang="scss">
   #main-app-container-split {
     display: grid;
