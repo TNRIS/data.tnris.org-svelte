@@ -21,7 +21,7 @@
         }
 
         setTimeout(function() {
-            window.location.replace("https://data.tnris.org");
+            window.location.replace("https://data.geographic.texas.gov");
         }, 5000)
     }
 
