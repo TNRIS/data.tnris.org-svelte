@@ -33,7 +33,7 @@
     {:else}
       <InfoBox infoClass="info">
         Tired of all the clicking? Want to download an entire collection of data resources all at
-        once? Consider using the TNRIS Bulk Downloader. Learn more <a href="https://tnris.org/applications-and-utilities">here</a>!
+        once? Consider using the TNRIS Bulk Downloader. Learn more <a href="https://geographic.texas.gov/applications-and-utilities/">here</a>!
       </InfoBox>
       {#await collectionCtrl.areas}
         <LoadingIndicator

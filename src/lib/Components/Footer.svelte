@@ -7,8 +7,8 @@
   const routes = {
     Legal: {
       "Privacy/Security Policy":
-        "https://tnris.org/site-policies#privacy-and-security-policy",
-      Accessibility: "https://tnris.org/site-policies#accessibility-policy",
+        "https://geographic.texas.gov/site-policies#privacy-and-security-policy",
+      Accessibility: "https://geographic.texas.gov/site-policies#accessibility-policy",
       "Open Records Request": "http://www.twdb.texas.gov/home/open_records.asp",
       "Compact with Texans": "http://www.twdb.texas.gov/home/compact_texan.asp",
       "Fraud & Waste": "http://www.twdb.texas.gov/home/fraud.asp",
@@ -20,14 +20,14 @@
       "Content of this site © Texas Natural Resources Information System and Texas Water Development Board unless otherwise noted.",
     Programs: {
       "Applications & Utilities":
-        "https://tnris.org/applications-and-utilities",
-      "Texas GIO": "https://geographic.texas.gov/geographic-information-officer/",
+        "https://geographic.texas.gov/applications-and-utilities/",
+      "Texas GIO": "https://geographic.texas.gov/geographic-information-office/",
       "Research & Distribution":
-        "https://tnris.org/research-distribution-center/",
-      "StratMap Program": "https://tnris.org/stratmap/",
-      "Education & Training": "https://tnris.org/education/",
-      Events: "https://tnris.org/events/",
-      "About Us": "https://tnris.org/about",
+        "https://geographic.texas.gov/research-distribution-center",
+      "StratMap Program": "https://geographic.texas.gov/stratmap/",
+      "Education & Training": "https://geographic.texas.gov/education/",
+      Events: "https://geographic.texas.gov/events/",
+      "About Us": "https://geographic.texas.gov/about/",
     },
   };
 
