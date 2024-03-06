@@ -20,14 +20,14 @@
       "Content of this site © Texas Natural Resources Information System and Texas Water Development Board unless otherwise noted.",
     Programs: {
       "Applications & Utilities":
-        "https://geographic.texas.gov/applications-and-utilities/",
-      "Texas GIO": "https://geographic.texas.gov/geographic-information-office/",
+        "https://geographic.texas.gov/applications-and-utilities",
+      "Texas GIO": "https://geographic.texas.gov/geographic-information-officer/",
       "Research & Distribution":
-        "https://geographic.texas.gov/research-distribution-center",
+        "https://geographic.texas.gov/research-distribution-center/",
       "StratMap Program": "https://geographic.texas.gov/stratmap/",
       "Education & Training": "https://geographic.texas.gov/education/",
       Events: "https://geographic.texas.gov/events/",
-      "About Us": "https://geographic.texas.gov/about/",
+      "About Us": "https://geographic.texas.gov/about",
     },
   };
 
