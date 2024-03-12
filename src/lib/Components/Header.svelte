@@ -17,13 +17,15 @@
     <div id="main-navbar-content-wrapper">
       <div id="main-navbar-content-container">
         <div id="tnris-logo">
-          <a href="/" class="link"
+          <a href="https://geographic.texas.gov" class="link"
             ><img
               src="/logo.svg"
-              alt="TNRIS"
+              alt="TxGIO"
             />
-            <div>DataHub</div></a
-          >
+          </a>
+          <a href="/" class="link">
+            <div>DataHub</div>
+          </a>
         </div>
         <button
           id="cart-button"
@@ -85,6 +87,7 @@
             display: grid;
             align-items: center;
             justify-content: start;
+            grid-template-columns: auto auto;
   
             a {
               color: $primaryColor;

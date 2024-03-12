@@ -140,11 +140,11 @@ export const DELIVERY_OPTIONS = [
 
 export const HARD_DRIVE_OPTIONS = [
   {
-    label: "TNRIS Provided Hard Drive (1TB)",
+    label: "TxGIO Provided Hard Drive (1TB)",
     value: "TNRIS_HDD",
   },
   {
-    label: "TNRIS Provided Flash Drive (64GB)",
+    label: "TxGIO Provided Flash Drive (64GB)",
     value: "TNRIS_FLASH",
   },
   {

@@ -44,7 +44,7 @@
 
 {#if collection.availability == "External_Link"}
   <InfoBox>
-    This data is not maintained by TNRIS and is only available as a link to an
+    This data is not maintained by TxGIO and is only available as a link to an
     external data source. You can find this dataset at the maintainers website, <a
       href={collection.source_data_website}>{collection.source_data_website}</a
     >. 
@@ -86,7 +86,7 @@
       <InfoBox infoClass="info">
         Is there no download option for this dataset? Is everything you're
         looking for too large to directly download? Every dataset is available
-        for order directly from TNRIS.
+        for order directly from TxGIO.
       </InfoBox>
       <br />
       <input
@@ -144,7 +144,7 @@
             >Please select a .zip file containing a .shp or .kml outlining the
             desired area<br />
             <div class="warning">
-              ***Notice- All data submitted to TNRIS is subject to Texas Public
+              ***Notice- All data submitted to TxGIO is subject to Texas Public
               Information Requests and becomes publicly available. Please do not
               include personal information in your uploaded area of interest
               files.
@@ -165,7 +165,7 @@
             >Please select a .jpeg, .jpg or .png file displaying the desired
             area on a map
             <div class="warning">
-              ***Notice- All data submitted to TNRIS is subject to Texas Public
+              ***Notice- All data submitted to TxGIO is subject to Texas Public
               Information Requests and becomes publicly available. Please do not
               include personal information in your uploaded area of interest
               files.

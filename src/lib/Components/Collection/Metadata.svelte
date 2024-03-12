@@ -57,13 +57,13 @@
       <section class="metdata-section">
         <h2>About the Historic Imagery Archive</h2>
         <p>
-          The Historical Imagery Archive maintained by TNRIS is one of our most
+          The Historical Imagery Archive maintained by TxGIO is one of our most
           used and important data collections. It is comprised of over 1 million
           frames of photos covering all parts of Texas from dates as far back as
           the 1920s.
         </p>
         <p>
-          The TNRIS Research & Distribution Center (RDC) is charged with
+          The TxGIO Research & Distribution Center (RDC) is charged with
           preserving this collection, distributing it to the public, and
           continuing with the large task of digitizing the frames.
         </p>
@@ -96,7 +96,7 @@
             This dataset is available as an online mapping service. An OGC WMS
             service and an ArcGIS service are available. To connect to the WMS
             service in your software, please copy the unique url provided in the
-            box below. To access the TNRIS ArcGIS Server, please use the
+            box below. To access the TxGIO ArcGIS Server, please use the
             following url in your ESRI software and select from the list of
             available services.
           </p>
@@ -141,14 +141,14 @@
             This dataset is available as an online mapping service. An OGC WMS
             service and an ArcGIS service are available. To connect to the WMS
             service in your software, please copy the unique url provided in the
-            box below. To access the TNRIS ArcGIS Server, please use the
+            box below. To access the TxGIO ArcGIS Server, please use the
             following url in your ESRI software and select from the list of
             available services.
           </p>
 
           <p>
             For ESRI users accessing our RESTful Services hosted on our ArcGIS
-            server (feature.tnris.org or imagery.tnris.org), you may access all
+            server (feature.geographic.texas.gov or imagery.geographic.texas.gov), you may access all
             WMS services available by downloading our <a
               href="https://cdn.tnris.org/data/RESTful_Services/TNRIS_RESTful_Services.zip"
               download>feature and imagery connection files</a
