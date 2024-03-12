@@ -18,7 +18,7 @@
       Click <a
         href="https://cdn.tnris.org/lidar-availability/tnris-lidar_48_vector.zip"
         >here</a
-      > to download a complete index of all available lidar data at TNRIS.
+      > to download a complete index of all available lidar data at TxGIO.
     </p>
   </section>
 {/if}
