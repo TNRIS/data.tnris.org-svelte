@@ -81,7 +81,7 @@
       {#if ['AV', 'ASCS', 'AMNN', 'BAFB', 'CAPCOG', 'COA', 'FCD', 'HAS',
        'IBWC', 'IS', 'LCRA', 'MKD', 'MC', 'MLR', 'MJH', 'MPSI', 'NGS',
        'NHA', 'NPS', 'TAMFS', 'TXDOT', 'TFS', 'GLO', 'TPWD', 'TWC',
-       'TBN', 'TCAD', 'USDA', 'WLCE', 'WQC', 'WMSH']
+       'TBN', 'TCAD', 'USDA', 'WLCE', 'WQC', 'WMSH', 'USACE']
        .indexOf(collection.source_abbreviation) > -1 }
       <S3Links {collection} topfolder={"LORE"}/>
       {/if}
