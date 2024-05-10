@@ -47,7 +47,7 @@
         Name: `${obj["data-first-name"]} ${obj["data-last-name"]}`,
         Email: obj["data-email"],
         Phone: obj["data-phone"],
-        Address: obj["data-address"],
+        Address: `${obj["data-address"]}\nCity: ${obj["data-city"]}\nState: ${obj["data-state"]}\nZipcode ${obj["data-zipcode"]}`,
         Organization: obj["data-organization"],
         Industry: obj["data-industry"],
         Fedex: obj["data-fedex"],
