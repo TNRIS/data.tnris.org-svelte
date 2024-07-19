@@ -1,15 +1,15 @@
 <script lang="ts">
   import { cartOpen, cartStore } from "../Api/Cart/cartStore";
 
-  /* const setAlertLocalStorage = (value: "T" | "F") => {
-    localStorage.setItem("showAlertAGS11082023", value);
+  const setAlertLocalStorage = (value: "T" | "F") => {
+    localStorage.setItem("showAlertAGS072024", value);
   };
   const getAlertLocalStorage = (): string | undefined => {
-    return localStorage.getItem("showAlertAGS11082023");
+    return localStorage.getItem("showAlertAGS072024");
   };
 
   let open: boolean;
-  let showAlert = getAlertLocalStorage(); */
+  let showAlert = getAlertLocalStorage();
 </script>
 
 <div id="main-navbar-wrapper">
@@ -43,14 +43,14 @@
         </button>
       </div>
     </div>
-    <!-- {#if showAlert != "F"}
+    {#if showAlert != "F"}
       <div id="main-navbar-alert-wrapper">
         <div id="main-navbar-alert-container">
           <span>
-            We will be upgrading our Feature and Imagery Mapping servers
-            11/13/2023 and 11/14/2023. ArcGIS and WMS services will be intermittently
-            unavailable during the change window.
-          </span>
+            Certain functionality within the datahub are
+            unexpectedly unavailable. We are troubleshooting and
+            apologize for the inconvenience.
+        </span>
           <button
             on:click={() => {
               setAlertLocalStorage("F");
@@ -59,7 +59,7 @@
           >
         </div>
       </div>
-    {/if} -->
+    {/if}
   </div>
 </div>
 
