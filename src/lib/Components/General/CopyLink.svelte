@@ -1,22 +1,33 @@
 <script>
   export let href = "#";
   export let title = "link";
+  export let isPlaintext = false;
   export let buttonText = "Copy Link";
 
   let link = href.replace(".org/arcgis/", ".org/arcgis/rest/");
-  link = href.replace("/server/services/", "/server/rest/services/")
+  link = href.replace("/server/services/", "/server/rest/services/");
 </script>
 
 <div class="copy-link">
-  <a id="s3-uri-link" href={link} target="_blank" rel="noreferrer">
-    {link}
-  </a>
-  <button
-    on:click={() => {
-      let txt = href;
-      navigator.clipboard.writeText(txt);
-    }}><i class="material-icons">content_copy</i> {buttonText}</button
-  >
+  {#if isPlaintext != true}
+    <a id="s3-uri-link" href={link} target="_blank" rel="noreferrer">
+      {link}
+    </a>
+    <button
+      on:click={() => {
+        let txt = href;
+        navigator.clipboard.writeText(txt);
+      }}><i class="material-icons">content_copy</i> {buttonText}</button
+    >
+  {:else}
+    <p>{title}</p>
+    <button
+      on:click={() => {
+        let txt = title;
+        navigator.clipboard.writeText(txt);
+      }}><i class="material-icons">content_copy</i> {buttonText}</button
+    >
+  {/if}
 </div>
 
 <style lang="scss">

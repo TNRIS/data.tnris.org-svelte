@@ -7,6 +7,7 @@
   import SupplementalDownloads from "./Metadata/SupplementalDownloads.svelte";
   import WmsPreview from "./WmsPreview.svelte";
   import S3Links from "./S3Links.svelte";
+  import Citation from "./Metadata/Citation.svelte";
 
   export let collection = {};
 
@@ -33,7 +34,7 @@
     { key: "collection", label: "mission identifier" },
     { key: "media_type", label: "media type" },
     { key: "general_scale", label: "general scale" },
-    { key: "source_abbreviation", label: "source abbreviation" }
+    { key: "source_abbreviation", label: "source abbreviation" },
   ];
 
   const isValidUrl = (str) => {
@@ -78,12 +79,8 @@
       {/each}
 
       <!-- Limit the S3 download to these abbreviations. -->
-      {#if ['AV', 'ASCS', 'AMNN', 'BAFB', 'CAPCOG', 'COA', 'FCD', 'HAS',
-       'IBWC', 'IS', 'LCRA', 'MKD', 'MC', 'MLR', 'MJH', 'MPSI', 'NGS',
-       'NHA', 'NPS', 'TAMFS', 'TXDOT', 'TFS', 'GLO', 'TPWD', 'TWC',
-       'TBN', 'TCAD', 'USDA', 'WLCE', 'WQC', 'WMSH', 'USACE']
-       .indexOf(collection.source_abbreviation) > -1 }
-      <S3Links {collection} topfolder={"LORE"}/>
+      {#if ["AV", "ASCS", "AMNN", "BAFB", "CAPCOG", "COA", "FCD", "HAS", "IBWC", "IS", "LCRA", "MKD", "MC", "MLR", "MJH", "MPSI", "NGS", "NHA", "NPS", "TAMFS", "TXDOT", "TFS", "GLO", "TPWD", "TWC", "TBN", "TCAD", "USDA", "WLCE", "WQC", "WMSH", "USACE"].indexOf(collection.source_abbreviation) > -1}
+        <S3Links {collection} topfolder={"LORE"} />
       {/if}
       <section class="metadata-section">
         <h2>Scan Status</h2>
@@ -148,8 +145,9 @@
 
           <p>
             For ESRI users accessing our RESTful Services hosted on our ArcGIS
-            server (feature.geographic.texas.gov or imagery.geographic.texas.gov), you may access all
-            WMS services available by downloading our <a
+            server (feature.geographic.texas.gov or
+            imagery.geographic.texas.gov), you may access all WMS services
+            available by downloading our <a
               href="https://cdn.tnris.org/data/RESTful_Services/TNRIS_RESTful_Services.zip"
               download>feature and imagery connection files</a
             > and selecting from the list of availabile services within your ESRI
@@ -160,8 +158,9 @@
         </section>
       {/if}
       <SupplementalDownloads metadata={collection} />
-      <S3Links {collection} topfolder={"LCD"}/>
+      <S3Links {collection} topfolder={"LCD"} />
       <LicenseInfo metadata={collection} />
+      <Citation {collection} buttonText="Copy Citation" isPlaintext={true} />
     {/if}
   {/if}
 </section>
