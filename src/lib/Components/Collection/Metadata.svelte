@@ -160,9 +160,9 @@
       <SupplementalDownloads metadata={collection} />
       <S3Links {collection} topfolder={"LCD"} />
       <LicenseInfo metadata={collection} />
-      <Citation {collection} buttonText="Copy Citation" isPlaintext={true} />
     {/if}
   {/if}
+  <Citation {collection} buttonText="Copy Citation" isPlaintext={true} />
 </section>
 
 <style lang="scss">
