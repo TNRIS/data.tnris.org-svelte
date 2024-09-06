@@ -155,6 +155,11 @@
           background: white;
           padding: 0.125rem;
           padding-left: 0.5rem;
+
+          #update-alert {
+            color: red;
+            font-weight: bold;
+          }
         }
       }
     }
