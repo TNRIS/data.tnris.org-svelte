@@ -71,9 +71,6 @@
 </div>
 
 <style lang="scss">
-  #alert {
-
-  }
   #main-navbar-wrapper {
     background: white;
     border: solid 1px #ccc;
