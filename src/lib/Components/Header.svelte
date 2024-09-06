@@ -43,6 +43,13 @@
         </button>
       </div>
     </div>
+    <div id="main-navbar-alert-wrapper">
+      <div id="main-navbar-alert-container">
+        <span id="update-alert">
+          Portions of the TxGIO Data Hub will be unavailable for annual maintenance on September 16th, 17th and 18th from 7 pm – 10 pm. We apologize for any inconvenience.
+        </span>
+      </div>
+    </div>
     <!-- {#if showAlert != "F"}
       <div id="main-navbar-alert-wrapper">
         <div id="main-navbar-alert-container">
