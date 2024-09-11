@@ -57,3 +57,15 @@
     {/await}
   </section>
   
+
+  <style lang="scss">
+    h2 {
+      text-transform: capitalize;
+    }
+
+    .metadata-section {
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 0.5rem;
+    }
+  </style>
+  
