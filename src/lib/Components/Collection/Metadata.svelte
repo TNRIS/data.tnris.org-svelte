@@ -148,7 +148,7 @@
             server (feature.geographic.texas.gov or
             imagery.geographic.texas.gov), you may access all WMS services
             available by downloading our <a
-              href="https://cdn.tnris.org/data/RESTful_Services/TNRIS_RESTful_Services.zip"
+              href="https://tnris-data-warehouse.s3.us-east-1.amazonaws.com/LCD/collection/txgio_restful_services/TxGIO_RESTful_Services.zip"
               download>feature and imagery connection files</a
             > and selecting from the list of availabile services within your ESRI
             desktop software.

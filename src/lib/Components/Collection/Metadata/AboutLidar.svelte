@@ -16,7 +16,7 @@
     </p>
     <p>
       Click <a
-        href="https://cdn.tnris.org/lidar-availability/tnris-lidar_48_vector.zip"
+        href="https://tnris-data-warehouse.s3.us-east-1.amazonaws.com/LCD/collection/lidar_availability/Availability-Index/txgio-lidar-index.zip"
         >here</a
       > to download a complete index of all available lidar data at TxGIO.
     </p>
