@@ -8,6 +8,8 @@
   import WmsPreview from "./WmsPreview.svelte";
   import S3Links from "./S3Links.svelte";
   import Citation from "./Metadata/Citation.svelte";
+  import SpatialReferenceLinks from "./Metadata/SpatialReferenceLinks.svelte";
+  import MetadataField from "./Metadata/MetadataField.svelte";
 
   export let collection = {};
 
@@ -117,18 +119,11 @@
       {#each orderedContemporaryFields as field}
         {@const isUrl = isValidUrl(collection[field.key])}
         {#if collection[field.key] !== "null" && collection[field.key] !== "undefined" && collection[field.key]}
-          <section class="metadata-section">
-            <h2>{field.label}</h2>
-            {#if isUrl}
-              <div>
-                <a href={collection[field.key]} rel="noreferrer" target="_blank"
-                  >{collection[field.key]}</a
-                >
-              </div>
-            {:else}
-              {@html collection[field.key]}
-            {/if}
-          </section>
+          {#if field.key == "spatial_reference"}
+            <SpatialReferenceLinks {field} {collection} showLink={true} />
+          {:else}
+            <MetadataField {field} {collection} {isUrl} />
+          {/if}
         {/if}
       {/each}
       {#if collection.wms_link}
