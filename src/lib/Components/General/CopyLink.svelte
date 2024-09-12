@@ -5,7 +5,6 @@
   export let buttonText = "Copy Link";
 
   let link = href.replace(".org/arcgis/", ".org/arcgis/rest/");
-  link = href.replace("/server/services/", "/server/rest/services/");
 </script>
 
 <div class="copy-link">
