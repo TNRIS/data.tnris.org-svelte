@@ -3,14 +3,12 @@
   export let title = "link";
   export let isPlaintext = false;
   export let buttonText = "Copy Link";
-
-  let link = href.replace(".org/arcgis/", ".org/arcgis/rest/");
 </script>
 
 <div class="copy-link">
   {#if isPlaintext != true}
-    <a id="s3-uri-link" href={link} target="_blank" rel="noreferrer">
-      {link}
+    <a id="s3-uri-link" {href} target="_blank" rel="noreferrer">
+      {href}
     </a>
     <button
       on:click={() => {
