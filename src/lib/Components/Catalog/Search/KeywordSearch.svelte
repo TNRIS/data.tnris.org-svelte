@@ -14,6 +14,9 @@
         callback(value)
       }
     }}
+    on:search={(e) => {
+      callback(value)
+    }}
   /><button class="keyword-search-button" on:click={() => callback(value)}
     ><i class="material-icons">search</i></button
   >
