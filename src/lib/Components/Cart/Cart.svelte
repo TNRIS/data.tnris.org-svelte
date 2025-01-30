@@ -1,5 +1,6 @@
 <script>
   import { cartStore } from "../../Api/Cart/cartStore";
+  import { BASE_URL } from "../../constants";
   import Wizard from "../General/Wizard/Wizard.svelte";
   import CartItems from "./CartItems.svelte";
   import DeliveryMethod from "./DeliveryMethod.svelte";
@@ -65,7 +66,7 @@
     };
 
     const postOrder = async () =>
-    fetch("https://api.tnris.org/api/v1/contact/order/", {
+    fetch(`${BASE_URL}/api/v1/contact/order/`, {
         method: "POST",
         body: JSON.stringify(payload),
         headers: {

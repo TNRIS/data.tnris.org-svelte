@@ -1,11 +1,12 @@
 import { query } from "svelte-pathfinder";
 import bboxPolygon from "@turf/bbox-polygon";
 import { derived } from "svelte/store";
+import { BASE_URL } from "../../../constants.js";
 
-const GET_COLLECTIONS_URL = "https://api.tnris.org/api/v1/collections_catalog";
-const GET_COLLECTION_BY_ID_URL = "https://api.tnris.org/api/v1/collections";
+const GET_COLLECTIONS_URL = `${BASE_URL}/api/v1/collections_catalog`;
+const GET_COLLECTION_BY_ID_URL = `${BASE_URL}/api/v1/collections`;
 const GET_HISTORICAL_COLLECTION_BY_ID_URL =
-  "https://api.tnris.org/api/v1/historical/collections";
+  `${BASE_URL}/api/v1/historical/collections`;
 
 //export const catalogParamsStore = createCatalogParams();
 

@@ -3,6 +3,7 @@ import { get, writable, type Writable } from "svelte/store";
 import mapStore from "../../../Components/Map/mapStore";
 import { getMapAreasByCollectionId } from "./getAreas";
 import { getCollectionById } from "./getCollections";
+import { BASE_URL } from "../../../constants.js";
 
 export class Collection {
   constructor(collection_id: string) {
@@ -47,7 +48,7 @@ export class Collection {
   ///////////////////////////////////
   getCollectionExtent = async (collection_id) => {
     const resp = await fetch(
-      `https://api.tnris.org/api/v1/collections_catalog/${collection_id}`,
+      `${BASE_URL}/api/v1/collections_catalog/${collection_id}`,
       {cache: "no-cache"}
     );
     const json = await resp.json();

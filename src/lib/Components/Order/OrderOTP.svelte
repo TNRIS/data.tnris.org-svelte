@@ -2,6 +2,7 @@
   import { query } from "svelte-pathfinder";
   import InfoBox from "../General/InfoBox.svelte";
   import Recaptcha from "../General/Recaptcha.svelte";
+  import { BASE_URL } from "../../constants.js";
 
   const orderIDParam = $query.params["order_id"]
     ? $query.params["order_id"]
@@ -21,7 +22,7 @@
     };
 
     const resp = await fetch(
-      `https://api.tnris.org/api/v1/contact/order/otp?uuid=${orderIDParam}`,
+      `${BASE_URL}/api/v1/contact/order/otp?uuid=${orderIDParam}`,
       {
         headers: {
           "Content-Type": "application/json",
