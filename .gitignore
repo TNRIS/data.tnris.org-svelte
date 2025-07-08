@@ -94,3 +94,6 @@ build
 
 # HTTPS folder for testing.
 .cert
+
+#Chromium dev files
+"/home
