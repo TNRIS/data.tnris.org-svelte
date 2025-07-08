@@ -1,8 +1,7 @@
 <script>
   import { DELIVERY_OPTIONS, HARD_DRIVE_OPTIONS } from "../../constants";
-
-  // Uncomment below to use formRef passed from Wizard
-  //export let formRef;
+  import Recaptcha from "../General/Recaptcha.svelte";
+  export let formRef;
 
   let delOpt;
   let showHDDSelect;
@@ -53,3 +52,21 @@
     </select>
   </label>
 {/if}
+
+<label for="g-recaptcha-response" class="required">
+  <Recaptcha
+    handleCaptchaCallback={async (v) => {
+      let fd = new FormData(formRef);
+      fd.set("g-recaptcha-response", v);
+    }}
+    handleCaptchaError={async (v) => {
+      let fd = new FormData(formRef);
+      fd.set("g-recaptcha-response", null);
+    }}
+    resetCaptcha={async (v) => {
+      let fd = new FormData(formRef);
+      fd.set("g-recaptcha-response", null);
+      window.grecaptcha.reset();
+    }}
+  />
+</label>

@@ -2,7 +2,7 @@
   import { query } from "svelte-pathfinder";
   import InfoBox from "../General/InfoBox.svelte";
   import Recaptcha from "../General/Recaptcha.svelte";
-  import { BASE_URL } from "../../constants.js";
+  import { CONTACT_URL } from "../../constants.js";
   import { OTP } from "../../Api/OTP/otp.js";
   const order_id = $query.params["uuid"];
 
@@ -39,7 +39,7 @@
     };
 
     const resp = await fetch(
-      `${BASE_URL}/api/v1/contact/order/status?uuid=${order_id}`,
+      `${CONTACT_URL}/api/v2/contact/order/status?uuid=${order_id}`,
       {
         headers: {
           "Content-Type": "application/json",

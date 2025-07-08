@@ -1,12 +1,12 @@
 import { handleErrorsHelper } from "./handleErrorsHelpers";
-import { BASE_URL } from "../../constants";
+import { CONTACT_URL } from "../../constants";
 
 export async function getUploadPolicy(fileInfo) {
   const { collectionId, file, submitType } = fileInfo;
   const fileKey = `data-tnris-org-order/${collectionId}_${Date.now()}_${file.name
     .split(" ")
     .join("_")}`;
-  const policyUrl = `${BASE_URL}/api/v1/contact/policy/${
+  const policyUrl = `${CONTACT_URL}/api/v1/contact/policy/${
     submitType === "application/zip" ? "zip-upload" : "image-upload"
   }`;
   const payload = {

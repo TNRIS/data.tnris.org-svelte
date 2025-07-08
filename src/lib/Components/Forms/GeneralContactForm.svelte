@@ -3,7 +3,7 @@
 
   import InfoBox from "../General/InfoBox.svelte";
   import Recaptcha from "../General/Recaptcha.svelte";
-  import { BASE_URL } from "../../constants.js";
+  import { CONTACT_URL } from "../../constants.js";
 
   let formRef;
 
@@ -45,7 +45,7 @@
       recaptcha: postData["g-recaptcha-response"],
     };
 
-    const url = `${BASE_URL}/api/v1/contact/submit`;
+    const url = `${CONTACT_URL}/api/v2/contact/submit`;
     const payload = {
       method: "POST",
       headers: {

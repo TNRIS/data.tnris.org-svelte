@@ -1,4 +1,4 @@
-import { BASE_URL } from "../../constants.js"
+import { CONTACT_URL } from "../../constants.js"
 
 let OTP = {
     otp_gened: false,
@@ -34,7 +34,7 @@ OTP.genotp = function(resp) {
     };
 
     fetch(
-      `${BASE_URL}/api/v1/contact/order/otp?uuid=${OTP.order_id}`,
+      `${CONTACT_URL}/api/v2/contact/order/otp?uuid=${OTP.order_id}`,
       {
         headers: {
           "Content-Type": "application/json",
