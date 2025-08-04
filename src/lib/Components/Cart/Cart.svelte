@@ -1,9 +1,9 @@
 <script>
   import { cartStore } from "../../Api/Cart/cartStore";
+  import { CONTACT_URL } from "../../constants";
   import Wizard from "../General/Wizard/Wizard.svelte";
   import CartItems from "./CartItems.svelte";
   import DeliveryMethod from "./DeliveryMethod.svelte";
-  import PaymentMethod from "./PaymentMethod.svelte";
   import PersonalInfo from "./PersonalInfo.svelte";
   import ReviewOrder from "./ReviewOrder.svelte";
 
@@ -13,7 +13,6 @@
     { title: "Data Shopping Cart", component: CartItems },
     { title: "Personal Info", component: PersonalInfo },
     { title: "Delivery Method", component: DeliveryMethod },
-    { title: "Payment Method", component: PaymentMethod },
     { title: "Review Order", component: ReviewOrder },
   ];
 
@@ -57,7 +56,7 @@
         Notes: obj["data-notes"],
         Delivery: obj["data-delivery-method"],
         HardDrive: obj["data-hard-drive"],
-        Payment: obj["data-payment-method"],
+        Payment: "CC",
         Order: cartOrderText.join("\n"),
         form_id: "data-tnris-org-order"
       },
@@ -65,7 +64,7 @@
     };
 
     const postOrder = async () =>
-    fetch("https://api.tnris.org/api/v1/contact/order/", {
+    fetch(`${CONTACT_URL}/api/v2/contact/order/`, {
         method: "POST",
         body: JSON.stringify(payload),
         headers: {

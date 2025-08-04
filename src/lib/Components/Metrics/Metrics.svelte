@@ -1,6 +1,8 @@
 <script>
   let body = {};
-  fetch("https://api.tnris.org/api/v1/tnris_org/metrics", {
+  import { BASE_URL } from "../../constants.js";
+
+  fetch(`${BASE_URL}/api/v1/tnris_org/metrics`, {
     method: "POST",
     body: JSON.stringify({}),
     headers: {

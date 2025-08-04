@@ -3,6 +3,7 @@
 
   import InfoBox from "../../General/InfoBox.svelte";
   import Recaptcha from "../../General/Recaptcha.svelte";
+  import { CONTACT_URL } from "../../../constants.js";
 
   export let collection = {};
   let formRef;
@@ -40,7 +41,7 @@
       recaptcha: postData["g-recaptcha-response"],
     };
 
-    const url = "https://api.tnris.org/api/v1/contact/submit";
+    const url = `${CONTACT_URL}/api/v2/contact/submit`;
     const payload = {
       method: "POST",
       headers: {

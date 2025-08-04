@@ -1,4 +1,5 @@
-const RESOURCES_BASE_URL = "https://api.tnris.org/api/v1/resources";
+import { BASE_URL } from "../../../constants.js";
+const RESOURCES_BASE_URL = `${BASE_URL}/api/v1/resources`;
 
 export const getResourcesByAreaTypeAndCollectionId = async (
   collection_id,
