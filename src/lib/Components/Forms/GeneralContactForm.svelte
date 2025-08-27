@@ -45,7 +45,7 @@
       recaptcha: postData["g-recaptcha-response"],
     };
 
-    const url = `${CONTACT_URL}/api/v2/contact/submit`;
+    const url = `${CONTACT_URL}/api/v1/contact/submit`;
     const payload = {
       method: "POST",
       headers: {
