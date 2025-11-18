@@ -1,6 +1,6 @@
 <script lang="ts">
   import { cartOpen, cartStore } from "../Api/Cart/cartStore";
-
+  /*
   const setAlertLocalStorage = (value: "T" | "F") => {
     localStorage.setItem("showAlertAGS112025", value);
   };
@@ -10,6 +10,7 @@
 
   let open: boolean;
   let showAlert = getAlertLocalStorage();
+  */
 </script>
 
 <div id="main-navbar-wrapper">
@@ -43,7 +44,7 @@
         </button>
       </div>
     </div>
-    {#if showAlert != "F"}
+    <!-- {#if showAlert != "F"}
       <div id="main-navbar-alert-wrapper">
         <div id="main-navbar-alert-container">
           <span>
@@ -57,7 +58,7 @@
           >
         </div>
       </div>
-    {/if}
+    {/if} -->
   </div>
 </div>
 
