@@ -16,9 +16,9 @@
     </p>
     <p>
       Click <a
-        href="https://tnris-data-warehouse.s3.us-east-1.amazonaws.com/LCD/collection/lidar_availability/Availability-Index/txgio-lidar-index.zip"
+        href="https://portal.geographic.texas.gov/portal/apps/experiencebuilder/experience/?id=283a3b9907134c63b43a5538bf12066c&_gl=1*jdv0pb*_ga*MjExMjI2MTAwMC4xNzY5MTg1NTAx*_ga_CGH7RBEG6M*czE3NjkxODU1MDgkbzEkZzEkdDE3NjkxODU5NTQkajU2JGwwJGgw"
         >here</a
-      > to download a complete index of all available lidar data at TxGIO.
+      > to view a complete index of all available lidar data at TxGIO.
     </p>
   </section>
 {/if}
