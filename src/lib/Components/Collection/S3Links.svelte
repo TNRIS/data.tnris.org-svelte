@@ -8,9 +8,9 @@
 <section class="metadata-section s3-url">
   <h2>s3 url</h2>
   <CopyLink
-    href={`https://tnris-data-warehouse.s3.us-east-1.amazonaws.com/index.html?prefix=${topfolder}/collection/` +
+    href={`https://tnris-data-warehouse.s3.us-east-1.amazonaws.com/index.html?#${topfolder}/collection/` +
       collection.s_three_key}
-    title={`https://tnris-data-warehouse.s3.us-east-1.amazonaws.com/index.html?prefix=${topfolder}/collection/` +
+    title={`https://tnris-data-warehouse.s3.us-east-1.amazonaws.com/index.html?#${topfolder}/collection/` +
       collection.s_three_key}
   />
 </section>
