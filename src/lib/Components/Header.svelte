@@ -1,16 +1,16 @@
 <script lang="ts">
   import { cartOpen, cartStore } from "../Api/Cart/cartStore";
-  /*
+  
   const setAlertLocalStorage = (value: "T" | "F") => {
-    localStorage.setItem("showAlertAGS112025", value);
+    localStorage.setItem("showAlertAGS072026", value);
   };
   const getAlertLocalStorage = (): string | undefined => {
-    return localStorage.getItem("showAlertAGS112025");
+    return localStorage.getItem("showAlertAGS072026");
   };
 
   let open: boolean;
   let showAlert = getAlertLocalStorage();
-  */
+  
 </script>
 
 <div id="main-navbar-wrapper">
@@ -44,11 +44,11 @@
         </button>
       </div>
     </div>
-    <!-- {#if showAlert != "F"}
+    {#if showAlert != "F"}
       <div id="main-navbar-alert-wrapper">
         <div id="main-navbar-alert-container">
           <span>
-            On Monday, November 17th from 5 pm – 10 pm TxGIO will be upgrading our TxGIO ArcGIS Enterprise Production environment from 11.3 to 11.5.
+            TxGIO DataHub Maintenance Notice: Users may experience data services outages on Thursday, July 30th from 5pm - 10pm as the ArcGIS Enterprise Production environment is updated. Data will still be available for download during this time.
           </span>
           <button
             on:click={() => {
@@ -58,7 +58,7 @@
           >
         </div>
       </div>
-    {/if} -->
+    {/if}
   </div>
 </div>
 
