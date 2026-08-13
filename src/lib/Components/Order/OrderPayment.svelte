@@ -34,6 +34,7 @@
   }
   let authenticated = false;
   let statusData = null;
+  let errorMessage = ""
 
   export let onSubmit = async (e) => {
     e.preventDefault();
@@ -63,7 +64,7 @@
 
     const json = await resp.json();
 
-    statusData = json;
+    
 
     if (json.status == "success") {
       authenticated = true;
@@ -73,6 +74,9 @@
       fee = ((charge + .25)/100) * 2.25;
       fee += .25;
       order_url = json.order_url;
+    } else if (json?.status || json?.message) {
+      statusData = json?.status || ""
+      errorMessage = json?.message || ""
     }
     e.target.reset();
     //window.location.replace(json.order_url);
@@ -107,7 +111,7 @@
     <div class="warning">
       * This service is provided by Texas.gov, the official website of Texas. The price of this service includes funds that support the ongoing operations and enhancements of Texas.gov, which is provided by a third party in partnership with the State.
     </div>
-    <div class="warning">
+      <div class="warning">
       After proceeding to the link below you will be redirected to our credit card payment partner.<br />
       By continuing you attest that you are authorized to use the card, and you are who you say you are.
       In addition you acknowledge that this transaction is non-refundable.
@@ -118,6 +122,11 @@
 </Modal>
 
 <div id="order-auth">
+  {#if errorMessage && errorMessage.length || statusData && statusData.length}
+  <InfoBox infoClass="danger">
+    The following error has occured: {statusData || ""} {errorMessage || ""}
+  </InfoBox>
+  {/if}
   {#if !authenticated}
     <h1>Pay Order</h1>
     <InfoBox infoClass="info">

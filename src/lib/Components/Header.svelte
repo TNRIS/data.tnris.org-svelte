@@ -1,7 +1,7 @@
 <script lang="ts">
-/*
   import { cartOpen, cartStore } from "../Api/Cart/cartStore";
-  
+
+/*
   const setAlertLocalStorage = (value: "T" | "F") => {
     localStorage.setItem("showAlertAGS072026", value);
   };
