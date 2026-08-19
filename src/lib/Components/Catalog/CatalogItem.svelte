@@ -1,6 +1,45 @@
 <script lang="ts">
   import mapStore from "../Map/mapStore";
+  import { BASE_URL } from "../../constants.js";
   export let collection;
+
+  // Coverage geometry is only ever needed for the one collection being
+  // hovered, but it currently arrives inside every catalog list response.
+  // Fetch it on demand from the detail endpoint instead. Results are cached
+  // per collection so repeated hovers do not re-request.
+  const extentCache = new Map();
+  let hoverTimer;
+  let activeRequest = 0;
+
+  const fetchCollectionExtent = async (collection_id) => {
+    if (extentCache.has(collection_id)) return extentCache.get(collection_id);
+    const resp = await fetch(
+      `${BASE_URL}/api/v1/collections_catalog/${collection_id}`
+    );
+    if (!resp.ok) throw new Error(`extent fetch failed: ${resp.status}`);
+    const json = await resp.json();
+    extentCache.set(collection_id, json.the_geom);
+    return json.the_geom;
+  };
+
+  const handleMouseEnter = () => {
+    clearTimeout(hoverTimer);
+    // Debounce so sweeping the cursor across the list does not fire a request
+    // per card.
+    hoverTimer = setTimeout(async () => {
+      const req = ++activeRequest;
+      try {
+        const the_geom = await fetchCollectionExtent(collection.collection_id);
+        // A later hover already superseded this one - drop the stale result.
+        if (req !== activeRequest) return;
+        addCollectionExtent(the_geom);
+      } catch (e) {
+        console.error(e);
+      }
+    }, 120);
+  };
+
+  const handleMouseLeave = () => clearTimeout(hoverTimer);
 
   const collectionCoverageLayerStyle = {
     id: "tnris-collection-coverage",
@@ -38,7 +77,7 @@
         };
       }
     }
-    if ($mapStore) {
+    if ($mapStore && the_geom) {
       try {
         $mapStore.addSource("tnris-collection-coverage", {
           type: "geojson",
@@ -57,7 +96,8 @@
   <div class="catalog-item-container">
     <div
       class="catalog-item"
-      on:mouseenter={() => addCollectionExtent(collection.the_geom)}
+      on:mouseenter={handleMouseEnter}
+      on:mouseleave={handleMouseLeave}
     >
       <div
         class="catalog-item-thumbnail"
