@@ -59,10 +59,16 @@
       class="catalog-item"
       on:mouseenter={() => addCollectionExtent(collection.the_geom)}
     >
-      <div
-        class="catalog-item-thumbnail"
-        style="background-image: url({collection.thumbnail_image})"
-      />
+      <div class="catalog-item-thumbnail">
+        {#if collection.thumbnail_image}
+          <img
+            src={collection.thumbnail_image}
+            loading="lazy"
+            decoding="async"
+            alt=""
+          />
+        {/if}
+      </div>
       <div id={collection.collection_id} class="catalog-item-meta">
         <div class="catalog-item-title">
           <h2>{collection.name}</h2>
@@ -180,10 +186,23 @@
         }
       }
       .catalog-item-thumbnail {
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
         max-height: 100%;
+        // The <img> is absolutely positioned inside this box so the box keeps
+        // behaving exactly as it did when it held a background-image: no
+        // intrinsic size, height driven by the grid row. object-fit reproduces
+        // background-size: cover + background-position: center.
+        position: relative;
+        overflow: hidden;
+
+        img {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          display: block;
+        }
       }
     }
   }
