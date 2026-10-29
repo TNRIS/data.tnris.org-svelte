@@ -1,17 +1,15 @@
 <script lang="ts">
   import { cartOpen, cartStore } from "../Api/Cart/cartStore";
 
-/*
   const setAlertLocalStorage = (value: "T" | "F") => {
-    localStorage.setItem("showAlertAGS072026", value);
+    localStorage.setItem("showAlertAGS102026", value);
   };
   const getAlertLocalStorage = (): string | undefined => {
-    return localStorage.getItem("showAlertAGS072026");
+    return localStorage.getItem("showAlertAGS102026");
   };
 
   let open: boolean;
   let showAlert = getAlertLocalStorage();
-  */
 </script>
 
 <div id="main-navbar-wrapper">
@@ -20,10 +18,7 @@
       <div id="main-navbar-content-container">
         <div id="tnris-logo">
           <a href="https://geographic.texas.gov" class="link"
-            ><img
-              src="/logo.svg"
-              alt="TxGIO"
-            />
+            ><img src="/logo.svg" alt="TxGIO" />
           </a>
           <a href="/" class="link">
             <div>DataHub</div>
@@ -45,11 +40,12 @@
         </button>
       </div>
     </div>
-    <!-- {#if showAlert != "F"}
+    {#if showAlert != "F"}
       <div id="main-navbar-alert-wrapper">
         <div id="main-navbar-alert-container">
           <span>
-            TxGIO DataHub Maintenance Notice: Users may experience data services outages on Thursday, July 30th from 5pm - 10pm as the ArcGIS Enterprise Production environment is updated. Data will still be available for download during this time.
+            Spatial search is back up and running on the TxGIO DataHub. Thank
+            you for your patience while we worked on this issue.
           </span>
           <button
             on:click={() => {
@@ -59,7 +55,7 @@
           >
         </div>
       </div>
-    {/if} -->
+    {/if}
   </div>
 </div>
 
@@ -88,7 +84,7 @@
             align-items: center;
             justify-content: start;
             grid-template-columns: auto auto;
-  
+
             a {
               color: $primaryColor;
               font-weight: 600;
@@ -119,7 +115,7 @@
             background: $primaryColor;
             font-weight: 600;
             margin-right: 1rem;
-  
+
             #cart-length {
               background: red;
               color: white;
