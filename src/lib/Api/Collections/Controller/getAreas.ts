@@ -1,4 +1,4 @@
-const MAPSERVER_AREAS_BASE_URL = `https://stage-mapserver-lambda.tnris.org/?map=/tnris_mapfiles/download_areas.map&SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=collection_query&outputformat=geojson&SRSNAME=EPSG:4326`;
+const MAPSERVER_AREAS_BASE_URL = `https://mapserver.tnris.org/?map=/tnris_mapfiles/download_areas.map&SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=collection_query&outputformat=geojson&SRSNAME=EPSG:4326`;
 //Append areatype and collectionid like:
 //&AreaType=qquad&Collection=a6a703ba-df8b-4d1b-8d4c-ece8ae786505
 export const getMapAreasByCollectionId = async (collection_id, signal) => {
